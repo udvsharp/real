@@ -1,6 +1,6 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/event/base_event.hpp"
+#include "version/event.hpp"
 #include "version/application.hpp"
 
 namespace vn {

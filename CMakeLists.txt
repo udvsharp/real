@@ -54,6 +54,24 @@ project(${META_VN_PROJECT_FULL_NAME}
 ### Engine
 add_subdirectory(engine)
 
+# TODO: get rid of dependencies
+## Submodules
+set(SPDLOG_INSTALL OFF)
+set(SPDLOG_BUILD_BENCH OFF)
+set(SPDLOG_BUILD_EXAMPLE OFF)
+set(SPDLOG_BUILD_EXAMPLE_HO OFF)
+set(SPDLOG_BUILD_SHARED ON)
+set(SPDLOG_BUILD_TESTS OFF)
+set(SPDLOG_BUILD_TESTS_HO OFF)
+set(SPDLOG_FMT_EXTERNAL OFF)
+add_subdirectory(vendor/spdlog)
+
+target_link_libraries(
+		${VN_LIBRARY_TARGET_NAME}
+		PUBLIC
+		spdlog::spdlog
+)
+
 ### Examples
 if (OPTION_VN_BUILD_EXAMPLES)
 	add_subdirectory(examples)

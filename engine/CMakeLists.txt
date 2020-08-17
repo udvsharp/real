@@ -13,12 +13,15 @@ add_library(
 		include/version/application.hpp
 		src/application.cpp
 
+		include/version/logger.hpp
+		src/logger.cpp
+
 		include/version/event.hpp
 		include/version/event/base_event.hpp
 		include/version/event/key_event.hpp
 		include/version/event/mouse_event.hpp
 		include/version/event/window_event.hpp
-		include/version/layer.hpp)
+		include/version/layer.hpp include/version/logger.hpp)
 
 target_include_directories(
 		${VN_LIBRARY_TARGET_NAME}

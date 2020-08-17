@@ -11,6 +11,7 @@
 //region core modules
 #include "version/core.hpp"
 #include "version/application.hpp"
+#include "version/logger.hpp"
 //endregion
 
 #ifdef VN_CLIENT

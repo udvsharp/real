@@ -9,5 +9,6 @@ public:
 };
 
 vn::application *vn::create() {
+	vn::log::trace("Creating application...");
 	return new ::application();
 }

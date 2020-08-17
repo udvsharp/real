@@ -7,6 +7,9 @@
       <file path="$PROJECT_DIR$/engine/include/version" />
       <file path="$PROJECT_DIR$/engine/src" />
     </sourceRoots>
+    <libraryRoots>
+      <file path="$PROJECT_DIR$/vendor/spdlog" />
+    </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/build" />
     </excludeRoots>
