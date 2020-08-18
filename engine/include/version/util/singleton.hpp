@@ -30,11 +30,13 @@ namespace vn {
 		void operator=(const type &) = delete;
 		// endregion
 	};
+
+	template <typename T> T* singleton<T>::instance_ = nullptr;
 }
 
 // region util macros
 #define SINGLETON(x) x : public vn::singleton<x>
-#define DEFINE_SINGLETON_INSTANCE(x) template <> x* singleton<x>::instance_ = nullptr;
+#define DEFINE_SINGLETON_INSTANCE(x, val) template <> x* singleton<x>::instance_ = val;
 // endregion
 
 #endif //VN_SINGLETON

@@ -4,7 +4,6 @@
 #include "version/application.hpp"
 
 namespace vn {
-	DEFINE_SINGLETON_INSTANCE(application);
 
 	application::application(std::string name)
 			: singleton<application>{},
