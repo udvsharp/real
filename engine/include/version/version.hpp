@@ -12,6 +12,9 @@
 #include "version/core.hpp"
 #include "version/application.hpp"
 #include "version/logger.hpp"
+#include "version/event.hpp"
+#include "version/window.hpp"
+#include "version/layer.hpp"
 #include "version/layer_stack.hpp"
 //endregion
 
@@ -21,7 +24,7 @@ int main (int argc, char** argv) {
 	vn::logger::init();
 
 	auto* app = vn::create();
-	app->tick();
+	app->run();
 
 	return 0;
 }

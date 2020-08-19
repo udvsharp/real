@@ -21,6 +21,7 @@ set(META_VN_NAME_VERSION "${META_VN_PROJECT_FULL_NAME} v${META_VN_VERSION_MAJOR}
 set(VN_LIBRARY_TARGET_NAME ${META_VN_PROJECT_NAME})
 
 ### Project config options
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(OPTION_VN_BUILD_EXAMPLES "Build examples" OFF)
 
 ### Language Options
@@ -58,6 +59,8 @@ add_subdirectory(engine)
 
 # TODO: get rid of dependencies
 ## Submodules
+
+# spdlog
 option(SPDLOG_INSTALL OFF)
 option(SPDLOG_BUILD_BENCH OFF)
 option(SPDLOG_BUILD_EXAMPLE OFF)
@@ -66,10 +69,22 @@ option(SPDLOG_BUILD_SHARED ON)
 option(SPDLOG_BUILD_TESTS OFF)
 option(SPDLOG_BUILD_TESTS_HO OFF)
 add_subdirectory(vendor/spdlog)
+# glfw
+option(GLFW_BUILD_DOCS OFF)
+option(GLFW_BUILD_EXAMPLES OFF)
+option(GLFW_BUILD_TESTS OFF)
+option(GLFW_INSTALL OFF)
+add_subdirectory(vendor/glfw)
+# glad
+option(GLAD_INSTALL OFF)
+set(GLAD_PROFILE "core")
+add_subdirectory(vendor/glad)
 
 target_link_libraries(
 		${VN_LIBRARY_TARGET_NAME}
 		PUBLIC
+		glfw
+		glad
 		spdlog::spdlog
 )
 

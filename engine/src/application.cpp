@@ -8,20 +8,34 @@ namespace vn {
 
 	application::application(std::string name)
 			: singleton<application>{},
-			  name_{std::move(name)} {}
+			  name_{std::move(name)} {
+
+		window_props props{};
+		window_.reset(window::make(props));
+
+		window_->set_ev_callback([this](ev &e) {
+			application::on_event(e);
+		});
+	}
 
 	void application::tick() {
 	}
 
 	void application::run() {
-		while (is_running_) {
-			application::tick();
+		VN_CORE_TRACE("Application is running!");
 
-			for (auto* layer : layers_) {
+		while (is_running_) {
+			glClearColor(0, 0, 1, 1);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			for (auto *layer : layers_) {
 				layer->update();
 			}
 
+			window_->on_update();
 		}
+
+		VN_CORE_TRACE("Closing application;");
 	}
 
 	void application::on_event(ev &e) {
@@ -42,7 +56,7 @@ namespace vn {
 	}
 
 	void application::on_window_close(window_close_ev& e) {
-
+		this->is_running_ = false;
 	}
 }
 

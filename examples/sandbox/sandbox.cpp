@@ -7,7 +7,7 @@ public:
 	application() {
 		layers().push_layer(new vn::layer());
 	}
-
+protected:
 	virtual void tick() override {
 		VN_TRACE("TICK");
 	}

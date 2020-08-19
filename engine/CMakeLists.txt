@@ -27,7 +27,22 @@ add_library(
 		include/version/event/key_event.hpp
 		include/version/event/mouse_event.hpp
 		include/version/event/window_event.hpp
+
+		include/version/window.hpp
+		include/version/window/base_window.hpp
+		src/base_window.cpp
 )
+
+# Platform-dependent sources
+if (WIN32)
+	target_sources(
+			${VN_LIBRARY_TARGET_NAME}
+			PUBLIC
+			include/version/window/windows_window.hpp
+			PRIVATE
+			src/platform/windows/windows_window.cpp
+	)
+endif ()
 
 target_include_directories(
 		${VN_LIBRARY_TARGET_NAME}
@@ -50,6 +65,9 @@ target_precompile_headers(
 		<map>
 		<string>
 		<set>
+
+		# Platform-dependent headers
+		$<$<PLATFORM_ID:Windows>:<Windows.h>>
 )
 
 # Properties
@@ -81,6 +99,8 @@ target_compile_definitions(
 		$<$<CONFIG:RelWithDebInfo>:VN_DEBUG>
 		$<$<CONFIG:Release>:VN_RELEASE>
 		$<$<CONFIG:Dist>:VN_DIST>
+		# Platform macros
+		$<$<PLATFORM_ID:Windows>:VN_PLATFORM_WINDOWS>
 		INTERFACE
 		VN_CLIENT
 )

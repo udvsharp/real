@@ -8,6 +8,8 @@
       <file path="$PROJECT_DIR$/engine/src" />
     </sourceRoots>
     <libraryRoots>
+      <file path="$PROJECT_DIR$/vendor/glad" />
+      <file path="$PROJECT_DIR$/vendor/glfw" />
       <file path="$PROJECT_DIR$/vendor/spdlog" />
     </libraryRoots>
     <excludeRoots>
