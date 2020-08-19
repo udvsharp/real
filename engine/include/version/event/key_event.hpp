@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VERSION_KEY_EVENT
-#define VERSION_KEY_EVENT
+#ifndef VN_KEY_EVENT
+#define VN_KEY_EVENT
 
 #include "version/event/base_event.hpp"
 
@@ -9,7 +9,7 @@ namespace vn {
     class key_ev : public ev {
     public:
         [[nodiscard]] inline ev_category_t categories() const override {
-            return static_cast<ev_category_t>(ev_category::category_input);
+            return static_cast<ev_category_t>(ev_category::input);
         }
 
         [[nodiscard]] ev_type type() const override {
@@ -116,4 +116,4 @@ namespace vn {
     };
 }
 
-#endif //VERSION_KEY_EVENT
+#endif //VN_KEY_EVENT

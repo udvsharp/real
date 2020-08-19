@@ -4,11 +4,16 @@
 
 class application : public vn::application {
 public:
-	virtual void run() override {
+	application() {
+		layers().push_layer(new vn::layer());
+	}
+
+	virtual void tick() override {
+		VN_TRACE("TICK");
 	}
 };
 
 vn::application *vn::create() {
-	vn::log::trace("Creating application...");
+	VN_TRACE("Creating application...");
 	return new ::application();
 }

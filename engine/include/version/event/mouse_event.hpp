@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VERSION_MOUSE_EVENT
-#define VERSION_MOUSE_EVENT
+#ifndef VN_MOUSE_EVENT
+#define VN_MOUSE_EVENT
 
 #include "version/event/base_event.hpp"
 
@@ -10,7 +10,7 @@ namespace vn {
     class mouse_ev : public ev {
     public:
         [[nodiscard]] inline ev_category_t categories() const override {
-            return static_cast<ev_category_t>(ev_category::category_mouse);
+            return static_cast<ev_category_t>(ev_category::mouse);
         }
 
         [[nodiscard]] ev_type type() const override {
@@ -153,4 +153,4 @@ namespace vn {
     };
 }
 
-#endif //VERSION_MOUSE_EVENT
+#endif //VN_MOUSE_EVENT

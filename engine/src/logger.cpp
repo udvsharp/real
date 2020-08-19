@@ -1,23 +1,31 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <iostream>
-
-#include <spdlog/sinks/rotating_file_sink.h>
+#include <spdlog/sinks/basic_file_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 #include "version/logger.hpp"
 
-namespace vn::log {
+namespace vn {
+    std::shared_ptr<spdlog::logger> logger::core_logger_;
+    std::shared_ptr<spdlog::logger> logger::client_logger_;
 
-    registry::registry() {
-        default_logger_ = std::make_shared<logger>(logger("vn::log::basic", "logs/basic.txt"));
-        spdlog::set_level(spdlog::level::trace);
-    }
+    void logger::init()
+    {
+        std::vector<spdlog::sink_ptr> log_sinks;
+        log_sinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
+        log_sinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>("version.log", true));
 
-    logger::logger(std::string &&name, std::string &&file_name = "logs/basic.txt") {
-        try {
-            native_logger_ = spdlog::rotating_logger_mt(name, file_name, 1048576 * 5, 3, true);
-        } catch (spdlog::spdlog_ex &ex) {
-            std::cout << "Native logger is not initialized" << ex.what() << "\n";
-        }
+        log_sinks[0]->set_pattern("%^[%T] %n: %v%$");
+        log_sinks[1]->set_pattern("[%T] [%l] %n: %v");
+
+        core_logger_ = std::make_shared<spdlog::logger>("VERSION", begin(log_sinks), end(log_sinks));
+        spdlog::register_logger(core_logger_);
+        core_logger_->set_level(spdlog::level::trace);
+        core_logger_->flush_on(spdlog::level::trace);
+
+        client_logger_ = std::make_shared<spdlog::logger>("APP", begin(log_sinks), end(log_sinks));
+        spdlog::register_logger(client_logger_);
+        client_logger_->set_level(spdlog::level::trace);
+        client_logger_->flush_on(spdlog::level::trace);
     }
 }

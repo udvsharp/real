@@ -12,13 +12,16 @@
 #include "version/core.hpp"
 #include "version/application.hpp"
 #include "version/logger.hpp"
+#include "version/layer_stack.hpp"
 //endregion
 
 #ifdef VN_CLIENT
 // region Entry point
 int main (int argc, char** argv) {
+	vn::logger::init();
+
 	auto* app = vn::create();
-	app->run();
+	app->tick();
 
 	return 0;
 }

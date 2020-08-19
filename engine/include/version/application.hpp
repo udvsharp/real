@@ -8,6 +8,7 @@
 #include <version/event/base_event.hpp>
 
 #include "version/core.hpp"
+#include "version/layer_stack.hpp"
 #include "version/util/singleton.hpp"
 
 namespace vn {
@@ -15,13 +16,19 @@ namespace vn {
 	private:
 		std::string name_;
 
+		layer_stack layers_;
 		bool is_running_{true};
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;
 
-		virtual void run();
-		virtual void on_event(const vn::ev &e);
+		[[nodiscard]] inline layer_stack layers() const noexcept { return this->layers_; }
+
+		void run();
+		virtual void tick();
+		virtual void on_event(ev &e);
+	private:
+		void on_window_close(window_close_ev &event);
 	};
 
 	// To be defined in client

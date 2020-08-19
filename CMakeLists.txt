@@ -1,6 +1,8 @@
 ### Cmake setup
 cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 
+cmake_policy(SET CMP0077 NEW) # option honors normal variables
+
 ### Meta info
 set(META_VN_PROJECT_NAME "version")
 string(TOUPPER "vn" META_VN_PROJECT_NAME_PREFIX)
@@ -56,14 +58,13 @@ add_subdirectory(engine)
 
 # TODO: get rid of dependencies
 ## Submodules
-set(SPDLOG_INSTALL OFF)
-set(SPDLOG_BUILD_BENCH OFF)
-set(SPDLOG_BUILD_EXAMPLE OFF)
-set(SPDLOG_BUILD_EXAMPLE_HO OFF)
-set(SPDLOG_BUILD_SHARED ON)
-set(SPDLOG_BUILD_TESTS OFF)
-set(SPDLOG_BUILD_TESTS_HO OFF)
-set(SPDLOG_FMT_EXTERNAL OFF)
+option(SPDLOG_INSTALL OFF)
+option(SPDLOG_BUILD_BENCH OFF)
+option(SPDLOG_BUILD_EXAMPLE OFF)
+option(SPDLOG_BUILD_EXAMPLE_HO OFF)
+option(SPDLOG_BUILD_SHARED ON)
+option(SPDLOG_BUILD_TESTS OFF)
+option(SPDLOG_BUILD_TESTS_HO OFF)
 add_subdirectory(vendor/spdlog)
 
 target_link_libraries(

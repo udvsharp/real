@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VERSION_WINDOW_EVENT
-#define VERSION_WINDOW_EVENT
+#ifndef VN_WINDOW_EVENT
+#define VN_WINDOW_EVENT
 
 #include <sstream>
 
@@ -12,7 +12,7 @@ namespace vn {
     class window_ev : public ev {
     public:
         [[nodiscard]] inline ev_category_t categories() const override {
-            return static_cast<ev_category_t>(ev_category::category_window);
+            return static_cast<ev_category_t>(ev_category::window);
         }
 
         [[nodiscard]] ev_type type() const override {
@@ -165,4 +165,4 @@ namespace vn {
     };
 }
 
-#endif //VERSION_WINDOW_EVENT
+#endif //VN_WINDOW_EVENT

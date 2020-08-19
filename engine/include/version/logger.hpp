@@ -7,90 +7,37 @@
 #include <utility>
 
 #include <spdlog/spdlog.h>
+#include <spdlog/fmt/ostr.h>
 
 #include "version/core.hpp"
 
 // TODO: new logging!
-namespace vn::log {
+namespace vn {
+	class VN_API logger
+	{
+	public:
+		static void init();
 
-	class VN_API logger {
-			friend class registry;
-
-			private:
-			std::shared_ptr<spdlog::logger> native_logger_;
-			public:
-			logger() = delete;
-
-			logger(std::string &&name, std::string &&file_name);
-
-			template<typename T, typename ... Args>
-			constexpr void trace(T &&msg, Args &&...args) {
-				native_logger_->trace(std::forward<T>(msg), std::forward<Args>(args)...);
-			}
-
-			template<typename T, typename ... Args>
-			constexpr void info(T &&msg, Args &&...args) {
-				native_logger_->info(std::forward<T>(msg), std::forward<Args>(args)...);
-			}
-
-			template<typename T, typename ... Args>
-			constexpr void warn(T &&msg, Args &&...args) {
-				native_logger_->warn(std::forward<T>(msg), std::forward<Args>(args)...);
-			}
-
-			template<typename T, typename ... Args>
-			constexpr void error(T &&msg, Args &&...args) {
-				native_logger_->error(std::forward<T>(msg), std::forward<Args>(args)...);
-			}
-
-			template<typename T, typename ... Args>
-			constexpr void critical(T &&msg, Args &&...args) {
-				native_logger_->critical(std::forward<T>(msg), std::forward<Args>(args)...);
-			}
+		static std::shared_ptr<spdlog::logger>& core() { return core_logger_; }
+		static std::shared_ptr<spdlog::logger>& client() { return client_logger_; }
+	private:
+		static std::shared_ptr<spdlog::logger> core_logger_;
+		static std::shared_ptr<spdlog::logger> client_logger_;
 	};
-
-	class VN_API registry {
-			friend inline std::shared_ptr<logger> get_default_logger();
-			private:
-			std::shared_ptr<logger> default_logger_;
-			public:
-			registry();
-
-			static registry &instance() {
-				static registry s_instance{};
-
-				return s_instance;
-			}
-	};
-
-	inline std::shared_ptr<logger> get_default_logger() {
-		return registry::instance().default_logger_;
-	}
-
-	template<typename T, typename ... Args>
-	constexpr void trace(T &&msg, Args &&...args) {
-		get_default_logger()->trace(std::forward<T>(msg), std::forward<Args>(args)...);
-	}
-
-	template<typename T, typename ... Args>
-	constexpr void info(T &&msg, Args &&...args) {
-		get_default_logger()->info(std::forward<T>(msg), std::forward<Args>(args)...);
-	}
-
-	template<typename T, typename ... Args>
-	constexpr void warn(T &&msg, Args &&...args) {
-		get_default_logger()->warn(std::forward<T>(msg), std::forward<Args>(args)...);
-	}
-
-	template<typename T, typename ... Args>
-	constexpr void error(T &&msg, Args &&...args) {
-		get_default_logger()->error(std::forward<T>(msg), std::forward<Args>(args)...);
-	}
-
-	template<typename T, typename ... Args>
-	constexpr void critical(T &&msg, Args &&...args) {
-		get_default_logger()->critical(std::forward<T>(msg), std::forward<Args>(args)...);
-	}
 }
+
+// Core log macros
+#define VN_CORE_TRACE(...)    ::vn::logger::core()->trace(__VA_ARGS__)
+#define VN_CORE_INFO(...)     ::vn::logger::core()->info(__VA_ARGS__)
+#define VN_CORE_WARN(...)     ::vn::logger::core()->warn(__VA_ARGS__)
+#define VN_CORE_ERROR(...)    ::vn::logger::core()->error(__VA_ARGS__)
+#define VN_CORE_CRITICAL(...) ::vn::logger::core()->critical(__VA_ARGS__)
+
+// Client log macros
+#define VN_TRACE(...)         ::vn::logger::client()->trace(__VA_ARGS__)
+#define VN_INFO(...)          ::vn::logger::client()->info(__VA_ARGS__)
+#define VN_WARN(...)          ::vn::logger::client()->warn(__VA_ARGS__)
+#define VN_ERROR(...)         ::vn::logger::client()->error(__VA_ARGS__)
+#define VN_CRITICAL(...)      ::vn::logger::client()->critical(__VA_ARGS__)
 
 #endif //VN_LOGGER
