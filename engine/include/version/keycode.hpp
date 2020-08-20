@@ -5,9 +5,9 @@
 
 #include <ostream>
 
-namespace vn {
-    using keycode_t = int;
+#include "version/core.hpp"
 
+namespace vn {
     enum class key_code : keycode_t {
         // From glfw3.h
         Space               = 32,

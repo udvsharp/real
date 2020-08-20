@@ -31,6 +31,12 @@ add_library(
 		include/version/event/key_event.hpp
 		include/version/event/mouse_event.hpp
 		include/version/event/window_event.hpp
+		# Renderer
+		include/version/renderer.hpp
+		include/version/renderer/base_rendering_context.hpp
+		## Api
+		## GL
+		include/version/renderer/gl_rendering_context.hpp
 
 		### Sources
 		# Core
@@ -43,10 +49,15 @@ add_library(
 		src/layer/imgui_layer.cpp
 		# Input
 		src/base_input.cpp
-		# Api
-		# GL
+		# Renderer
+		src/base_rendering_context.cpp
+		## Api
+		## GL
+		# Imgui
 		src/api/gl/imgui_impl_opengl3.h
 		src/api/gl/imgui_impl_opengl3.cpp
+		# Renderer
+		src/api/gl/gl_rendering_context.cpp
 )
 
 # Platform-dependent sources

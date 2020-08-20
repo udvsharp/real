@@ -9,6 +9,7 @@
 
 #include "version/core.hpp"
 #include "version/event.hpp"
+#include "version/renderer.hpp"
 
 namespace vn {
 
@@ -30,7 +31,6 @@ namespace vn {
 				: title(std::move(title)), width(width), height(height) {}
 	};
 
-	// TODO: add support for different rendering APIs
 	class VN_API window {
 	public:
 		virtual ~window();
@@ -41,10 +41,11 @@ namespace vn {
 		[[nodiscard]] virtual window_dimension_t height() const = 0;
 
 		virtual void set_ev_callback(const ev_callback_t &callback) = 0;
-		virtual void set_v_sync(bool enabled) = 0;
+		virtual void vsync(bool enabled) = 0;
 		[[nodiscard]] virtual bool is_v_sync() const = 0;
 
 		virtual void *native() const = 0;
+		virtual rendering_context *context() const = 0;
 
 		// Generates window depending on platform
 		static window *make(const window_props &props);

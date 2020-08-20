@@ -2,7 +2,7 @@
 
 #define GLFW_INCLUDE_NONE
 
-// FIXME remove this
+// FIXME remove GL Headers
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 

@@ -8,7 +8,6 @@
 
 namespace vn::platform {
 
-	// TODO: other APIs?
 	static bool s_glfw_initialized = false;
 
 	window::window(window_data data) : data_(std::move(data)) {
@@ -27,14 +26,11 @@ namespace vn::platform {
 		VN_CORE_TRACE("Creating window: {0}, {1}, {2}", data_.title, data_.width, data_.height);
 
 		native_window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(), nullptr, nullptr);
-		glfwMakeContextCurrent(native_window_);
-		glfwSetWindowUserPointer(native_window_, &data_);
-		set_v_sync_native(data_.is_v_sync);
+		rendering_context_ = new gl_rendering_context{native_window_};
+		rendering_context_->init();
 
-		// Glad
-		if (!gladLoadGL()) {
-			VN_CORE_ERROR("Couldn't load GL!");
-		}
+		glfwSetWindowUserPointer(native_window_, &data_);
+		vsync_native(data_.is_v_sync);
 
 		// GLFW callbacks
 		glfwSetWindowSizeCallback(native_window_, [](GLFWwindow *window, int width, int height) {
@@ -124,27 +120,21 @@ namespace vn::platform {
 		::vn::window::~window();
 		VN_CORE_TRACE("Destroying native window");
 		glfwDestroyWindow(native_window_);
-		glfwTerminate(); // TODO: move this to the right place
+		glfwTerminate(); // TODO: terminate GLFW in rendering context?
 	}
 
 	void window::on_update() {
 		::vn::window::on_update();
 		glfwPollEvents();
-		glfwSwapBuffers(native_window_);
+		rendering_context_->swap_buffers();
 	}
 
-	void window::set_v_sync_native(bool enabled) {
-		// TODO: read about that
-		if (enabled) {
-			glfwSwapInterval(1);
-		} else {
-			glfwSwapInterval(0);
-		}
+	void window::vsync_native(bool enabled) {
+		rendering_context_->vsync(enabled);
 	}
 
-	void window::set_v_sync(bool enabled) {
-		set_v_sync_native(enabled);
-
+	void window::vsync(bool enabled) {
+		vsync_native(enabled);
 		data_.is_v_sync = enabled;
 	}
 

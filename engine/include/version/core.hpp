@@ -29,6 +29,7 @@
 
 namespace vn {
 	// region types
+	// TODO: correct types
 	using keycode_t = int;
 
 	using mouse_btn_t = int;

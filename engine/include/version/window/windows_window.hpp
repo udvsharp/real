@@ -5,6 +5,7 @@
 
 #include <utility>
 
+// TODO: remove api dependency completely
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -42,14 +43,15 @@ namespace vn::platform {
 
 		~window() override;
 
-		[[nodiscard]] inline window_dimension_t width() const override { return data_.width; };
-		[[nodiscard]] inline window_dimension_t height() const override { return data_.height; };
-		[[nodiscard]] inline bool is_v_sync() const override { return data_.is_v_sync; }
+		[[nodiscard]] inline window_dimension_t width() const noexcept override { return data_.width; };
+		[[nodiscard]] inline window_dimension_t height() const noexcept override { return data_.height; };
+		[[nodiscard]] inline bool is_v_sync() const noexcept override { return data_.is_v_sync; }
 
-		[[nodiscard]] inline void *native() const override { return native_window_; }
+		[[nodiscard]] inline void *native() const noexcept override { return native_window_; }
+		[[nodiscard]] virtual rendering_context *context() const noexcept override { return rendering_context_; };
 
 		void set_ev_callback(const ev_callback_t &callback) override;
-		void set_v_sync(bool enabled) override;
+		void vsync(bool enabled) override;
 
 		void on_update() override;
 	private:
@@ -57,11 +59,11 @@ namespace vn::platform {
 		// void init();
 		// void shutdown();
 
-		void set_v_sync_native(bool enabled);
+		void vsync_native(bool enabled);
 	private:
-		// TODO: support different APIs
 		// TODO: create window using native API
 		GLFWwindow *native_window_;
+		rendering_context *rendering_context_;
 		window_data data_;
 	};
 }
