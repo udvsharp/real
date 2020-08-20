@@ -10,6 +10,7 @@
 #include "version/event.hpp"
 #include "version/core.hpp"
 #include "version/window.hpp"
+#include "version/input.hpp"
 #include "version/layer_stack.hpp"
 #include "version/util/singleton.hpp"
 
@@ -19,6 +20,7 @@ namespace vn {
 		std::string name_;
 
 		std::unique_ptr<vn::window> window_;
+		std::unique_ptr<vn::input> input_;
 
 		layer_stack layers_;
 		bool is_running_{true};
@@ -26,7 +28,7 @@ namespace vn {
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;
 
-		[[nodiscard]] inline layer_stack layers() const noexcept { return this->layers_; }
+		[[nodiscard]] inline layer_stack &layers() noexcept { return this->layers_; }
 		[[nodiscard]] inline window &window() const noexcept { return *(this->window_); }
 
 		void run();

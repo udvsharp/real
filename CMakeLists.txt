@@ -79,10 +79,14 @@ add_subdirectory(vendor/glfw)
 option(GLAD_INSTALL OFF)
 set(GLAD_PROFILE "core")
 add_subdirectory(vendor/glad)
+# imgui
+option(IMGUI_BUILD_EXAMPLES OFF)
+add_subdirectory(vendor/imgui)
 
 target_link_libraries(
 		${VN_LIBRARY_TARGET_NAME}
 		PUBLIC
+		imgui
 		glfw
 		glad
 		spdlog::spdlog

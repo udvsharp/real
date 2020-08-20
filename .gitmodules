@@ -7,3 +7,6 @@
 [submodule "vendor/glad"]
 	path = vendor/glad
 	url = https://github.com/Dav1dde/glad.git
+[submodule "vendor/imgui"]
+	path = vendor/imgui
+	url = https://github.com/udv-code/version-imgui.git

@@ -14,6 +14,8 @@
 #include "version/logger.hpp"
 #include "version/event.hpp"
 #include "version/window.hpp"
+#include "version/keycode.hpp"
+#include "version/input.hpp"
 #include "version/layer.hpp"
 #include "version/layer_stack.hpp"
 //endregion

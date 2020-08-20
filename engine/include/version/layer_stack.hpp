@@ -15,7 +15,6 @@ namespace vn {
 		// TODO: own vector
 		container stack_;
 		iterator layer_insert_;
-		iterator overlay_insert_;
 	public:
 		layer_stack();
 		~layer_stack();

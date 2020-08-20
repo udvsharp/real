@@ -10,6 +10,7 @@
     <libraryRoots>
       <file path="$PROJECT_DIR$/vendor/glad" />
       <file path="$PROJECT_DIR$/vendor/glfw" />
+      <file path="$PROJECT_DIR$/vendor/imgui" />
       <file path="$PROJECT_DIR$/vendor/spdlog" />
     </libraryRoots>
     <excludeRoots>

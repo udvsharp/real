@@ -4,8 +4,8 @@
 
 class application : public vn::application {
 public:
-	application() {
-		layers().push_layer(new vn::layer());
+	application() : vn::application() {
+		layers().push_layer(new vn::imgui_layer{});
 	}
 protected:
 	virtual void tick() override {

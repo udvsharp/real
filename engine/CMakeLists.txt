@@ -5,32 +5,48 @@ add_library(
 		${VN_LIBRARY_TARGET_NAME}
 		SHARED  # It is necessary
 
+		### Headers
+		# util
 		include/version/util/singleton.hpp
-
+		# Core
 		include/version/version.hpp
 		include/version/core.hpp
-
 		include/version/application.hpp
-		src/application.cpp
-
 		include/version/logger.hpp
-		src/logger.cpp
-
 		include/version/layer.hpp
 		include/version/layer_stack.hpp
-		include/version/layer/base_layer.hpp
-		src/base_layer.cpp
-		src/layer_stack.cpp
-
+		include/version/input.hpp
+		include/version/window.hpp
 		include/version/event.hpp
+		# Layers
+		include/version/layer/base_layer.hpp
+		include/version/layer/imgui_layer.hpp
+		# Window
+		include/version/window/base_window.hpp
+		# Input
+		include/version/keycode.hpp
+		include/version/input/base_input.hpp
+		# Events
 		include/version/event/base_event.hpp
 		include/version/event/key_event.hpp
 		include/version/event/mouse_event.hpp
 		include/version/event/window_event.hpp
 
-		include/version/window.hpp
-		include/version/window/base_window.hpp
+		### Sources
+		# Core
+		src/application.cpp
 		src/base_window.cpp
+		src/layer_stack.cpp
+		src/logger.cpp
+		# Layers
+		src/base_layer.cpp
+		src/layer/imgui_layer.cpp
+		# Input
+		src/base_input.cpp
+		# Api
+		# GL
+		src/api/gl/imgui_impl_opengl3.h
+		src/api/gl/imgui_impl_opengl3.cpp
 )
 
 # Platform-dependent sources
@@ -38,9 +54,15 @@ if (WIN32)
 	target_sources(
 			${VN_LIBRARY_TARGET_NAME}
 			PUBLIC
+			# Window
 			include/version/window/windows_window.hpp
+			# Input
+			include/version/input/windows_input.hpp
 			PRIVATE
+			# Window
 			src/platform/windows/windows_window.cpp
+			# Input
+			src/platform/windows/windows_input.cpp
 	)
 endif ()
 
