@@ -34,6 +34,7 @@ add_library(
 		# Renderer
 		include/version/renderer.hpp
 		include/version/renderer/base_rendering_context.hpp
+		include/version/renderer/shader.hpp
 		## Api
 		## GL
 		include/version/renderer/gl_rendering_context.hpp
