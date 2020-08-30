@@ -10,21 +10,29 @@ namespace vn::platform {
 
 	static bool s_glfw_initialized = false;
 
+	void glfw_error_callback(int code, const char* msg) {
+		VN_CORE_ERROR("GLFW Error: ({:#x}) {}", code, msg);
+	}
+
 	window::window(window_data data) : data_(std::move(data)) {
 		if (!s_glfw_initialized) {
-			VN_CORE_TRACE("Initializing GLFW");
+			VN_CORE_TRACE("Initializing GLFW...");
 
-			int success = glfwInit();
-
-			if (success) {
+			if (glfwInit() == GLFW_TRUE) {
 				s_glfw_initialized = true;
+				VN_CORE_INFO("Initialized GLFW");
 			} else {
 				VN_CORE_ERROR("Couldn't initialize GLFW!");
 			}
+
+			glfwSetErrorCallback(glfw_error_callback);
 		}
 
 		VN_CORE_TRACE("Creating window: {0}, {1}, {2}", data_.title, data_.width, data_.height);
 
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		native_window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(), nullptr, nullptr);
 		rendering_context_ = new gl_rendering_context{native_window_};
 		rendering_context_->init();

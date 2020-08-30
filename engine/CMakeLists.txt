@@ -176,11 +176,13 @@ generate_export_header(
 # Custom commands
 set(LOGS_DIR "${CMAKE_CURRENT_BINARY_DIR}/logs")
 set(LOG_EXPORTS_FILE "${LOGS_DIR}/exports.txt")
+set(LOG_GLFWINFO_FILE "${LOGS_DIR}/glfwinfo.txt")
 
 file(MAKE_DIRECTORY "${LOGS_DIR}")
 
 # TODO: add support for other platforms
 if (WIN32)
+	# Save DLL exports
 	add_custom_command(
 			TARGET ${VN_LIBRARY_TARGET_NAME} POST_BUILD
 			WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
@@ -192,3 +194,15 @@ if (WIN32)
 			VERBATIM
 	)
 endif ()
+
+# Save glfwinfo results
+add_custom_command(
+		TARGET ${VN_LIBRARY_TARGET_NAME} POST_BUILD
+		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+		COMMENT "Saving glfwinfo output"
+		BYPRODUCTS "${LOG_GLFWINFO_FILE}"
+
+		COMMAND $<TARGET_FILE:glfwinfo> > "${LOG_GLFWINFO_FILE}"
+
+		VERBATIM
+)

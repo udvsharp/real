@@ -7,8 +7,8 @@
 #include "version/renderer/gl_rendering_context.hpp"
 
 namespace vn {
-	gl_rendering_context::gl_rendering_context(GLFWwindow *window_handle)
-			: window_handle_{window_handle} {
+	gl_rendering_context::gl_rendering_context(GLFWwindow *window_handle) {
+		window_handle_ = window_handle;
 		vn_assert(window_handle_, "Window handle is nullptr!");
 	}
 
