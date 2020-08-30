@@ -16,9 +16,18 @@ namespace vn {
 		glfwMakeContextCurrent(window_handle_);
 
 		// Glad
-		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+		if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
 			VN_CORE_ERROR("Couldn't load GL!");
 		}
+
+		// Info
+		VN_CORE_INFO(
+				"\nOpenGL info:\n"
+				"\tVendor  : {}\n"
+				"\tRenderer: {}\n"
+				"\tVersion : {}\n",
+				glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION)
+		);
 	}
 
 	void gl_rendering_context::swap_buffers() {

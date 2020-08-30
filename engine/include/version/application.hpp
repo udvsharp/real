@@ -24,6 +24,11 @@ namespace vn {
 
 		layer_stack layers_;
 		bool is_running_{true};
+
+		// Rendering
+		unsigned int vao_;
+		unsigned int vbo_;
+		unsigned int ibo_;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;

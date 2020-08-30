@@ -17,6 +17,37 @@ namespace vn {
 		window_->set_ev_callback([this](ev &e) {
 			application::on_event(e);
 		});
+
+		// region Setup rendering
+		// Vertices
+		float vertices[] = {
+				// Positions
+				 0.0f,  0.5f, 0.0f,
+				 0.0f, -0.5f, 0.0f,
+				 0.5f,  0.0f, 0.0f,
+				-0.5f,  0.0f, 0.0f,
+		};
+
+		unsigned int positions[] {
+			0, 1, 2,
+			0, 1, 3
+		};
+
+		// TODO: setup Vertex Array
+		glGenVertexArrays(1, &vao_);
+		glBindVertexArray(vao_);
+		// TODO: setup Vertex Buffer
+		glGenBuffers(1, &vbo_);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+		// TODO: setup Index Buffer
+		glGenBuffers(1, &ibo_);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
+		// TODO: setup Shader
+		// endregion
 	}
 
 	void application::tick() {
@@ -26,8 +57,11 @@ namespace vn {
 		VN_CORE_TRACE("Application is running!");
 
 		while (is_running_) {
-			glClearColor(0, 0, 1, 1);
+			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			glBindVertexArray(vao_);
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
 			for (auto *layer : layers_) {
 				layer->update();
