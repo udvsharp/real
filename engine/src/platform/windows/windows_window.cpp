@@ -34,6 +34,7 @@ namespace vn::platform {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		native_window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(), nullptr, nullptr);
+		// TODO: abstract api
 		rendering_context_ = new gl_rendering_context{native_window_};
 		rendering_context_->init();
 

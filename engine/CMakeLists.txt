@@ -78,6 +78,25 @@ if (WIN32)
 	)
 endif ()
 
+# Shaders
+set(
+		SHADERS_SRCS
+		include/version/renderer/shaders/base.vs.glsl
+		include/version/renderer/shaders/base.fs.glsl
+)
+
+foreach (SHADER_SRC ${SHADERS_SRCS})
+	get_filename_component(SHADER_FILENAME "${SHADER_SRC}" NAME)
+	configure_file("${SHADER_SRC}" "${CMAKE_CURRENT_BINARY_DIR}/shaders/${SHADER_FILENAME}" COPYONLY)
+	# TODO: fix build directories for msvc
+	if (MSVC)
+		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/shaders/${SHADER_FILENAME}" COPYONLY)
+		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/shaders/${SHADER_FILENAME}" COPYONLY)
+	else()
+		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_FILENAME}" COPYONLY)
+	endif ()
+endforeach ()
+
 target_include_directories(
 		${VN_LIBRARY_TARGET_NAME}
 		PUBLIC
@@ -194,15 +213,3 @@ if (WIN32)
 			VERBATIM
 	)
 endif ()
-
-# Save glfwinfo results
-add_custom_command(
-		TARGET ${VN_LIBRARY_TARGET_NAME} POST_BUILD
-		WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
-		COMMENT "Saving glfwinfo output"
-		BYPRODUCTS "${LOG_GLFWINFO_FILE}"
-
-		COMMAND $<TARGET_FILE:glfwinfo> > "${LOG_GLFWINFO_FILE}"
-
-		VERBATIM
-)

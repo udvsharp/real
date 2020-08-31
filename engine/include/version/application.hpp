@@ -12,6 +12,7 @@
 #include "version/window.hpp"
 #include "version/input.hpp"
 #include "version/layer_stack.hpp"
+#include "version/renderer/shader.hpp"
 #include "version/util/singleton.hpp"
 
 namespace vn {
@@ -29,6 +30,7 @@ namespace vn {
 		unsigned int vao_;
 		unsigned int vbo_;
 		unsigned int ibo_;
+		shader shader_;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;

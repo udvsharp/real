@@ -1,5 +1,8 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "version/application.hpp"
 #include "version/logger.hpp"
 
@@ -18,19 +21,21 @@ namespace vn {
 			application::on_event(e);
 		});
 
+		shader_ = shader {"shaders/base.vs.glsl", "shaders/base.fs.glsl"};
+
 		// region Setup rendering
 		// Vertices
 		float vertices[] = {
 				// Positions
-				 0.0f,  0.5f, 0.0f,
-				 0.0f, -0.5f, 0.0f,
-				 0.5f,  0.0f, 0.0f,
-				-0.5f,  0.0f, 0.0f,
+				0.0f, 0.5f, 0.0f,
+				0.0f, -0.5f, 0.0f,
+				0.5f, 0.0f, 0.0f,
+				-0.5f, 0.0f, 0.0f,
 		};
 
-		unsigned int positions[] {
-			0, 1, 2,
-			0, 1, 3
+		unsigned int positions[]{
+				0, 1, 2,
+				0, 1, 3
 		};
 
 		// TODO: setup Vertex Array
@@ -46,7 +51,6 @@ namespace vn {
 		glGenBuffers(1, &ibo_);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
-		// TODO: setup Shader
 		// endregion
 	}
 
@@ -59,6 +63,8 @@ namespace vn {
 		while (is_running_) {
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
+
+			shader_.bind();
 
 			glBindVertexArray(vao_);
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
