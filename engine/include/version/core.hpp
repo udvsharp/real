@@ -37,6 +37,8 @@ namespace vn {
 
 	using window_dimension_t = int;
 	using window_position_t = int;
+
+	using renderer_id_t = uint32_t;
 	// endregion
 	//region util
 	constexpr uint16_t bit(uint16_t x) {

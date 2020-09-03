@@ -12,6 +12,7 @@
 #include "version/window.hpp"
 #include "version/input.hpp"
 #include "version/layer_stack.hpp"
+#include "version/renderer.hpp"
 #include "version/renderer/shader.hpp"
 #include "version/util/singleton.hpp"
 
@@ -28,9 +29,9 @@ namespace vn {
 
 		// Rendering
 		unsigned int vao_;
-		unsigned int vbo_;
-		unsigned int ibo_;
-		shader shader_;
+		std::unique_ptr<vertex_buffer> vbo_;
+		std::unique_ptr<index_buffer> ibo_;
+		std::unique_ptr<shader> shader_;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;

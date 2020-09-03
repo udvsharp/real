@@ -8,7 +8,7 @@
 #include "version/input/base_input.hpp"
 
 #ifdef VN_PLATFORM_WINDOWS
-	#include "version/input/windows_input.hpp"
+	#include "version/platform/windows/windows_input.hpp"
 #else
 	#error Unsupported platform!
 #endif

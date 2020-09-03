@@ -21,7 +21,7 @@ namespace vn {
 			application::on_event(e);
 		});
 
-		shader_ = shader {"shaders/base.vs.glsl", "shaders/base.fs.glsl"};
+		shader_.reset(new shader {"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
 
 		// region Setup rendering
 		// Vertices
@@ -41,16 +41,16 @@ namespace vn {
 		// TODO: setup Vertex Array
 		glGenVertexArrays(1, &vao_);
 		glBindVertexArray(vao_);
-		// TODO: setup Vertex Buffer
-		glGenBuffers(1, &vbo_);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+		// Vertex Buffer
+		vbo_.reset(vertex_buffer::make(vertices, sizeof(vertices)));
+		vbo_->bind();
 		glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
-		// TODO: setup Index Buffer
-		glGenBuffers(1, &ibo_);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(positions), positions, GL_STATIC_DRAW);
+
+		// Index Buffer
+		ibo_.reset(index_buffer::make(positions, sizeof(positions) / sizeof(unsigned int)));
+		ibo_->bind();
 		// endregion
 	}
 
@@ -64,10 +64,10 @@ namespace vn {
 			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT);
 
-			shader_.bind();
+			shader_->bind();
 
 			glBindVertexArray(vao_);
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+			glDrawElements(GL_TRIANGLES, ibo_->count(), GL_UNSIGNED_INT, nullptr);
 
 			for (auto *layer : layers_) {
 				layer->update();

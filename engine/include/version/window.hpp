@@ -7,7 +7,7 @@
 #include "version/window/base_window.hpp"
 
 #ifdef VN_PLATFORM_WINDOWS
-	#include "version/window/windows_window.hpp"
+	#include "version/platform/windows/windows_window.hpp"
 #else
 	#error Unsupported platform!
 #endif

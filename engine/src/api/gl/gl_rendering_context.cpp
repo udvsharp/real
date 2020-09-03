@@ -4,7 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "version/logger.hpp"
-#include "version/renderer/gl_rendering_context.hpp"
+#include "version/api/gl/gl_rendering_context.hpp"
 
 namespace vn {
 	gl_rendering_context::gl_rendering_context(GLFWwindow *window_handle) {

@@ -34,10 +34,15 @@ add_library(
 		# Renderer
 		include/version/renderer.hpp
 		include/version/renderer/base_rendering_context.hpp
+		include/version/renderer/base_renderer.hpp
 		include/version/renderer/shader.hpp
+		include/version/renderer/buffer_vertex.hpp
+		include/version/renderer/buffer_index.hpp
 		## Api
 		## GL
-		include/version/renderer/gl_rendering_context.hpp
+		include/version/api/gl/gl_rendering_context.hpp
+		include/version/api/gl/gl_buffer_vertex.hpp
+		include/version/api/gl/gl_buffer_index.hpp
 
 		### Sources
 		# Core
@@ -51,7 +56,11 @@ add_library(
 		# Input
 		src/base_input.cpp
 		# Renderer
-		src/base_rendering_context.cpp
+		src/renderer/base_rendering_context.cpp
+		src/renderer/base_renderer.cpp
+		src/renderer/buffer_vertex.cpp
+		src/renderer/buffer_index.cpp
+		src/renderer/shader.cpp
 		## Api
 		## GL
 		# Imgui
@@ -59,6 +68,8 @@ add_library(
 		src/api/gl/imgui_impl_opengl3.cpp
 		# Renderer
 		src/api/gl/gl_rendering_context.cpp
+		src/api/gl/gl_buffer_vertex.cpp
+		src/api/gl/gl_buffer_index.cpp
 )
 
 # Platform-dependent sources
@@ -67,9 +78,9 @@ if (WIN32)
 			${VN_LIBRARY_TARGET_NAME}
 			PUBLIC
 			# Window
-			include/version/window/windows_window.hpp
+			include/version/platform/windows/windows_window.hpp
 			# Input
-			include/version/input/windows_input.hpp
+			include/version/platform/windows/windows_input.hpp
 			PRIVATE
 			# Window
 			src/platform/windows/windows_window.cpp
