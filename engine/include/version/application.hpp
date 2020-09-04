@@ -13,7 +13,6 @@
 #include "version/input.hpp"
 #include "version/layer_stack.hpp"
 #include "version/renderer.hpp"
-#include "version/renderer/shader.hpp"
 #include "version/util/singleton.hpp"
 
 namespace vn {
@@ -28,10 +27,10 @@ namespace vn {
 		bool is_running_{true};
 
 		// Rendering
-		unsigned int vao_;
-		std::unique_ptr<vertex_buffer> vbo_;
-		std::unique_ptr<index_buffer> ibo_;
-		std::unique_ptr<shader> shader_;
+		std::shared_ptr<vertex_array> vao_;
+		std::shared_ptr<vertex_buffer> vbo_;
+		std::shared_ptr<index_buffer> ibo_;
+		std::shared_ptr<shader> shader_;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;

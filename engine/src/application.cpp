@@ -38,9 +38,9 @@ namespace vn {
 				0, 1, 3
 		};
 
-		// TODO: setup Vertex Array
-		glGenVertexArrays(1, &vao_);
-		glBindVertexArray(vao_);
+		// Vertex Array
+		vao_.reset(vertex_array::make());
+		vao_->bind();
 
 		// Vertex Buffer
 		vbo_.reset(vertex_buffer::make(vertices, sizeof(vertices)));
@@ -52,6 +52,10 @@ namespace vn {
 		// Index Buffer
 		ibo_.reset(index_buffer::make(positions, sizeof(positions) / sizeof(unsigned int)));
 		ibo_->bind();
+
+		// Link buffers to vertex array
+		vao_->add_vertex_buffer(vbo_);
+		vao_->add_index_buffer(ibo_);
 		// endregion
 	}
 
@@ -67,7 +71,7 @@ namespace vn {
 
 			shader_->bind();
 
-			glBindVertexArray(vao_);
+			vao_->bind();
 			glDrawElements(GL_TRIANGLES, ibo_->count(), GL_UNSIGNED_INT, nullptr);
 
 			for (auto *layer : layers_) {

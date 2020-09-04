@@ -39,12 +39,14 @@ add_library(
 		include/version/renderer/buffer_layout.hpp
 		include/version/renderer/buffer_vertex.hpp
 		include/version/renderer/buffer_index.hpp
+		include/version/renderer/array_vertex.hpp
 		include/version/renderer/common.hpp
 		## Api
 		## GL
 		include/version/api/gl/gl_rendering_context.hpp
 		include/version/api/gl/gl_buffer_vertex.hpp
 		include/version/api/gl/gl_buffer_index.hpp
+		include/version/api/gl/gl_array_vertex.hpp
 		include/version/api/gl/gl_conversions.hpp
 
 		### Sources
@@ -64,6 +66,7 @@ add_library(
 		src/renderer/buffer_vertex.cpp
 		src/renderer/buffer_index.cpp
 		src/renderer/buffer_layout.cpp
+		src/renderer/array_vertex.cpp
 		src/renderer/shader.cpp
 		## Api
 		## GL
@@ -74,6 +77,7 @@ add_library(
 		src/api/gl/gl_rendering_context.cpp
 		src/api/gl/gl_buffer_vertex.cpp
 		src/api/gl/gl_buffer_index.cpp
+		src/api/gl/gl_array_vertex.cpp
 )
 
 # Platform-dependent sources
