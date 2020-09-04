@@ -36,13 +36,16 @@ add_library(
 		include/version/renderer/base_rendering_context.hpp
 		include/version/renderer/base_renderer.hpp
 		include/version/renderer/shader.hpp
+		include/version/renderer/buffer_layout.hpp
 		include/version/renderer/buffer_vertex.hpp
 		include/version/renderer/buffer_index.hpp
+		include/version/renderer/common.hpp
 		## Api
 		## GL
 		include/version/api/gl/gl_rendering_context.hpp
 		include/version/api/gl/gl_buffer_vertex.hpp
 		include/version/api/gl/gl_buffer_index.hpp
+		include/version/api/gl/gl_conversions.hpp
 
 		### Sources
 		# Core
@@ -60,6 +63,7 @@ add_library(
 		src/renderer/base_renderer.cpp
 		src/renderer/buffer_vertex.cpp
 		src/renderer/buffer_index.cpp
+		src/renderer/buffer_layout.cpp
 		src/renderer/shader.cpp
 		## Api
 		## GL

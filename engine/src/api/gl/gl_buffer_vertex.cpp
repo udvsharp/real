@@ -7,7 +7,8 @@
 
 namespace vn {
 
-	gl_vertex_buffer::gl_vertex_buffer(float *data, unsigned int size) {
+	gl_vertex_buffer::gl_vertex_buffer(float *data, unsigned int size)
+		: layout_{} {
 		glGenBuffers(1, &renderer_id_);
 		// TODO: remove hardcoded usage
 		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
@@ -24,5 +25,21 @@ namespace vn {
 
 	void gl_vertex_buffer::unbind() const {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+
+	void gl_vertex_buffer::set_layout(std::initializer_list<vertex_attribute> attributes) {
+		layout_ = buffer_layout{attributes};
+
+		unsigned int index = 0;
+		for (auto& a: layout_) {
+			// TODO: remove hardcoded params
+			glEnableVertexAttribArray(index);
+			glVertexAttribPointer(index, a.component_count(),
+						 a.api_type(),
+						 a.normalized ? GL_TRUE : GL_FALSE,
+						 layout_.stride(), (const void*)a.offset);
+
+			++index;
+		}
 	}
 }

@@ -26,11 +26,11 @@ namespace vn {
 		// region Setup rendering
 		// Vertices
 		float vertices[] = {
-				// Positions
-				0.0f, 0.5f, 0.0f,
-				0.0f, -0.5f, 0.0f,
-				0.5f, 0.0f, 0.0f,
-				-0.5f, 0.0f, 0.0f,
+				// Positions           // Colors
+				 0.0f,  0.5f, 0.0f,    0.5f,  0.5f, 0.0f, 1.0f,
+				 0.0f, -0.5f, 0.0f,    0.5f,  0.0f, 0.5f, 1.0f,
+				 0.5f,  0.0f, 0.0f,    0.0f,  0.5f, 0.5f, 1.0f,
+				-0.5f,  0.0f, 0.0f,    0.5f,  0.5f, 0.5f, 1.0f,
 		};
 
 		unsigned int positions[]{
@@ -44,9 +44,10 @@ namespace vn {
 
 		// Vertex Buffer
 		vbo_.reset(vertex_buffer::make(vertices, sizeof(vertices)));
-		vbo_->bind();
-		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), 0);
+		vbo_->set_layout({
+			{shader_data_t::vec3, "_pos",  },
+			{shader_data_t::vec4, "_color",},
+        });
 
 		// Index Buffer
 		ibo_.reset(index_buffer::make(positions, sizeof(positions) / sizeof(unsigned int)));
