@@ -11,6 +11,7 @@ namespace vn {
 			: count_{size} {
 		glGenBuffers(1, &renderer_id_);
 		// TODO: remove hardcoded usage
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id_);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count_ * sizeof(unsigned int), data, GL_STATIC_DRAW);
 	}
 

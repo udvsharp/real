@@ -10,6 +10,7 @@ namespace vn {
 	gl_vertex_buffer::gl_vertex_buffer(float *data, unsigned int size) {
 		glGenBuffers(1, &renderer_id_);
 		// TODO: remove hardcoded usage
+		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
