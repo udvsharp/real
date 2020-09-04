@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_WINDOW_EVENT
-#define VN_WINDOW_EVENT
+#ifndef VN_EVENT_WINDOW
+#define VN_EVENT_WINDOW
 
 #include <sstream>
 
@@ -165,4 +165,4 @@ namespace vn {
 	};
 }
 
-#endif //VN_WINDOW_EVENT
+#endif //VN_EVENT_WINDOW

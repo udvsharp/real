@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_BASE_WINDOW
-#define VN_BASE_WINDOW
+#ifndef VN_WINDOW_BASE
+#define VN_WINDOW_BASE
 
 #include <string>
 #include <utility>
@@ -52,4 +52,4 @@ namespace vn {
 	};
 }
 
-#endif //VN_BASE_WINDOW
+#endif //VN_WINDOW_BASE

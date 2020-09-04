@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_BASE_INPUT
-#define VN_BASE_INPUT
+#ifndef VN_INPUT_BASE
+#define VN_INPUT_BASE
 
 #include "version/core.hpp"
 #include "version/keycode.hpp"
@@ -23,4 +23,4 @@ namespace vn {
     };
 }
 
-#endif //VN_BASE_INPUT
+#endif //VN_INPUT_BASE

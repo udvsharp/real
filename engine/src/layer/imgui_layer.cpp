@@ -3,8 +3,7 @@
 #define GLFW_INCLUDE_NONE
 
 // FIXME remove GL Headers
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "version/api/gl/gl_headers.hpp"
 
 #include "version/input.hpp"
 #include "version/layer/imgui_layer.hpp"

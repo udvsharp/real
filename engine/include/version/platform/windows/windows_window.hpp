@@ -6,8 +6,7 @@
 #include <utility>
 
 // TODO: remove api dependency completely
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "version/api/gl/gl_headers.hpp"
 
 #include "version/core.hpp"
 #include "version/window/base_window.hpp"
@@ -61,7 +60,7 @@ namespace vn::platform {
 
 		void vsync_native(bool enabled);
 	private:
-		// TODO: create window using native API
+		// TODO: create window using Win32 API
 		GLFWwindow *native_window_;
 		rendering_context *rendering_context_;
 		window_data data_;

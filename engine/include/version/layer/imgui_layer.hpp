@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_IMGUI_LAYER
-#define VN_IMGUI_LAYER
+#ifndef VN_LAYER_IMGUI
+#define VN_LAYER_IMGUI
 
 #include "version/core.hpp"
 #include "version/layer/base_layer.hpp"
@@ -19,4 +19,4 @@ namespace vn {
     };
 }
 
-#endif //VN_IMGUI_LAYER
+#endif //VN_LAYER_IMGUI

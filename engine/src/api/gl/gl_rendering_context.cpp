@@ -1,9 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "version/logger.hpp"
+#include "version/api/gl/gl_headers.hpp"
 #include "version/api/gl/gl_rendering_context.hpp"
 
 namespace vn {

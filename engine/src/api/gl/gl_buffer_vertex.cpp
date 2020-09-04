@@ -1,8 +1,6 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "glad/glad.h"
-#include "GLFW/glfw3.h"
-
+#include "version/api/gl/gl_headers.hpp"
 #include "version/api/gl/gl_buffer_vertex.hpp"
 
 namespace vn {
@@ -10,7 +8,7 @@ namespace vn {
 	gl_vertex_buffer::gl_vertex_buffer(float *data, unsigned int size)
 			: layout_{}, vertex_array_{nullptr} {
 		glGenBuffers(1, &renderer_id_);
-		// TODO: remove hardcoded usage
+		// TODO: remove hardcoded buffer data usage
 		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}

@@ -1,13 +1,13 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_BASE_RENDERING_CONTEXT
-#define VN_BASE_RENDERING_CONTEXT
+#ifndef VN_RENDERING_CONTEXT_BASE
+#define VN_RENDERING_CONTEXT_BASE
 
 #include "version/core.hpp"
 
 namespace vn {
 	class VN_API rendering_context {
-		// TODO: extend supported api list
+		// TODO: extend supported rendering api list
 		enum class api : char {
 			none = -1,
 			GL = 0,
@@ -21,4 +21,4 @@ namespace vn {
 	};
 }
 
-#endif //VN_BASE_RENDERING_CONTEXT
+#endif //VN_RENDERING_CONTEXT_BASE

@@ -27,10 +27,10 @@ namespace vn {
 		bool is_running_{true};
 
 		// Rendering
-		std::shared_ptr<vertex_array> vao_;
-		std::shared_ptr<vertex_buffer> vbo_;
-		std::shared_ptr<index_buffer> ibo_;
-		std::shared_ptr<shader> shader_;
+		std::shared_ptr<vn::vertex_array> vao_;
+		std::shared_ptr<vn::vertex_buffer> vbo_;
+		std::shared_ptr<vn::index_buffer> ibo_;
+		std::shared_ptr<vn::shader> shader_;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;

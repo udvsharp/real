@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_BASE_RENDERER
-#define VN_BASE_RENDERER
+#ifndef VN_RENDERER_BASE
+#define VN_RENDERER_BASE
 
 #include "version/core.hpp"
 
@@ -19,4 +19,4 @@ namespace vn {
 	};
 }
 
-#endif //VN_BASE_RENDERER
+#endif //VN_RENDERER_BASE

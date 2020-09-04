@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_BASE_EVENT
-#define VN_BASE_EVENT
+#ifndef VN_EVENT_BASE
+#define VN_EVENT_BASE
 
 #include <string>
 #include <functional>
@@ -15,9 +15,10 @@
 
 namespace vn {
 
+	using ev_type_t = int;
 	using ev_category_t = int;
 
-	enum class ev_type {
+	enum class ev_type : ev_type_t {
 		none = 0,
 
 		// category_window types
@@ -115,4 +116,4 @@ namespace vn {
 	}
 }
 
-#endif //VN_BASE_EVENT
+#endif //VN_EVENT_BASE

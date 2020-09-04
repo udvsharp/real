@@ -4,6 +4,7 @@
 #define VN_RENDERER_COMMON
 
 #include "version/core.hpp"
+#include "version/logger.hpp"
 
 namespace vn {
 

@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_KEY_EVENT
-#define VN_KEY_EVENT
+#ifndef VN_EVENT_KEY
+#define VN_EVENT_KEY
 
 #include "version/event/base_event.hpp"
 
@@ -116,4 +116,4 @@ namespace vn {
 	};
 }
 
-#endif //VN_KEY_EVENT
+#endif //VN_EVENT_KEY

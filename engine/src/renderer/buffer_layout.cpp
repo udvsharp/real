@@ -1,8 +1,5 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "version/renderer/buffer_layout.hpp"
 
 namespace vn {

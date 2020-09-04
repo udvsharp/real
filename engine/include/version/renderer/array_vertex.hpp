@@ -8,9 +8,7 @@
 
 #include "version/core.hpp"
 #include "version/renderer/buffer_index.hpp"
-#ifndef VN_VERTEX_BUFFER
 #include "version/renderer/buffer_vertex.hpp"
-#endif
 
 namespace vn {
 	class VN_API vertex_array {
@@ -21,8 +19,8 @@ namespace vn {
 		[[nodiscard]] virtual const std::vector<std::shared_ptr<vn::vertex_buffer>>& vertex_buffers() const = 0;
 		[[nodiscard]] virtual const std::vector<std::shared_ptr<vn::index_buffer>>& index_buffers() const = 0;
 
-		virtual void add_vertex_buffer(const std::shared_ptr<vertex_buffer>& buffer) = 0;
-		virtual void add_index_buffer(const std::shared_ptr<index_buffer>& buffer) = 0;
+		virtual void add_vertex_buffer(const std::shared_ptr<vn::vertex_buffer>& buffer) = 0;
+		virtual void add_index_buffer(const std::shared_ptr<vn::index_buffer>& buffer) = 0;
 
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;

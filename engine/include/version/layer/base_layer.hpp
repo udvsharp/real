@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_BASE_LAYER
-#define VN_BASE_LAYER
+#ifndef VN_LAYER_BASE
+#define VN_LAYER_BASE
 
 #include <string>
 
@@ -27,4 +27,4 @@ namespace vn {
 	};
 }
 
-#endif //VN_BASE_LAYER
+#endif //VN_LAYER_BASE

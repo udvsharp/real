@@ -8,11 +8,11 @@
 #include "version/core.hpp"
 #include "version/renderer/base_rendering_context.hpp"
 #include "version/renderer/buffer_layout.hpp"
-#ifndef VN_VERTEX_ARRAY
-#include "version/renderer/array_vertex.hpp"
-#endif
 
 namespace vn {
+	// FIXME: include hierarchy problem? (vertex array and vertex buffer)
+	class vertex_array;
+
 	class VN_API vertex_buffer {
 	private:
 	public:

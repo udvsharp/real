@@ -21,8 +21,8 @@ namespace vn {
 		[[nodiscard]] virtual const std::vector<std::shared_ptr<vn::vertex_buffer>>& vertex_buffers() const { return vertex_buffers_; };
 		[[nodiscard]] virtual const std::vector<std::shared_ptr<vn::index_buffer>>& index_buffers() const { return index_buffers_; };
 
-		virtual void add_vertex_buffer(const std::shared_ptr<vertex_buffer>& buffer);
-		virtual void add_index_buffer(const std::shared_ptr<index_buffer>& buffer);
+		virtual void add_vertex_buffer(const std::shared_ptr<vn::vertex_buffer>& buffer);
+		virtual void add_index_buffer(const std::shared_ptr<vn::index_buffer>& buffer);
 
 		virtual void bind() const;
 		virtual void unbind() const;

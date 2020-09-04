@@ -1,7 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#ifndef VN_MOUSE_EVENT
-#define VN_MOUSE_EVENT
+#ifndef VN_EVENT_MOUSE
+#define VN_EVENT_MOUSE
 
 #include "version/event/base_event.hpp"
 
@@ -153,4 +153,4 @@ namespace vn {
 	};
 }
 
-#endif //VN_MOUSE_EVENT
+#endif //VN_EVENT_MOUSE
