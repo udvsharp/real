@@ -1,4 +1,6 @@
 message(STATUS "Configuring examples")
 
 ### Sandbox
-add_subdirectory(sandbox)
+if (OPTION_VN_BUILD_SANDBOX)
+	add_subdirectory(sandbox)
+endif ()

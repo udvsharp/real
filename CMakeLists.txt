@@ -1,3 +1,6 @@
+### Global build system TODOs
+# TODO: support multi-config generators
+
 ### Cmake setup
 cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 
@@ -23,6 +26,7 @@ set(VN_LIBRARY_TARGET_NAME ${META_VN_PROJECT_NAME})
 ### Project config options
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(OPTION_VN_BUILD_EXAMPLES "Build examples" OFF)
+option(OPTION_VN_BUILD_SANDBOX "Build examples" ON)
 
 ### Language Options
 # C

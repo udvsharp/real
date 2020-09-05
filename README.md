@@ -17,5 +17,7 @@ and learn "the best practices" of game engine development.
 
 That's the matter for development to be very slow and precise.
 
+You can view plans, issues, TODOs and more [here](Plan.md).
+
 ### Mentions
 Inspired by [TheCherno's](https://github.com/TheCherno) [Hazel](https://github.com/TheCherno/Hazel) videos.
