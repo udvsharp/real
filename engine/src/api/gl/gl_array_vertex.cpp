@@ -2,6 +2,8 @@
 
 #include "version/api/gl/gl_headers.hpp"
 #include "version/api/gl/gl_array_vertex.hpp"
+#include "version/api/gl/gl_buffer_vertex.hpp"
+#include "version/api/gl/gl_buffer_index.hpp"
 
 namespace vn {
 	gl_vertex_array::gl_vertex_array()
@@ -37,6 +39,7 @@ namespace vn {
 	void gl_vertex_array::add_index_buffer(const std::shared_ptr<vn::index_buffer> &buffer) {
 		glBindVertexArray(renderer_id_);
 		buffer->bind();
+		count_ += buffer->count();
 
 		index_buffers_.push_back(buffer);
 	}
@@ -47,5 +50,9 @@ namespace vn {
 
 	void gl_vertex_array::unbind() const {
 		glBindVertexArray(0);
+	}
+
+	int gl_vertex_array::count() const {
+		return count_;
 	}
 }

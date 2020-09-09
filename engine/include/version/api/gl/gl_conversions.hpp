@@ -8,6 +8,7 @@
 
 #include "version/core.hpp"
 #include "version/renderer/common.hpp"
+#include "version/logger.hpp"
 
 namespace vn {
 	constexpr GLuint gl_type_from(shader_data_t type) noexcept {

@@ -35,6 +35,8 @@ add_library(
 		include/version/renderer.hpp
 		include/version/renderer/base_rendering_context.hpp
 		include/version/renderer/base_renderer.hpp
+		include/version/renderer/render_command.hpp
+		include/version/renderer/renderer_api.hpp
 		include/version/renderer/shader.hpp
 		include/version/renderer/buffer_layout.hpp
 		include/version/renderer/buffer_vertex.hpp
@@ -44,6 +46,7 @@ add_library(
 		## Api
 		## GL
 		include/version/api/gl/gl_rendering_context.hpp
+		include/version/api/gl/gl_renderer_api.hpp
 		include/version/api/gl/gl_buffer_vertex.hpp
 		include/version/api/gl/gl_buffer_index.hpp
 		include/version/api/gl/gl_array_vertex.hpp
@@ -63,6 +66,7 @@ add_library(
 		# Renderer
 		src/renderer/base_rendering_context.cpp
 		src/renderer/base_renderer.cpp
+		src/renderer/renderer_api.cpp
 		src/renderer/buffer_vertex.cpp
 		src/renderer/buffer_index.cpp
 		src/renderer/buffer_layout.cpp
@@ -75,6 +79,7 @@ add_library(
 		src/api/gl/imgui_impl_opengl3.cpp
 		# Renderer
 		src/api/gl/gl_rendering_context.cpp
+		src/api/gl/gl_renderer_api.cpp
 		src/api/gl/gl_buffer_vertex.cpp
 		src/api/gl/gl_buffer_index.cpp
 		src/api/gl/gl_array_vertex.cpp

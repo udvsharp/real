@@ -4,18 +4,18 @@
 #define VN_RENDERER_BASE
 
 #include "version/core.hpp"
+#include "version/renderer/renderer_api.hpp"
 
 namespace vn {
 	class VN_API renderer {
 	public:
-		enum class renderer_api {
-			none = 0,
-			GL = 1,
-		};
-	public:
-		[[nodiscard]] static inline renderer_api api() noexcept { return api_; }
+		[[nodiscard]] static inline renderer_api& api() noexcept { return *api_; }
+
+		static void start_scene() noexcept;
+		static void end_scene() noexcept;
+		static void submit(const std::shared_ptr<vertex_array> &vao) noexcept;
 	private:
-		static renderer_api api_;
+		static renderer_api* api_;
 	};
 }
 

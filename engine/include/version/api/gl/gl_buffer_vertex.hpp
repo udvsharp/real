@@ -6,7 +6,6 @@
 #include <memory>
 
 #include "version/core.hpp"
-#include "version/renderer/buffer_layout.hpp"
 #include "version/renderer/buffer_vertex.hpp"
 
 namespace vn {

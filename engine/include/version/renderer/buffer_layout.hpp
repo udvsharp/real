@@ -9,7 +9,6 @@
 #include "version/core.hpp"
 #include "version/logger.hpp"
 #include "version/renderer/base_renderer.hpp"
-#include "version/renderer/common.hpp"
 #include "version/api/gl/gl_conversions.hpp"
 
 namespace vn {
@@ -54,13 +53,13 @@ namespace vn {
 		}
 
 		[[nodiscard]] inline int api_type() const noexcept {
-			switch(renderer::api()) {
-				case renderer::renderer_api::GL:
+			switch(renderer::api().enumval()) {
+				case renderer_api::api::gl:
 					return gl_type_from(type);
 
 				default:
-				case renderer::renderer_api::none:
-					VN_CORE_ERROR("Invalid renderer api: {}", renderer::renderer_api::none);
+				case renderer_api::api::none:
+					VN_CORE_ERROR("Invalid renderer api: {}", renderer_api::api::none);
 					return -1;
 			}
 		}

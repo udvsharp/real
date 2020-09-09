@@ -10,7 +10,6 @@
 #include "version/renderer/buffer_layout.hpp"
 
 namespace vn {
-	// FIXME: include hierarchy problem? (vertex array and vertex buffer)
 	class vertex_array;
 
 	class VN_API vertex_buffer {

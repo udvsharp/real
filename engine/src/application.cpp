@@ -1,8 +1,6 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include "version/application.hpp"
-#include "version/logger.hpp"
-#include "version/api/gl/gl_headers.hpp"
 
 namespace vn {
 
@@ -64,13 +62,18 @@ namespace vn {
 		VN_CORE_TRACE("Application is running!");
 
 		while (is_running_) {
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT);
+			render_command::clear_color(0.1f, 0.1f, 0.1f, 1.0f);
+			render_command::clear();
 
-			shader_->bind();
+			renderer::start_scene();
 
 			vao_->bind();
-			glDrawElements(GL_TRIANGLES, ibo_->count(), GL_UNSIGNED_INT, nullptr);
+			renderer::submit(vao_);
+
+			renderer::end_scene();
+
+			shader_->bind();
+			render_command::draw_indexed(vao_);
 
 			for (auto *layer : layers_) {
 				layer->update();

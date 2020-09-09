@@ -5,6 +5,7 @@
 
 #include "version/renderer/common.hpp"
 #include "version/renderer/base_renderer.hpp"
+#include "version/renderer/render_command.hpp"
 #include "version/renderer/base_rendering_context.hpp"
 #include "version/renderer/array_vertex.hpp"
 #include "version/renderer/buffer_vertex.hpp"

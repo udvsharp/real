@@ -7,10 +7,11 @@
 #include <vector>
 
 #include "version/core.hpp"
-#include "version/renderer/buffer_index.hpp"
-#include "version/renderer/buffer_vertex.hpp"
 
 namespace vn {
+	class vertex_buffer;
+	class index_buffer;
+
 	class VN_API vertex_array {
 	private:
 	public:
@@ -21,6 +22,8 @@ namespace vn {
 
 		virtual void add_vertex_buffer(const std::shared_ptr<vn::vertex_buffer>& buffer) = 0;
 		virtual void add_index_buffer(const std::shared_ptr<vn::index_buffer>& buffer) = 0;
+
+		virtual int count() const = 0;
 
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;

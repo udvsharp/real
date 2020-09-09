@@ -4,7 +4,6 @@
 #define VN_INDEX_BUFFER
 
 #include "version/core.hpp"
-#include "version/renderer/base_rendering_context.hpp"
 
 namespace vn {
 	class VN_API index_buffer {
