@@ -27,6 +27,7 @@ int main (int argc, char** argv) {
 	vn::logger::init();
 
 	auto* app = vn::create();
+	app->init();
 	app->run();
 
 	return 0;

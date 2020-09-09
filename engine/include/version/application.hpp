@@ -25,11 +25,8 @@ namespace vn {
 
 		layer_stack layers_;
 		bool is_running_{true};
-
-		// Rendering
-		std::shared_ptr<vn::vertex_array> vao_;
-		std::shared_ptr<vn::vertex_buffer> vbo_;
-		std::shared_ptr<vn::index_buffer> ibo_;
+	protected:
+		// TODO: remove this hardcoded shader
 		std::shared_ptr<vn::shader> shader_;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
@@ -38,10 +35,11 @@ namespace vn {
 		[[nodiscard]] inline layer_stack &layers() noexcept { return this->layers_; }
 		[[nodiscard]] inline window &window() const noexcept { return *(this->window_); }
 
+		virtual void init();
 		void run();
 	protected:
+		virtual void render();
 		virtual void on_event(ev &e);
-		virtual void tick();
 	private:
 		void on_window_close(window_close_ev &event);
 	};

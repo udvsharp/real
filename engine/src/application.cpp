@@ -18,44 +18,10 @@ namespace vn {
 		});
 
 		shader_.reset(new shader {"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
-
-		// region Setup rendering
-		// Vertices
-		float vertices[] = {
-				// Positions           // Colors
-				 0.0f,  0.5f, 0.0f,    0.5f,  0.5f, 0.0f, 1.0f,
-				 0.0f, -0.5f, 0.0f,    0.5f,  0.0f, 0.5f, 1.0f,
-				 0.5f,  0.0f, 0.0f,    0.0f,  0.5f, 0.5f, 1.0f,
-				-0.5f,  0.0f, 0.0f,    0.5f,  0.5f, 0.5f, 1.0f,
-		};
-
-		unsigned int positions[]{
-				0, 1, 2,
-				0, 1, 3
-		};
-
-		// Vertex Array
-		vao_.reset(vertex_array::make());
-		vao_->bind();
-
-		// Vertex Buffer
-		vbo_.reset(vertex_buffer::make(vertices, sizeof(vertices)));
-		vbo_->set_layout({
-			{shader_data_t::vec3, "_pos",  },
-			{shader_data_t::vec4, "_color",},
-        });
-
-		// Index Buffer
-		ibo_.reset(index_buffer::make(positions, sizeof(positions) / sizeof(unsigned int)));
-		ibo_->bind();
-
-		// Link buffers to vertex array
-		vao_->add_vertex_buffer(vbo_);
-		vao_->add_index_buffer(ibo_);
-		// endregion
 	}
 
-	void application::tick() {
+	void application::init() {
+
 	}
 
 	void application::run() {
@@ -65,15 +31,7 @@ namespace vn {
 			render_command::clear_color(0.1f, 0.1f, 0.1f, 1.0f);
 			render_command::clear();
 
-			renderer::start_scene();
-
-			vao_->bind();
-			renderer::submit(vao_);
-
-			renderer::end_scene();
-
-			shader_->bind();
-			render_command::draw_indexed(vao_);
+			render();
 
 			for (auto *layer : layers_) {
 				layer->update();
@@ -83,6 +41,9 @@ namespace vn {
 		}
 
 		VN_CORE_TRACE("Closing application;");
+	}
+
+	void application::render() {
 	}
 
 	void application::on_event(ev &e) {
