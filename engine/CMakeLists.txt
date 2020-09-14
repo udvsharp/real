@@ -182,6 +182,18 @@ target_compile_definitions(
 		VN_CLIENT
 )
 
+target_compile_options(
+		${VN_LIBRARY_TARGET_NAME}
+		PUBLIC
+		${DEFAULT_COMPILER_OPTIONS}
+)
+
+target_link_options(
+		${VN_LIBRARY_TARGET_NAME}
+		PRIVATE
+		${DEFAULT_LINKER_OPTIONS}
+)
+
 set_target_properties(
 		${VN_LIBRARY_TARGET_NAME} PROPERTIES
 

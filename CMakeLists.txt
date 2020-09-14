@@ -40,7 +40,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # TODO: ASM
 
 ### Modules
-list(APPEND CMAKE_MODULE_PATH cmake)
+list(APPEND CMAKE_MODULE_PATH "cmake")
 
 include(WriteCompilerDetectionHeader)
 include(GenerateExportHeader)
@@ -57,6 +57,8 @@ project(${META_VN_PROJECT_FULL_NAME}
 		DESCRIPTION ${META_VN_PROJECT_DESCRIPTION}
 		HOMEPAGE_URL ${META_VN_AUTHOR_DOMAIN}
 		LANGUAGES C CXX ASM)
+
+include(cmake/compilerOptions.cmake)
 
 ### Engine
 add_subdirectory(engine)
@@ -76,9 +78,11 @@ add_subdirectory(vendor/spdlog)
 # glfw
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS ON CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/glfw)
+
+find_package(OpenGL REQUIRED)
 # glad
 set(GLAD_INSTALL OFF CACHE BOOL "" FORCE)
 set(GLAD_PROFILE "core" CACHE STRING "" FORCE)
@@ -94,6 +98,7 @@ target_link_libraries(
 		glfw
 		glad
 		spdlog::spdlog
+		OpenGL::GL
 )
 
 ### Examples
