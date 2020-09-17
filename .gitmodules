@@ -10,3 +10,6 @@
 [submodule "vendor/imgui"]
 	path = vendor/imgui
 	url = https://github.com/udv-code/version-imgui.git
+[submodule "vendor/glm"]
+	path = vendor/glm
+	url = https://github.com/g-truc/glm.git
