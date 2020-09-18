@@ -20,10 +20,10 @@ protected:
 		// Vertices
 		float vertices[] = {
 				// Positions           // Colors
-				0.0f,  0.5f, 0.0f,    0.5f,  0.5f, 0.0f, 1.0f,
-				0.0f, -0.5f, 0.0f,    0.5f,  0.0f, 0.5f, 1.0f,
-				0.5f,  0.0f, 0.0f,    0.0f,  0.5f, 0.5f, 1.0f,
-				-0.5f,  0.0f, 0.0f,    0.5f,  0.5f, 0.5f, 1.0f,
+				0.0f, 0.5f, 0.0f, 0.5f, 0.5f, 0.0f, 1.0f,
+				0.0f, -0.5f, 0.0f, 0.5f, 0.0f, 0.5f, 1.0f,
+				0.5f, 0.0f, 0.0f, 0.0f, 0.5f, 0.5f, 1.0f,
+				-0.5f, 0.0f, 0.0f, 0.5f, 0.5f, 0.5f, 1.0f,
 		};
 
 		unsigned int positions[]{
@@ -37,10 +37,10 @@ protected:
 
 		// Vertex Buffer
 		vbo_.reset(vn::vertex_buffer::make(vertices, sizeof(vertices)));
-		vbo_->set_layout({
-				                 { vn::shader_data_t::vec3, "_pos",  },
-				                 { vn::shader_data_t::vec4, "_color",},
-		                 });
+		vbo_->layout({
+				             {vn::shader_data_t::vec3, "_pos",},
+				             {vn::shader_data_t::vec4, "_color",},
+		             });
 
 		// Index Buffer
 		ibo_.reset(vn::index_buffer::make(positions, sizeof(positions) / sizeof(unsigned int)));
@@ -53,14 +53,12 @@ protected:
 	}
 
 	virtual void render() override {
-		vn::renderer::start_scene();
+		camera_.rotation(45.0f);
 
-		vao_->bind();
-		vn::renderer::submit(vao_);
-
+		vn::renderer::start_scene(camera_);
+		vn::renderer::submit(vao_, shader_);
 		vn::renderer::end_scene();
 
-		shader_->bind();
 		vn::render_command::draw_indexed(vao_);
 	}
 

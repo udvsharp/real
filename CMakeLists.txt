@@ -75,6 +75,7 @@ set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
 set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(SPDLOG_BUILD_TESTS_HO OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/spdlog)
+
 # glfw
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
@@ -83,13 +84,20 @@ set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/glfw)
 
 find_package(OpenGL REQUIRED)
+
 # glad
 set(GLAD_INSTALL OFF CACHE BOOL "" FORCE)
 set(GLAD_PROFILE "core" CACHE STRING "" FORCE)
 add_subdirectory(vendor/glad)
+
 # imgui
 set(IMGUI_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/imgui)
+
+# glm
+set(GLM_QUIET OFF CACHE BOOL "" FORCE)
+set(GLM_TEST_ENABLE OFF CACHE BOOL "" FORCE)
+add_subdirectory(vendor/glm)
 
 target_link_libraries(
 		${VN_LIBRARY_TARGET_NAME}
@@ -99,6 +107,7 @@ target_link_libraries(
 		glad
 		spdlog::spdlog
 		OpenGL::GL
+		glm::glm
 )
 
 ### Examples

@@ -25,7 +25,7 @@ namespace vn {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void gl_vertex_buffer::set_layout(std::initializer_list<vertex_attribute> attributes) {
+	void gl_vertex_buffer::layout(std::initializer_list<vertex_attribute> attributes) {
 		layout_ = buffer_layout{attributes};
 	}
 

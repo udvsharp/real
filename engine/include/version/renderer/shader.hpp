@@ -7,6 +7,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <glm/glm.hpp>
+
 #include "version/core.hpp"
 #include "version/logger.hpp"
 #include "version/api/gl/gl_headers.hpp"
@@ -26,6 +28,8 @@ namespace vn {
 	public:
 		shader();
 		shader(std::string &&vertex_filename, std::string &&fragment_filename);
+
+		void uniform(const std::string &name, const glm::mat4 &matrix);
 
 		void bind() const;
 		void unbind() const;

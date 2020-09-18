@@ -49,7 +49,7 @@ namespace vn::platform {
 		[[nodiscard]] inline void *native() const noexcept override { return native_window_; }
 		[[nodiscard]] virtual rendering_context *context() const noexcept override { return rendering_context_; };
 
-		void set_ev_callback(const ev_callback_t &callback) override;
+		void ev_callback(const ev_callback_t &callback) override;
 		void vsync(bool enabled) override;
 
 		void on_update() override;

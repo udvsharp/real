@@ -21,7 +21,7 @@ namespace vn {
 		[[nodiscard]] virtual const std::shared_ptr<vn::vertex_array> & vertex_array() const override { return vertex_array_; };
 		[[nodiscard]] virtual const buffer_layout &layout() const override { return layout_; };
 
-		virtual void set_layout(std::initializer_list<vertex_attribute> attributes) override;
+		virtual void layout(std::initializer_list<vertex_attribute> attributes) override;
 		virtual void link_to(const std::shared_ptr<vn::vertex_array> &vertex_array) override;
 
 		virtual void bind() const override;

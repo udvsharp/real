@@ -1,5 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
+#include <glm/gtc/type_ptr.hpp>
+
 #include "version/renderer/shader.hpp"
 
 namespace vn {
@@ -44,8 +46,14 @@ namespace vn {
 		}
 
 	}
+
 	shader::shader() : id_{0} {
 
+	}
+
+	void shader::uniform(const std::string &name, const glm::mat4 &matrix) {
+		GLuint location = glGetUniformLocation(id_, name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
 	shader::shader(std::string &&vertex_filename, std::string &&fragment_filename) {

@@ -42,6 +42,7 @@ add_library(
 		include/version/renderer/buffer_vertex.hpp
 		include/version/renderer/buffer_index.hpp
 		include/version/renderer/array_vertex.hpp
+		include/version/renderer/camera.hpp
 		include/version/renderer/common.hpp
 		## Api
 		## GL
@@ -72,6 +73,7 @@ add_library(
 		src/renderer/buffer_layout.cpp
 		src/renderer/array_vertex.cpp
 		src/renderer/shader.cpp
+		src/renderer/camera.cpp
 		## Api
 		## GL
 		# Imgui

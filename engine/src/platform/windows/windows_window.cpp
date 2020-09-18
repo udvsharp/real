@@ -147,7 +147,7 @@ namespace vn::platform {
 		data_.is_v_sync = enabled;
 	}
 
-	void window::set_ev_callback(const ev_callback_t &callback) {
+	void window::ev_callback(const ev_callback_t &callback) {
 		data_.ev_callback = callback;
 	}
 }

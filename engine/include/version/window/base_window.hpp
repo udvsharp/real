@@ -40,7 +40,7 @@ namespace vn {
 		[[nodiscard]] virtual window_dimension_t width() const = 0;
 		[[nodiscard]] virtual window_dimension_t height() const = 0;
 
-		virtual void set_ev_callback(const ev_callback_t &callback) = 0;
+		virtual void ev_callback(const ev_callback_t &callback) = 0;
 		virtual void vsync(bool enabled) = 0;
 		[[nodiscard]] virtual bool is_v_sync() const = 0;
 

@@ -20,7 +20,7 @@ namespace vn {
 		[[nodiscard]] virtual const buffer_layout& layout() const = 0;
 		[[nodiscard]] virtual const std::shared_ptr<vn::vertex_array> & vertex_array() const = 0;
 
-		virtual void set_layout(std::initializer_list<vertex_attribute> attributes) = 0;
+		virtual void layout(std::initializer_list<vertex_attribute> attributes) = 0;
 		virtual void link_to(const std::shared_ptr<vn::vertex_array> &vertex_array) = 0;
 
 		virtual void bind() const = 0;
