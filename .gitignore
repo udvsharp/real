@@ -380,3 +380,4 @@ CTestTestfile.cmake
 _deps
 
 /.vs/
+.vscode/settings.json

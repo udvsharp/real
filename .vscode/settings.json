@@ -1,6 +1,10 @@
 {
     "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
 
+    // Cmake
+    "cmake.buildDirectory": "${workspaceFolder}/build/laptop/vscode/",
+    "cmake.generator": "MinGW Makefiles",
+
     "cmake.configureSettings": {
         "OPTION_VN_BUILD_EXAMPLES": "ON"
     },
