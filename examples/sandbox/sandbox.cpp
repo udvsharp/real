@@ -8,9 +8,16 @@ private:
 	std::shared_ptr<vn::vertex_array> vao_;
 	std::shared_ptr<vn::vertex_buffer> vbo_;
 	std::shared_ptr<vn::index_buffer> ibo_;
+
+	vn::camera* camera_;
 public:
 	application() : vn::application() {
 		// layers().push_layer(new vn::imgui_layer{});
+		// Pesrspective
+		// camera_ = new vn::camera_perspective{90.0f, 16.0f, 9.0f};
+
+		// Orthographic
+		camera_ =  new vn::camera_orthographic {-1.6f, 1.6f, -0.9f, 0.9f, };
 	}
 protected:
 	// Override this if you want
@@ -62,8 +69,9 @@ protected:
 
 	virtual void render() override {
 		// camera_.rotation(45.0f);
+		camera_->position({ 0.0f, 0.0f, 0.0f });
 
-		vn::renderer::start_scene(camera_);
+		vn::renderer::start_scene(*camera_);
 		vn::renderer::submit(vao_, shader_);
 		vn::renderer::end_scene();
 

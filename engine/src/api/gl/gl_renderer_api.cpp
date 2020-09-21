@@ -16,6 +16,10 @@ namespace vn {
 	void gl_api::draw_indexed(const std::shared_ptr<vertex_array> &vao) {
 		// TODO: remove hardcoded mode
 		vao->bind();
+
+		// TODO: remove this tesiting
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 		glDrawElements(GL_TRIANGLES, vao->count(), GL_UNSIGNED_INT, nullptr);
 	}
 

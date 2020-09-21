@@ -13,7 +13,7 @@ namespace vn {
 	public:
 		[[nodiscard]] static inline renderer_api& api() noexcept { return *api_; }
 
-		static void start_scene(vn::camera_orthographic &camera) noexcept;
+		static void start_scene(camera &camera) noexcept;
 		static void end_scene() noexcept;
 		static void submit(const std::shared_ptr<vertex_array> &vao, const std::shared_ptr<vn::shader> &shader) noexcept;
 	private:

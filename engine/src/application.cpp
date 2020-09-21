@@ -6,8 +6,7 @@ namespace vn {
 
 	application::application(std::string name)
 			: singleton<application>{},
-			  name_{std::move(name)},
-			  camera_ { -1.6f, 1.6f, -0.9f, 0.9f, } {
+			  name_{std::move(name)} {
 
 		// Setup systems
 		window_props props{};
@@ -18,7 +17,7 @@ namespace vn {
 			application::on_event(e);
 		});
 
-		shader_.reset(new shader {"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
+		shader_.reset(new shader{"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
 	}
 
 	void application::init() {

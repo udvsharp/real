@@ -28,7 +28,6 @@ namespace vn {
 	protected:
 		// TODO: remove this hardcoded shader
 		std::shared_ptr<vn::shader> shader_;
-		vn::camera_orthographic camera_;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;
