@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <string>
+#include <cstdint>
 
 #include "version/core.hpp"
 #include "version/logger.hpp"
@@ -17,7 +18,7 @@ namespace vn {
 		shader_data_t type;
 		std::string name;
 		unsigned int size;
-		unsigned long int offset;
+		int64_t offset;
 		bool normalized = false;
 
 		vertex_attribute(const shader_data_t &type, const std::string &name)
@@ -27,7 +28,7 @@ namespace vn {
 		vertex_attribute(const shader_data_t &type, const std::string &name, bool normalized)
 				: type{type}, name{name}, size{sizeofsdt(type)}, offset{0}, normalized{normalized} {}
 
-		vertex_attribute(const shader_data_t &type, const std::string &name, unsigned int size, unsigned long int offset, bool normalized)
+		vertex_attribute(const shader_data_t &type, const std::string &name, unsigned int size, int64_t offset, bool normalized)
 				: type{type}, name{name}, size{size}, offset{offset}, normalized{normalized} {}
 
 		[[nodiscard]] inline unsigned int component_count() const noexcept {

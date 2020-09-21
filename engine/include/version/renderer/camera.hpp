@@ -8,7 +8,7 @@
 #include "version/core.hpp"
 
 namespace vn {
-	class VN_API camera {
+	class VN_API camera_orthographic {
 	private:
 		glm::mat4 view_;
 		glm::mat4 projection_;
@@ -22,7 +22,7 @@ namespace vn {
 		void update_viewprojection();
 		void update();
 	public:
-		camera(float left, float right, float bottom, float top);
+		camera_orthographic(float left, float right, float bottom, float top);
 
 		[[nodiscard]] glm::vec3 position() const noexcept { return position_; }
 		void position(glm::vec3 position) noexcept { position_ = position; update(); }

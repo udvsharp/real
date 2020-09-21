@@ -10,7 +10,7 @@ namespace vn {
 	renderer_api* renderer::api_ = new gl_api{};
 	renderer::scene_data* renderer::data_ = new renderer::scene_data{};
 
-	void renderer::start_scene(camera &camera) noexcept {
+	void renderer::start_scene(vn::camera_orthographic &camera) noexcept {
 		data_->viewprojection = camera.viewprojection();
 	}
 

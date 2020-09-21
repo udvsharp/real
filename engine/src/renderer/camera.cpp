@@ -6,18 +6,18 @@
 
 
 namespace vn {
-	camera::camera(float left, float right, float bottom, float top)
+	camera_orthographic::camera_orthographic(float left, float right, float bottom, float top)
 			: projection_{glm::ortho(left, right, bottom, top, -1.0f, 1.0f)},
 			view_ { glm::identity<glm::mat4>() } {
 		update();
 	}
 
-	void camera::update() {
+	void camera_orthographic::update() {
 		update_view();
 		update_viewprojection();
 	}
 
-	void camera::update_view() {
+	void camera_orthographic::update_view() {
 		glm::mat4 transform =
 				glm::translate(glm::identity<glm::mat4>(), position_) *
 				glm::rotate(glm::identity<glm::mat4>(), glm::radians(rotation_), glm::vec3(0, 0, 1));
@@ -25,7 +25,7 @@ namespace vn {
 		view_ = glm::inverse(transform);
 	}
 
-	void camera::update_viewprojection() {
+	void camera_orthographic::update_viewprojection() {
 		// OpenGL needs this order.
 		cache_viewprojection_ = projection_ * view_;
 	}
