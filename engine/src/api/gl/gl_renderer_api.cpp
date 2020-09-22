@@ -18,7 +18,7 @@ namespace vn {
 		vao->bind();
 
 		// remove this tesiting
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
 
 		glDrawElements(GL_TRIANGLES, vao->count(), GL_UNSIGNED_INT, nullptr);
 	}

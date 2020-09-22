@@ -42,6 +42,8 @@ namespace vn::platform {
 
 		~window() override;
 
+		void init() override;
+
 		[[nodiscard]] inline window_dimension_t width() const noexcept override { return data_.width; };
 		[[nodiscard]] inline window_dimension_t height() const noexcept override { return data_.height; };
 		[[nodiscard]] inline bool is_v_sync() const noexcept override { return data_.is_v_sync; }

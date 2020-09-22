@@ -19,7 +19,12 @@ namespace vn {
 		[[nodiscard]] virtual glm::mat4 viewprojection() const noexcept = 0;
 		[[nodiscard]] virtual float rotation() const noexcept = 0;
 		virtual void rotation(float rotation) noexcept = 0;
-		virtual void look_at(glm::vec3, glm::vec3, glm::vec3) = 0;
+		virtual void look_at(glm::vec3 center) = 0;
+	private:
+		virtual glm::vec3 up() const = 0;
+		virtual glm::vec3 right() const = 0;
+		virtual glm::vec3 direction() const = 0;
+		virtual glm::vec3 direction_to(glm::vec3 target) const = 0;
 	};
 
 	class VN_API camera_orthographic : public camera {
@@ -32,10 +37,16 @@ namespace vn {
 		// TODO: migrate to quaternions
 		float rotation_ = 0.0f;
 		glm::vec3 position_ = { 0.0f, 0.0f, 0.0f, };
+		glm::vec3 direction_ = { 0.0f, 0.0f, 0.0f, };
 	private:
 		void update_view();
 		void update_viewprojection();
 		void update();
+
+		virtual glm::vec3 up() const override;
+		virtual glm::vec3 right() const override;
+		virtual glm::vec3 direction() const override;
+		virtual glm::vec3 direction_to(glm::vec3 target) const override;
 	public:
 		camera_orthographic(float left, float right, float bottom, float top);
 
@@ -52,7 +63,7 @@ namespace vn {
 		[[nodiscard]] float rotation() const noexcept override { return rotation_; }
 		void rotation(float rotation) noexcept override { rotation_ = rotation; update(); }
 
-		virtual void look_at(glm::vec3 vec_3, glm::vec3 vec_31, glm::vec3 vec_32) override;
+		virtual void look_at(glm::vec3 center) override;
 	};
 
 	class VN_API camera_perspective : public camera {
@@ -65,10 +76,16 @@ namespace vn {
 		// TODO: migrate to quaternions
 		float rotation_ = 0.0f;
 		glm::vec3 position_ = { 0.0f, 0.0f, 0.0f, };
+		glm::vec3 direction_ = { 0.0f, 0.0f, 0.0f, };
 	private:
 		void update_view();
 		void update_viewprojection();
 		void update();
+
+		virtual glm::vec3 up() const override;
+		virtual glm::vec3 right() const override;
+		virtual glm::vec3 direction() const override;
+		virtual glm::vec3 direction_to(glm::vec3 target) const override;
 	public:
 		camera_perspective(float yfov, float w, float h);
 
@@ -85,7 +102,7 @@ namespace vn {
 		[[nodiscard]] float rotation() const noexcept override { return rotation_; }
 		void rotation(float rotation) noexcept override { rotation_ = rotation; update(); }
 
-		virtual void look_at(glm::vec3 eye, glm::vec3 center, glm::vec3 up) override;
+		virtual void look_at(glm::vec3 center) override;
 	};
 }
 

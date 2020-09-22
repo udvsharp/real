@@ -10,7 +10,7 @@ namespace vn {
 		glGenBuffers(1, &renderer_id_);
 		// TODO: remove hardcoded buffer data usage
 		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
-		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
 	}
 
 	gl_vertex_buffer::~gl_vertex_buffer() {

@@ -16,12 +16,11 @@ namespace vn {
 		window_->ev_callback([this](ev &e) {
 			application::on_event(e);
 		});
-
-		shader_.reset(new shader{"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
 	}
 
 	void application::init() {
-
+		window_->init();
+		shader_.reset(new shader{"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
 	}
 
 	void application::run() {

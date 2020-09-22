@@ -37,6 +37,8 @@ namespace vn {
 
 		virtual void on_update();
 
+		virtual void init() = 0;
+
 		[[nodiscard]] virtual window_dimension_t width() const = 0;
 		[[nodiscard]] virtual window_dimension_t height() const = 0;
 

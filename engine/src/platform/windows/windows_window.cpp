@@ -15,6 +15,10 @@ namespace vn::platform {
 	}
 
 	window::window(window_data data) : data_(std::move(data)) {
+		// init();
+	}
+
+	void window::init() {
 		if (!s_glfw_initialized) {
 			VN_CORE_TRACE("Initializing GLFW...");
 

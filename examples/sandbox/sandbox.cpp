@@ -18,33 +18,34 @@ public:
 		camera_ = new vn::camera_perspective{ 45.0f, 16.0f, 9.0f };
 
 		// Orthographic
-		// camera_ =  new vn::camera_orthographic {-1.6f, 1.6f, -0.9f, 0.9f, };
+		// camera_ =  new vn::camera_orthographic {-3.2f, 3.2f, -1.8f, 1.8f, };
 	}
 protected:
 	// Override this if you want
-
 	virtual void init() override {
+		vn::application::init();
+
 		// region Setup rendering
 		// Vertices
 		float vertices[] = {
 			// Positions           // Colors
 			 1.0f,  1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FTR
-			 1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBR
-			 1.0f, -1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBL
-			 1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FTL
-			-1.0f,  1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTR
-			-1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RBR
+			 1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBR
+			-1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBL
+			-1.0f,  1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FTL
+			 1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTR
+			 1.0f, -1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RBR
 			-1.0f, -1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RBL
-			-1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTL
+			-1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTL
 		};
 
 		unsigned int positions[]{
-				0, 1, 2, 1, 2, 3, // Front
-				4, 5, 6, 5, 6, 7, // Rear
-				2, 3, 6, 3, 6, 7, // Left
-				0, 1, 4, 1, 4, 5, // Right
-				0, 3, 4, 3, 4, 7, // Top
-				1, 2, 5, 2, 5, 6, // Bottom
+				0, 1, 2, 0, 2, 3, // Front  0 1 2 3
+				4, 5, 6, 4, 6, 7, // Rear   4 5 6 7
+				2, 3, 6, 3, 6, 7, // Left   2 3 6 7
+				0, 1, 4, 1, 4, 5, // Right  0 1 4 5
+				0, 3, 4, 3, 4, 7, // Top    0 3 4 7
+				1, 2, 5, 2, 5, 6, // Bottom 1 2 5 6
 		};
 
 		// Vertex Array
@@ -71,15 +72,21 @@ protected:
 	virtual void update() override {
 		// camera_.rotation(45.0f);
 		// rotation
+		static float time = 0;
 		const float radius = 5.0f;
-		float cx = std::sin(glfwGetTime()) * radius;
-		float cz = std::cos(glfwGetTime()) * radius;
-		camera_->look_at({cx, 0.0, cz }, { 0.0, 0.0, 0.0 }, { 0.0, 1.0, 0.0 });
-		VN_INFO("Update called: {} {} | {}", cx, cz, glfwGetTime());
+		float cx = std::sin(time) * radius;
+		float cz = std::cos(time) * radius;
+
+		// TODO: add Y axis
+		camera_->position( {cx, 0.0, cz} );
+
+		camera_->look_at({ 0.0, 0.0, 0.0 });
+		// VN_INFO("Update called: {} {} | {}", cx, cz, time);
+
+		time += 0.0001f;
 	}
 
 	virtual void render() override {
-
 		vn::renderer::start_scene(*camera_);
 		vn::renderer::submit(vao_, shader_);
 		vn::renderer::end_scene();
