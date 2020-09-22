@@ -11,9 +11,8 @@
 namespace vn {
 	class VN_API render_command {
 	public:
-		// TODO: use vec4
-		static inline void clear_color(float r, float g, float b, float a) {
-			renderer::api().clear_color(r, g, b, a);
+		static inline void clear_color(glm::fvec4 color) {
+			renderer::api().clear_color(color);
 		}
 
 		static inline void clear() {

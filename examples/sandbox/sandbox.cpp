@@ -11,6 +11,8 @@ private:
 	std::shared_ptr<vn::index_buffer> ibo_;
 
 	vn::camera* camera_;
+
+	std::shared_ptr<vn::shader> shader_;
 public:
 	application() : vn::application() {
 		// layers().push_layer(new vn::imgui_layer{});
@@ -24,6 +26,7 @@ protected:
 	// Override this if you want
 	virtual void init() override {
 		vn::application::init();
+		shader_.reset(new vn::shader{"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
 
 		// region Setup rendering
 		// Vertices
@@ -83,7 +86,7 @@ protected:
 		camera_->look_at({ 0.0, 0.0, 0.0 });
 		// VN_INFO("Update called: {} {} | {}", cx, cz, time);
 
-		time += 0.0001f;
+		time += 0.001f;
 	}
 
 	virtual void render() override {

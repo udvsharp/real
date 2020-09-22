@@ -13,14 +13,19 @@ namespace vn {
 		[[nodiscard]] virtual glm::vec3 position() const noexcept = 0;
 		[[nodiscard]] virtual glm::vec3& position() noexcept = 0;
 		virtual void position(glm::vec3 position) noexcept = 0;
+
 		[[nodiscard]] virtual glm::mat4 projection() const noexcept = 0;
 		virtual void projection(glm::mat4 projection) noexcept = 0;
+
 		[[nodiscard]] virtual glm::mat4 view() const noexcept = 0;
 		[[nodiscard]] virtual glm::mat4 viewprojection() const noexcept = 0;
+
 		[[nodiscard]] virtual float rotation() const noexcept = 0;
 		virtual void rotation(float rotation) noexcept = 0;
+
 		virtual void look_at(glm::vec3 center) = 0;
 	private:
+		// Base vectors
 		virtual glm::vec3 up() const = 0;
 		virtual glm::vec3 right() const = 0;
 		virtual glm::vec3 direction() const = 0;

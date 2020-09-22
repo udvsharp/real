@@ -4,6 +4,7 @@
 #define VN_RENDERER_API
 
 #include <memory>
+#include <glm/fwd.hpp>
 
 #include "version/core.hpp"
 
@@ -17,13 +18,15 @@ namespace vn {
 			gl = 1,
 		};
 	public:
-		virtual void clear_color(float r, float g, float b, float a) = 0;
-		virtual void clear() = 0;
+		virtual void clear_color(glm::fvec4 color) = 0;
+		constexpr void clear() { clear(default_clear_bits()); };
+		virtual void clear(int32_t bits) = 0;
 
 		virtual api enumval() const = 0;
 
 		virtual void draw_indexed(const std::shared_ptr<vertex_array>& vao) = 0;
 	private:
+		virtual constexpr int32_t default_clear_bits() const noexcept = 0;
 		// static api api_;
 	};
 }

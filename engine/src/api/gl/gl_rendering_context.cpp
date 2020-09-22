@@ -33,7 +33,6 @@ namespace vn {
 	}
 
 	void gl_rendering_context::vsync(bool enabled) {
-		// TODO: read about vsync
 		if (enabled) {
 			glfwSwapInterval(1);
 		} else {

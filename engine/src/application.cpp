@@ -20,14 +20,13 @@ namespace vn {
 
 	void application::init() {
 		window_->init();
-		shader_.reset(new shader{"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
 	}
 
 	void application::run() {
 		VN_CORE_TRACE("Application is running!");
 
 		while (is_running_) {
-			render_command::clear_color(0.1f, 0.1f, 0.1f, 1.0f);
+			render_command::clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
 			render_command::clear();
 
 			render();
