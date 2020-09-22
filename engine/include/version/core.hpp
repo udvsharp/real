@@ -17,7 +17,7 @@
 #define VN_DEFAULT_WINDOW_HEIGHT 720
 #define VN_DEFAULT_WINDOW_WIDTH 1280
 #define VN_DEFAULT_WINDOW_TITLE "Version Engine"
-#define VN_DEFAULT_WINDOW_V_SYNC true
+#define VN_DEFAULT_WINDOW_V_SYNC false
 // endregion
 // region util
 #include <cassert>

@@ -38,13 +38,15 @@ namespace vn {
 			}
 
 			window_->on_update();
+			update();
 		}
 
 		VN_CORE_TRACE("Closing application;");
 	}
 
-	void application::render() {
-	}
+	void application::render() {}
+
+	void application::update() {}
 
 	void application::on_event(ev &e) {
 		VN_CORE_TRACE("Got event: {0}", e);

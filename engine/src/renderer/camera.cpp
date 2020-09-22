@@ -30,10 +30,13 @@ namespace vn {
 		// OpenGL needs this order.
 		cache_viewprojection_ = projection_ * view_;
 	}
+	void camera_orthographic::look_at(glm::vec3 vec_3, glm::vec3 vec_31, glm::vec3 vec_32) {
+
+	}
 	//endregion
 	//region Perspective camera
 	camera_perspective::camera_perspective(float yfov, float w, float h)
-			: projection_{glm::perspective(glm::radians(yfov), w / h, 1.0f, 100.0f)},
+			: projection_{glm::perspective(glm::radians(yfov), w / h, 0.1f, 5.0f)},
 			  view_ { glm::identity<glm::mat4>() } {
 		update();
 	}
@@ -54,6 +57,11 @@ namespace vn {
 	void camera_perspective::update_viewprojection() {
 		// OpenGL needs this order.
 		cache_viewprojection_ = projection_ * view_;
+	}
+
+	void camera_perspective::look_at(glm::vec3 eye, glm::vec3 center, glm::vec3 up) {
+		view_ = glm::lookAt(eye, center, up);
+		update_viewprojection();
 	}
 	//endregion
 }

@@ -1,6 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include <version/version.hpp>
+#include <cmath>
 
 class application : public vn::application {
 private:
@@ -14,10 +15,10 @@ public:
 	application() : vn::application() {
 		// layers().push_layer(new vn::imgui_layer{});
 		// Pesrspective
-		// camera_ = new vn::camera_perspective{90.0f, 16.0f, 9.0f};
+		camera_ = new vn::camera_perspective{ 45.0f, 16.0f, 9.0f };
 
 		// Orthographic
-		camera_ =  new vn::camera_orthographic {-1.6f, 1.6f, -0.9f, 0.9f, };
+		// camera_ =  new vn::camera_orthographic {-1.6f, 1.6f, -0.9f, 0.9f, };
 	}
 protected:
 	// Override this if you want
@@ -27,23 +28,23 @@ protected:
 		// Vertices
 		float vertices[] = {
 			// Positions           // Colors
-			 0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // FTR
-			 0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // FBR
-			 0.5f, -0.5f, -0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // FBL
-			 0.5f, -0.5f,  0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // FTL
-			-0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // RTR
-			-0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // RBR
-			-0.5f, -0.5f, -0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // RBL
-			-0.5f, -0.5f,  0.5f,   1.0f, 1.0f, 1.0f, 1.0f, // RTL
+			 1.0f,  1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FTR
+			 1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBR
+			 1.0f, -1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBL
+			 1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FTL
+			-1.0f,  1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTR
+			-1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RBR
+			-1.0f, -1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RBL
+			-1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTL
 		};
 
 		unsigned int positions[]{
-				0, 1, 2, 3, // Front
-				4, 5, 6, 7, // Rear
-				2, 3, 6, 7, // Left
-				0, 1, 4, 5, // Right
-				0, 3, 4, 7, // Top
-				1, 2, 5, 6, // Bottom
+				0, 1, 2, 1, 2, 3, // Front
+				4, 5, 6, 5, 6, 7, // Rear
+				2, 3, 6, 3, 6, 7, // Left
+				0, 1, 4, 1, 4, 5, // Right
+				0, 3, 4, 3, 4, 7, // Top
+				1, 2, 5, 2, 5, 6, // Bottom
 		};
 
 		// Vertex Array
@@ -67,9 +68,17 @@ protected:
 		// endregion
 	}
 
-	virtual void render() override {
+	virtual void update() override {
 		// camera_.rotation(45.0f);
-		camera_->position({ 0.0f, 0.0f, 0.0f });
+		// rotation
+		const float radius = 5.0f;
+		float cx = std::sin(glfwGetTime()) * radius;
+		float cz = std::cos(glfwGetTime()) * radius;
+		camera_->look_at({cx, 0.0, cz }, { 0.0, 0.0, 0.0 }, { 0.0, 1.0, 0.0 });
+		VN_INFO("Update called: {} {} | {}", cx, cz, glfwGetTime());
+	}
+
+	virtual void render() override {
 
 		vn::renderer::start_scene(*camera_);
 		vn::renderer::submit(vao_, shader_);

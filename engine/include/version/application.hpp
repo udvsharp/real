@@ -39,6 +39,7 @@ namespace vn {
 		void run();
 	protected:
 		virtual void render();
+		virtual void update();
 		virtual void on_event(ev &e);
 	private:
 		void on_window_close(window_close_ev &event);
