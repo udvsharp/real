@@ -21,7 +21,7 @@ set(VN_RDOC_CONFIG_OUTFILE "${CMAKE_BINARY_DIR}/rdoc/settings.cap")
 
 configure_file("${CMAKE_SOURCE_DIR}/rdoc/settings.cap" "${VN_RDOC_CONFIG_OUTFILE}")
 
-# TODO: solve problem with single and multiconfig generators
+# FIXME: solve problem with single and multiconfig generators
 if (CMAKE_CONFIGURATION_TYPES)
 	file(
 			GENERATE

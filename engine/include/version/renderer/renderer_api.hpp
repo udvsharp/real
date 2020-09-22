@@ -19,7 +19,7 @@ namespace vn {
 		};
 	public:
 		virtual void clear_color(glm::fvec4 color) = 0;
-		constexpr void clear() { clear(default_clear_bits()); };
+		inline void clear() { clear(default_clear_bits()); };
 		virtual void clear(int32_t bits) = 0;
 
 		virtual api enumval() const = 0;

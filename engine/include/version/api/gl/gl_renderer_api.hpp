@@ -15,7 +15,7 @@ namespace vn {
 		virtual void draw_indexed(const std::shared_ptr<vertex_array> &vao) override;
 		virtual api enumval() const override;
 	private:
-		virtual constexpr int32_t default_clear_bits() const noexcept override;
+		virtual int32_t default_clear_bits() const noexcept override;
 	};
 }
 

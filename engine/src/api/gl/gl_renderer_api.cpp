@@ -24,7 +24,7 @@ namespace vn {
 		return api::gl;
 	}
 
-	constexpr int32_t gl_api::default_clear_bits() const noexcept {
+	int32_t gl_api::default_clear_bits() const noexcept {
 		return (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 }

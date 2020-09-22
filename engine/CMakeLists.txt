@@ -111,16 +111,35 @@ set(
 		include/version/renderer/shaders/base.fs.glsl
 )
 
+file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders")
+
+# FIXME: multi-config generators bug
 foreach (SHADER_SRC ${SHADERS_SRCS})
 	get_filename_component(SHADER_FILENAME "${SHADER_SRC}" NAME)
-	configure_file("${SHADER_SRC}" "${CMAKE_CURRENT_BINARY_DIR}/shaders/${SHADER_FILENAME}" COPYONLY)
-	# TODO: fix build directories for msvc
-	if (MSVC)
-		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/shaders/${SHADER_FILENAME}" COPYONLY)
-		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/shaders/${SHADER_FILENAME}" COPYONLY)
-	else()
-		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_FILENAME}" COPYONLY)
-	endif ()
+
+#	configure_file("${SHADER_SRC}" "${CMAKE_CURRENT_BINARY_DIR}/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
+#	if (MSVC)
+#		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
+#		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
+#	else()
+#		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
+#	endif ()
+
+	set(SHADER_OUTPUT_FILENAME "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_FILENAME}")
+
+	add_custom_command(
+			TARGET ${VN_LIBRARY_TARGET_NAME} PRE_BUILD
+			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+			COMMENT "Copying shader (${SHADER_FILENAME}) to build directory..."
+			BYPRODUCTS "${SHADER_OUTPUT_FILENAME}"
+
+			COMMAND ${CMAKE_COMMAND} -E copy
+					${SHADER_SRC}
+					${SHADER_OUTPUT_FILENAME}
+
+			VERBATIM
+	)
+
 endforeach ()
 
 target_include_directories(
