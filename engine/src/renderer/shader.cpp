@@ -56,6 +56,11 @@ namespace vn {
 		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 	}
 
+	void shader::uniform(const std::string &name, const glm::vec4 &vector) {
+		GLuint location = glGetUniformLocation(id_, name.c_str());
+		glUniform4fv(location, 1, glm::value_ptr(vector));
+	}
+
 	shader::shader(std::string &&vertex_filename, std::string &&fragment_filename) {
 		//region Vertex shader
 		const std::string &v_str = read_file(vertex_filename);

@@ -20,9 +20,6 @@ namespace vn {
 		[[nodiscard]] virtual glm::mat4 view() const noexcept = 0;
 		[[nodiscard]] virtual glm::mat4 viewprojection() const noexcept = 0;
 
-		[[nodiscard]] virtual float rotation() const noexcept = 0;
-		virtual void rotation(float rotation) noexcept = 0;
-
 		virtual void look_at(glm::vec3 center) = 0;
 	private:
 		// Base vectors
@@ -65,21 +62,16 @@ namespace vn {
 		[[nodiscard]] glm::mat4 view() const noexcept override { return view_; }
 		[[nodiscard]] glm::mat4 viewprojection() const noexcept override { return cache_viewprojection_; }
 
-		[[nodiscard]] float rotation() const noexcept override { return rotation_; }
-		void rotation(float rotation) noexcept override { rotation_ = rotation; update(); }
-
 		virtual void look_at(glm::vec3 center) override;
 	};
 
 	class VN_API camera_perspective : public camera {
-
 		glm::mat4 view_;
 		glm::mat4 projection_;
 
 		glm::mat4 cache_viewprojection_;
 
 		// TODO: migrate to quaternions
-		float rotation_ = 0.0f;
 		glm::vec3 position_ = { 0.0f, 0.0f, 0.0f, };
 		glm::vec3 direction_ = { 0.0f, 0.0f, 0.0f, };
 	private:
@@ -103,9 +95,6 @@ namespace vn {
 
 		[[nodiscard]] glm::mat4 view() const noexcept override { return view_; }
 		[[nodiscard]] glm::mat4 viewprojection() const noexcept override { return cache_viewprojection_; }
-
-		[[nodiscard]] float rotation() const noexcept override { return rotation_; }
-		void rotation(float rotation) noexcept override { rotation_ = rotation; update(); }
 
 		virtual void look_at(glm::vec3 center) override;
 	};

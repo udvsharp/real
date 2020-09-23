@@ -21,6 +21,7 @@ namespace vn {
 	void renderer::submit(const std::shared_ptr<vertex_array> &vao, const std::shared_ptr<shader> &shader) noexcept {
 		shader->bind();
 		shader->uniform("u_vp", data_->viewprojection);
+		shader->uniform("u_color", { 1.0f, 1.0f, 1.0f, 1.0f });
 		// TODO: implement render command queue
 		render_command::draw_indexed(vao);
 

@@ -30,6 +30,7 @@ namespace vn {
 		shader(std::string &&vertex_filename, std::string &&fragment_filename);
 
 		void uniform(const std::string &name, const glm::mat4 &matrix);
+		void uniform(const std::string &name, const glm::vec4 &vector);
 
 		void bind() const;
 		void unbind() const;

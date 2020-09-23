@@ -32,14 +32,14 @@ protected:
 		// Vertices
 		float vertices[] = {
 			// Positions           // Colors
-			 1.0f,  1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FTR
-			 1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBR
-			-1.0f, -1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FBL
-			-1.0f,  1.0f,  1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // FTL
-			 1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTR
-			 1.0f, -1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RBR
-			-1.0f, -1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RBL
-			-1.0f,  1.0f, -1.0f,   1.0f, 1.0f, 1.0f, 1.0f, // RTL
+			 1.0f,  1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTR
+			 1.0f, -1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBR
+			-1.0f, -1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBL
+			-1.0f,  1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTL
+			 1.0f,  1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTR
+			 1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBR
+			-1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBL
+			-1.0f,  1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTL
 		};
 
 		unsigned int positions[]{
@@ -59,7 +59,7 @@ protected:
 		vbo_.reset(vn::vertex_buffer::make(vertices, sizeof(vertices)));
 		vbo_->layout({
 		    { vn::shader_data_t::vec3, "_pos",  },
-		    { vn::shader_data_t::vec4, "_color",},
+		    // { vn::shader_data_t::vec4, "_color",},
 		});
 
 		// Index Buffer
@@ -81,11 +81,10 @@ protected:
 		float cz = std::cos(time) * radius;
 
 		// TODO: add Y axis
-		camera_->position( {cx, 0.0, cz} );
-
+		camera_->position( {cx, 2.0f, cz} );
 		camera_->look_at({ 0.0, 0.0, 0.0 });
-		// VN_INFO("Update called: {} {} | {}", cx, cz, time);
 
+		// TODO: timesteps
 		time += 0.001f;
 	}
 

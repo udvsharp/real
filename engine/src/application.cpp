@@ -47,7 +47,7 @@ namespace vn {
 	void application::update() {}
 
 	void application::on_event(ev &e) {
-		VN_CORE_TRACE("Got event: {0}", e);
+		// VN_CORE_TRACE("Got event: {0}", e);
 
 		ev_dispatcher dispatcher{&e};
 		dispatcher.dispatch<window_close_ev>([this](window_close_ev &event) -> bool {
