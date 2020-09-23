@@ -75,23 +75,21 @@ protected:
 		// endregion
 	}
 
-	virtual void update() override {
-		// camera_.rotation(45.0f);
+	virtual void update(vn::timestep ts) override {
 		// rotation
-		static float time = 0;
+		// VN_INFO("Frame Delta time: {}", ts.seconds());
+
 		const float radius = 5.0f;
-		float cx = std::sin(time) * radius;
-		float cz = std::cos(time) * radius;
+		const float speed = 0.5f;
+		float cx = std::sin(vn::time() * speed) * radius;
+		float cz = std::cos(vn::time() * speed) * radius;
 
 		// TODO: add Y axis
 		camera_->position( {cx, 3.0f, cz} );
 		camera_->look_at({ 0.0, 0.0, 0.0 });
-
-		// TODO: timesteps
-		time += 0.0001f;
 	}
 
-	virtual void render() override {
+	virtual void render(vn::timestep ts) override {
 		vn::renderer::start_scene(*camera_);
 		vn::renderer::submit(vao_, shader_);
 		vn::renderer::end_scene();
