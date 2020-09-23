@@ -37,10 +37,16 @@ namespace vn::platform {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		// Testing
+		// Antialiasing
+		glfwWindowHint(GLFW_SAMPLES, 4);
 		native_window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(), nullptr, nullptr);
 		// TODO: abstract api
 		rendering_context_ = new gl_rendering_context{native_window_};
 		rendering_context_->init();
+
+		// Antialiasing
+		glEnable(GL_MULTISAMPLE);
 
 		glfwSetWindowUserPointer(native_window_, &data_);
 		vsync_native(data_.is_v_sync);
