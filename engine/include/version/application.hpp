@@ -13,6 +13,7 @@
 #include "version/input.hpp"
 #include "version/layer_stack.hpp"
 #include "version/renderer.hpp"
+#include "version/time.hpp"
 #include "version/util/singleton.hpp"
 
 namespace vn {
@@ -24,7 +25,10 @@ namespace vn {
 		std::unique_ptr<vn::input> input_;
 
 		layer_stack layers_;
+
 		bool is_running_{true};
+
+		float frametime_ = 0.0f;
 	public:
 		explicit application(std::string name = VN_APPLICATION_DEFAULT_NAME);
 		// virtual ~application() = default;
@@ -32,11 +36,12 @@ namespace vn {
 		[[nodiscard]] inline layer_stack &layers() noexcept { return this->layers_; }
 		[[nodiscard]] inline window &window() const noexcept { return *(this->window_); }
 
+		float time() const;
 		virtual void init();
 		void run();
 	protected:
-		virtual void render();
-		virtual void update();
+		virtual void render(timestep ts);
+		virtual void update(timestep ts);
 		virtual void on_event(ev &e);
 	private:
 		void on_window_close(window_close_ev &event);

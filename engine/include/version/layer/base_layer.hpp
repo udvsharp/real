@@ -4,6 +4,7 @@
 #define VN_LAYER_BASE
 
 #include <string>
+#include <version/time/timestep.hpp>
 
 #include "version/core.hpp"
 #include "version/event.hpp"
@@ -22,7 +23,7 @@ namespace vn {
 
 		virtual void attach();
 		virtual void detach();
-		virtual void update();
+		virtual void update(timestep ts);
 		virtual void handle_event(ev& e);
 	};
 }

@@ -55,8 +55,8 @@ namespace vn {
         layer::detach();
     }
 
-    void imgui_layer::update() {
-        layer::update();
+    void imgui_layer::update(timestep ts) {
+	    layer::update(ts);
 
         ImGuiIO &io     = ImGui::GetIO();
         window  &window = application::instance().window();

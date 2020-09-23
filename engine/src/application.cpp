@@ -26,25 +26,29 @@ namespace vn {
 		VN_CORE_TRACE("Application is running!");
 
 		while (is_running_) {
+			float time = vn::time();
+			timestep timestep = time - frametime_;
+			frametime_ = time;
+
 			render_command::clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
 			render_command::clear();
 
-			render();
+			render(timestep);
 
 			for (auto *layer : layers_) {
-				layer->update();
+				layer->update(timestep);
 			}
 
-			window_->on_update();
-			update();
+			window_->on_update(timestep);
+			update(timestep);
 		}
 
 		VN_CORE_TRACE("Closing application;");
 	}
 
-	void application::render() {}
+	void application::render(timestep ts) {}
 
-	void application::update() {}
+	void application::update(timestep ts) {}
 
 	void application::on_event(ev &e) {
 		// VN_CORE_TRACE("Got event: {0}", e);
@@ -61,6 +65,10 @@ namespace vn {
 				break;
 			}
 		}
+	}
+
+	float application::time() const {
+		return glfwGetTime();
 	}
 
 	void application::on_window_close(window_close_ev &e) {

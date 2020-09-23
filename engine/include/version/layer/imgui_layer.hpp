@@ -14,7 +14,7 @@ namespace vn {
 
         void attach() override;
         void detach() override;
-        void update() override;
+        void update(timestep ts) override;
         void handle_event(ev &ev) override;
     };
 }

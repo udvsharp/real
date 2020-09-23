@@ -1,5 +1,6 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
+#include <version/time/timestep.hpp>
 #include "version/window.hpp"
 
 namespace vn {
@@ -13,7 +14,7 @@ namespace vn {
 
 	window::~window() = default;
 
-	void window::on_update() {
+	void window::on_update(timestep ts) {
 
 	}
 }

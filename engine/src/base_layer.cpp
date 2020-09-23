@@ -15,7 +15,7 @@ namespace vn {
 		VN_CORE_TRACE("Detached layer.");
 	}
 
-	void layer::update() {
+	void layer::update(timestep ts) {
 
 	}
 

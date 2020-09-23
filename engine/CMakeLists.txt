@@ -18,6 +18,7 @@ add_library(
 		include/version/input.hpp
 		include/version/window.hpp
 		include/version/event.hpp
+		include/version/time.hpp
 		# Layers
 		include/version/layer/base_layer.hpp
 		include/version/layer/imgui_layer.hpp
@@ -44,6 +45,9 @@ add_library(
 		include/version/renderer/array_vertex.hpp
 		include/version/renderer/camera.hpp
 		include/version/renderer/common.hpp
+		# Time
+		include/version/time/base_time.hpp
+		include/version/time/timestep.hpp
 		## Api
 		## GL
 		include/version/api/gl/gl_rendering_context.hpp
@@ -59,6 +63,7 @@ add_library(
 		src/base_window.cpp
 		src/layer_stack.cpp
 		src/logger.cpp
+		src/time.cpp
 		# Layers
 		src/base_layer.cpp
 		src/layer/imgui_layer.cpp
@@ -96,11 +101,15 @@ if (WIN32)
 			include/version/platform/windows/windows_window.hpp
 			# Input
 			include/version/platform/windows/windows_input.hpp
+			# Time
+			include/version/platform/windows/windows_time.hpp
 			PRIVATE
 			# Window
 			src/platform/windows/windows_window.cpp
 			# Input
 			src/platform/windows/windows_input.cpp
+			# Time
+			src/platform/windows/windows_time.cpp
 	)
 endif ()
 

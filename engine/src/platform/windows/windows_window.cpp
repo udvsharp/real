@@ -1,6 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include <utility>
+#include <version/time/timestep.hpp>
 
 #include "version/logger.hpp"
 #include "version/event.hpp"
@@ -142,8 +143,8 @@ namespace vn::platform {
 		glfwTerminate(); // TODO: terminate GLFW in rendering context?
 	}
 
-	void window::on_update() {
-		::vn::window::on_update();
+	void window::on_update(timestep ts) {
+		::vn::window::on_update(ts);
 		glfwPollEvents();
 		rendering_context_->swap_buffers();
 	}

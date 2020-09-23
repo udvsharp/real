@@ -19,6 +19,7 @@
 #include "version/layer.hpp"
 #include "version/layer_stack.hpp"
 #include "version/renderer.hpp"
+#include "version/time.hpp"
 //endregion
 
 #ifdef VN_CLIENT

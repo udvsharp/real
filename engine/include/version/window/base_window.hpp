@@ -6,6 +6,7 @@
 #include <string>
 #include <utility>
 #include <functional>
+#include <version/time/timestep.hpp>
 
 #include "version/core.hpp"
 #include "version/event.hpp"
@@ -35,7 +36,7 @@ namespace vn {
 	public:
 		virtual ~window();
 
-		virtual void on_update();
+		virtual void on_update(timestep ts);
 
 		virtual void init() = 0;
 

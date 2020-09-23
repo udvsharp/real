@@ -4,6 +4,7 @@
 #define VN_WINDOWS_WINDOW
 
 #include <utility>
+#include <version/time/timestep.hpp>
 
 // TODO: remove api dependency completely
 #include "version/api/gl/gl_headers.hpp"
@@ -54,7 +55,7 @@ namespace vn::platform {
 		void ev_callback(const ev_callback_t &callback) override;
 		void vsync(bool enabled) override;
 
-		void on_update() override;
+		void on_update(timestep ts) override;
 	private:
 		// Maybe this should be virtual?
 		// void init();
