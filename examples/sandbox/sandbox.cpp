@@ -26,7 +26,10 @@ protected:
 	// Override this if you want
 	virtual void init() override {
 		vn::application::init();
-		shader_.reset(new vn::shader{"shaders/base.vs.glsl", "shaders/base.fs.glsl"});
+		shader_.reset(new vn::shader{});
+		shader_->add_shader(GL_VERTEX_SHADER, "shaders/base.vs.glsl");
+		shader_->add_shader(GL_FRAGMENT_SHADER, "shaders/base.fs.glsl");
+		shader_->link();
 
 		// region Setup rendering
 		// Vertices
@@ -81,11 +84,11 @@ protected:
 		float cz = std::cos(time) * radius;
 
 		// TODO: add Y axis
-		camera_->position( {cx, 2.0f, cz} );
+		camera_->position( {cx, 3.0f, cz} );
 		camera_->look_at({ 0.0, 0.0, 0.0 });
 
 		// TODO: timesteps
-		time += 0.001f;
+		time += 0.0001f;
 	}
 
 	virtual void render() override {

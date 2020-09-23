@@ -5,6 +5,7 @@
 #include "version/renderer/shader.hpp"
 
 namespace vn {
+	//region Helpers
 	std::string shader::read_file(const std::string &filepath) {
 
 		std::string result;
@@ -46,62 +47,64 @@ namespace vn {
 		}
 
 	}
+	//endregion
 
-	shader::shader() : id_{0} {
-
+	shader::shader() : program_id_{0}, shaders_{} {
+		shaders_.reserve(2);
+		program_id_ = glCreateProgram();
 	}
 
-	void shader::uniform(const std::string &name, const glm::mat4 &matrix) {
-		GLuint location = glGetUniformLocation(id_, name.c_str());
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	shader::shader(std::string &&vertex_filename, std::string &&fragment_filename) : shader() {
+		add_shader(GL_VERTEX_SHADER, std::move(vertex_filename));
+		add_shader(GL_FRAGMENT_SHADER, std::move(fragment_filename));
+
+		program_id_ = glCreateProgram();
 	}
 
-	void shader::uniform(const std::string &name, const glm::vec4 &vector) {
-		GLuint location = glGetUniformLocation(id_, name.c_str());
-		glUniform4fv(location, 1, glm::value_ptr(vector));
+	void shader::add_shader(int64_t type, const std::string &filename) {
+		const std::string &source = read_file(filename);
+		const GLchar *const source_buffer = source.c_str();
+
+		GLuint shader_id;
+		shader_id = glCreateShader(type);
+		glShaderSource(shader_id, 1, &source_buffer, nullptr);
+		glCompileShader(shader_id);
+		checkhandle_shader_error(shader_id, GL_COMPILE_STATUS);
+		shaders_.push_back(shader_id);
 	}
 
-	shader::shader(std::string &&vertex_filename, std::string &&fragment_filename) {
-		//region Vertex shader
-		const std::string &v_str = read_file(vertex_filename);
-		const GLchar *const v_src_buffer = v_str.c_str();
+	void shader::link() {
+		for (const GLuint& id : shaders_) {
+			glAttachShader(program_id_, id);
+		}
 
-		GLuint vid;
-		vid = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vid, 1, &v_src_buffer, nullptr);
-		glCompileShader(vid);
-		checkhandle_shader_error(vid, GL_COMPILE_STATUS);
-		//endregion
+		glLinkProgram(program_id_);
+		checkhandle_program_error(program_id_, GL_LINK_STATUS);
 
-		//region Fragment shader
-		const std::string &f_str = read_file(fragment_filename);
-		const GLchar *const f_src_buffer = f_str.c_str();
-
-		GLuint fid;
-		fid = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fid, 1, &f_src_buffer, nullptr);
-		glCompileShader(fid);
-		checkhandle_shader_error(fid, GL_COMPILE_STATUS);
-		//endregion
-		// region Program
-		id_ = glCreateProgram();
-		glAttachShader(id_, vid);
-		glAttachShader(id_, fid);
-		glLinkProgram(id_);
-
-		checkhandle_program_error(id_, GL_LINK_STATUS);
-		// endregion
-
-		glDeleteShader(vid);
-		glDeleteShader(fid);
+		for (const GLuint& id : shaders_) {
+			glDeleteShader(id);
+		}
 	}
-
 
 	void shader::bind() const {
-		glUseProgram(id_);
+		glUseProgram(program_id_);
 	}
 
 	void shader::unbind() const {
 		glUseProgram(0);
 	}
+
+	// region Uniforms
+
+	void shader::uniform(const std::string &name, const glm::mat4 &matrix) {
+		GLuint location = glGetUniformLocation(program_id_, name.c_str());
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
+
+	void shader::uniform(const std::string &name, const glm::vec4 &vector) {
+		GLuint location = glGetUniformLocation(program_id_, name.c_str());
+		glUniform4fv(location, 1, glm::value_ptr(vector));
+	}
+
+	// endregion
 }
