@@ -1,6 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include <version/version.hpp>
+#include <version/transform.hpp>
 #include <cmath>
 
 class application : public vn::application {
@@ -16,7 +17,7 @@ private:
 public:
 	application() : vn::application() {
 		// layers().push_layer(new vn::imgui_layer{});
-		// Pesrspective
+		// Perspective
 		camera_ = new vn::camera_perspective{ 45.0f, 16.0f, 9.0f };
 
 		// Orthographic
@@ -91,7 +92,10 @@ protected:
 
 	virtual void render(vn::timestep ts) override {
 		vn::renderer::start_scene(*camera_);
-		vn::renderer::submit(vao_, shader_);
+
+		vn::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
+
+		vn::renderer::submit(vao_, shader_, transform);
 		vn::renderer::end_scene();
 
 		vn::render_command::draw_indexed(vao_);

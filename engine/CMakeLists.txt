@@ -19,6 +19,7 @@ add_library(
 		include/version/window.hpp
 		include/version/event.hpp
 		include/version/time.hpp
+		include/version/transform.hpp
 		# Layers
 		include/version/layer/base_layer.hpp
 		include/version/layer/imgui_layer.hpp

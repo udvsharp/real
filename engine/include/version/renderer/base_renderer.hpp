@@ -3,6 +3,7 @@
 #ifndef VN_RENDERER_BASE
 #define VN_RENDERER_BASE
 
+#include <version/transform.hpp>
 #include "version/core.hpp"
 #include "version/renderer/renderer_api.hpp"
 #include "version/renderer/camera.hpp"
@@ -15,7 +16,8 @@ namespace vn {
 
 		static void start_scene(camera &camera) noexcept;
 		static void end_scene() noexcept;
-		static void submit(const std::shared_ptr<vertex_array> &vao, const std::shared_ptr<vn::shader> &shader) noexcept;
+		static void submit(const std::shared_ptr<vertex_array> &vao, const std::shared_ptr<shader> &shader,
+		                   const vn::transform &model) noexcept;
 	private:
 		static renderer_api* api_;
 

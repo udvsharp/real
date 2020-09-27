@@ -2,7 +2,10 @@
 ### Global Engine plans  
 - Graphics Engine  
 	- [x] Render first triangle.  
-	- [ ] Render rotating cube.  
+	- [x] Render rotating cube.
+	- [ ] Add transforms.  
+	- [ ] Add textures.  
+	- [ ] Add materials.
 - Modules  
 	- [ ] Own Logging system. 
 ### TODOs  
