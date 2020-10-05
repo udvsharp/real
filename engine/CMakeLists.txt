@@ -196,6 +196,9 @@ set_target_properties(
 		C_STANDARD ${C_STANDARD_DEFAULT}
 		C_STANDARD_REQUIRED ON
 		C_EXTENSIONS OFF
+
+		# Other
+		VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}"
 )
 
 target_compile_definitions(
