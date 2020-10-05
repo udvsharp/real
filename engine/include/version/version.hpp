@@ -36,4 +36,6 @@ int main (int argc, char** argv) {
 // endregion
 #endif
 
+#undef VN_CORE_ERROR
+
 #endif //VN

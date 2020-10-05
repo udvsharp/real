@@ -39,7 +39,7 @@ add_library(
 		include/version/renderer/base_renderer.hpp
 		include/version/renderer/render_command.hpp
 		include/version/renderer/renderer_api.hpp
-		include/version/renderer/shader.hpp
+		include/version/renderer/base_shader.hpp
 		include/version/renderer/buffer_layout.hpp
 		include/version/renderer/buffer_vertex.hpp
 		include/version/renderer/buffer_index.hpp
@@ -57,6 +57,7 @@ add_library(
 		include/version/api/gl/gl_buffer_index.hpp
 		include/version/api/gl/gl_array_vertex.hpp
 		include/version/api/gl/gl_conversions.hpp
+		include/version/api/gl/gl_shader.hpp
 
 		### Sources
 		# Core
@@ -78,7 +79,7 @@ add_library(
 		src/renderer/buffer_index.cpp
 		src/renderer/buffer_layout.cpp
 		src/renderer/array_vertex.cpp
-		src/renderer/shader.cpp
+		src/renderer/base_shader.cpp
 		src/renderer/camera.cpp
 		## Api
 		## GL
@@ -88,6 +89,7 @@ add_library(
 		# Renderer
 		src/api/gl/gl_rendering_context.cpp
 		src/api/gl/gl_renderer_api.cpp
+		src/api/gl/gl_shader.cpp
 		src/api/gl/gl_buffer_vertex.cpp
 		src/api/gl/gl_buffer_index.cpp
 		src/api/gl/gl_array_vertex.cpp

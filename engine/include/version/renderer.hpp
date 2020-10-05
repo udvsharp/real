@@ -11,12 +11,13 @@
 #include "version/renderer/buffer_vertex.hpp"
 #include "version/renderer/buffer_index.hpp"
 #include "version/renderer/buffer_layout.hpp"
-#include "version/renderer/shader.hpp"
+#include "version/renderer/base_shader.hpp"
 #include "version/renderer/camera.hpp"
 // region GL headers
 #include "version/api/gl/gl_rendering_context.hpp"
 #include "version/api/gl/gl_array_vertex.hpp"
 #include "version/api/gl/gl_buffer_vertex.hpp"
+#include "version/api/gl/gl_shader.hpp"
 #include "version/api/gl/gl_buffer_index.hpp"
 #include "version/api/gl/gl_conversions.hpp"
 // endregion

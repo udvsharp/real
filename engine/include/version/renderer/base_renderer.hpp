@@ -7,7 +7,7 @@
 #include "version/core.hpp"
 #include "version/renderer/renderer_api.hpp"
 #include "version/renderer/camera.hpp"
-#include "version/renderer/shader.hpp"
+#include "version/renderer/base_shader.hpp"
 
 namespace vn {
 	class VN_API renderer {
