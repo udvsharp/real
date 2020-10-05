@@ -180,6 +180,9 @@ target_precompile_headers(
 set_target_properties(
 		${REAL_LIBRARY_TARGET_NAME} PROPERTIES
 
+		# Folder
+		FOLDER ${META_REAL_PROJECT_FULL_NAME}/engine
+
 		# Version
 		VERSION ${META_REAL_VERSION}
 		SOVERSION ${META_REAL_VERSION_MAJOR}

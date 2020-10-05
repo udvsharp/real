@@ -54,6 +54,8 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/bin")
 endif ()
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 ### Project
 project(${META_REAL_PROJECT_FULL_NAME}
 		VERSION ${META_REAL_VERSION}
@@ -78,6 +80,7 @@ set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
 set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(SPDLOG_BUILD_TESTS_HO OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/spdlog)
+set_target_properties(spdlog PROPERTIES FOLDER vendor)
 
 # glfw
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
@@ -85,6 +88,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/glfw)
+set_target_properties(glfw PROPERTIES FOLDER vendor)
 
 find_package(OpenGL REQUIRED)
 
@@ -92,10 +96,13 @@ find_package(OpenGL REQUIRED)
 set(GLAD_INSTALL OFF CACHE BOOL "" FORCE)
 set(GLAD_PROFILE "core" CACHE STRING "" FORCE)
 add_subdirectory(vendor/glad)
+set_target_properties(glad PROPERTIES FOLDER vendor)
+set_target_properties(glad-generate-files PROPERTIES FOLDER vendor)
 
 # imgui
 set(IMGUI_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 add_subdirectory(vendor/imgui)
+set_target_properties(imgui PROPERTIES FOLDER vendor)
 
 # glm
 set(GLM_QUIET OFF CACHE BOOL "" FORCE)
