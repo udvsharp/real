@@ -20,7 +20,7 @@ namespace real {
 		glm::vec3 position_ = { 0.0f, 0.0f, 0.0f, };
 		glm::vec3 direction_ = { 0.0f, 0.0f, 0.0f, };
 	public:
-		camera(const glm::mat4 &projection, glm::vec3 position = { 0.0f, 0.0f, 0.0f, },
+		explicit camera(const glm::mat4 &projection, glm::vec3 position = { 0.0f, 0.0f, 0.0f, },
 		       glm::vec3 direction = { 0.0f, 0.0f, 0.0f, });
 
 		virtual void init();

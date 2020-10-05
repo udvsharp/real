@@ -24,7 +24,7 @@ namespace real {
 	}
 
 	void layer_stack::pop_layer(layer *layer) {
-		iterator it = std::find(begin(), end(), layer);
+		auto it = std::find(begin(), end(), layer);
 		if (it != stack_.end()) {
 			(*it)->detach();
 			stack_.erase(it);
@@ -33,7 +33,7 @@ namespace real {
 	}
 
 	void layer_stack::pop_overlay(layer *overlay) {
-		iterator it = std::find(begin(), end(), overlay);
+		auto it = std::find(begin(), end(), overlay);
 		if (it != stack_.end()) {
 			(*it)->detach();
 			stack_.erase(it);

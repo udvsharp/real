@@ -14,7 +14,7 @@ namespace real {
 	private:
 	public:
 		gl_vertex_array();
-		virtual ~gl_vertex_array();
+		~gl_vertex_array() override;
 
 		[[nodiscard]] virtual const std::vector<std::shared_ptr<real::vertex_buffer>>& vertex_buffers() const override { return vertex_buffers_; };
 		[[nodiscard]] virtual const std::vector<std::shared_ptr<real::index_buffer>>& index_buffers() const override { return index_buffers_; };
@@ -22,13 +22,13 @@ namespace real {
 		virtual void add_vertex_buffer(const std::shared_ptr<real::vertex_buffer>& buffer) override;
 		virtual void add_index_buffer(const std::shared_ptr<real::index_buffer>& buffer) override;
 
-		virtual int count() const override;
+		virtual int32_t count() const override;
 
 		virtual void bind() const override;
 		virtual void unbind() const override;
 	private:
 		renderer_id_t renderer_id_;
-		int count_;
+		uint32_t count_;
 
 		std::vector<std::shared_ptr<vertex_buffer>> vertex_buffers_;
 		std::vector<std::shared_ptr<index_buffer>> index_buffers_;

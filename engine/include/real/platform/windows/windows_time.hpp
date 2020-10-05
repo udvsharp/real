@@ -4,10 +4,10 @@
 #define REAL_WINDOWS_TIME
 
 #include "real/core.hpp"
-#include "real/time/base_time.hpp"
+#include "real/api/gl/gl_headers.hpp"
 
 namespace real::platform {
-	REAL_API float time();
+	REAL_API double time();
 }
 
 #endif //REAL_WINDOWS_TIME

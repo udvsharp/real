@@ -36,7 +36,7 @@ namespace real {
 
 // region util macros
 #define SINGLETON(x) x : public real::singleton<x>
-#define DEFINE_SINGLETON_INSTANCE(x, val) template <> x* singleton<x>::instance_ = val;
+#define DEFINE_SINGLETON_INSTANCE(x, val) template <> (x)* singleton<x>::instance_ = val;
 // endregion
 
 #endif //REAL_SINGLETON

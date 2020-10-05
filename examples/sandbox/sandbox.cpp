@@ -80,7 +80,7 @@ protected:
 		// REAL_INFO("Frame Delta time: {}", ts.seconds());
 
 		const float radius = 5.0f;
-		const float speed = 0.5f;у
+		const float speed = 0.5f;
 		float cx = std::sin(real::time() * speed) * radius;
 		float cz = std::cos(real::time() * speed) * radius;
 

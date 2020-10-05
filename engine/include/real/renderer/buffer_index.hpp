@@ -14,9 +14,9 @@ namespace real {
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 
-		[[nodiscard]] virtual unsigned int count() const = 0;
+		[[nodiscard]] virtual uint32_t count() const = 0;
 	public:
-		static index_buffer *make(unsigned int* data, unsigned int size);
+		static index_buffer *make(uint32_t* data, uint32_t size);
 	};
 }
 

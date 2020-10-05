@@ -11,11 +11,11 @@ struct GLFWwindow;
 namespace real {
 	class REAL_API gl_rendering_context : public rendering_context {
 	public:
-		gl_rendering_context(GLFWwindow *window_handle);
+		explicit gl_rendering_context(GLFWwindow *window_handle);
 
-		virtual void init() override;
-		virtual void swap_buffers() override;
-		virtual void vsync(bool enabled) override;
+		void init() override;
+		void swap_buffers() override;
+		void vsync(bool enabled) override;
 	private:
 		GLFWwindow *window_handle_;
 	};

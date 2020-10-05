@@ -15,25 +15,25 @@ namespace real {
 	class REAL_API gl_shader : public real::shader {
 	public:
 		gl_shader();
-		virtual ~gl_shader();
+		~gl_shader() override;
 
 		void add_shader(int64_t type, const std::string& filename) override;
 		void link() override;
 
 		// region Uniforms
 		// Floats
-		virtual void uniform_float(const std::string &name, glm::f32 value) override;
-		virtual void uniform_float(const std::string &name, const glm::fvec2 &value) override;
-		virtual void uniform_float(const std::string &name, const glm::fvec3 &value) override;
-		virtual void uniform_float(const std::string &name, const glm::fvec4 &value) override;
-		virtual void uniform_matrix(const std::string &name, const glm::fmat3 &matrix) override;
-		virtual void uniform_matrix(const std::string &name, const glm::fmat4 &matrix) override;
+		void uniform_float(const std::string &name, glm::f32 value) override;
+		void uniform_float(const std::string &name, const glm::fvec2 &value) override;
+		void uniform_float(const std::string &name, const glm::fvec3 &value) override;
+		void uniform_float(const std::string &name, const glm::fvec4 &value) override;
+		void uniform_matrix(const std::string &name, const glm::fmat3 &matrix) override;
+		void uniform_matrix(const std::string &name, const glm::fmat4 &matrix) override;
 
 		// Ints
-		virtual void uniform_int(const std::string &name, glm::int32 value) override;
-		virtual void uniform_int(const std::string &name, const glm::ivec2 &value) override;
-		virtual void uniform_int(const std::string &name, const glm::ivec3 &value) override;
-		virtual void uniform_int(const std::string &name, const glm::ivec4 &value) override;
+		void uniform_int(const std::string &name, glm::int32 value) override;
+		void uniform_int(const std::string &name, const glm::ivec2 &value) override;
+		void uniform_int(const std::string &name, const glm::ivec3 &value) override;
+		void uniform_int(const std::string &name, const glm::ivec4 &value) override;
 		// endregion
 
 		void bind() const override;

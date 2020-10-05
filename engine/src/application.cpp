@@ -1,5 +1,7 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
+#include <utility>
+
 #include "real/application.hpp"
 
 namespace real {
@@ -26,7 +28,7 @@ namespace real {
 		REAL_CORE_TRACE("Application is running!");
 
 		while (is_running_) {
-			float time = real::time();
+			double time = real::time();
 			timestep timestep = time - frametime_;
 			frametime_ = time;
 
@@ -67,7 +69,7 @@ namespace real {
 		}
 	}
 
-	float application::time() const {
+	double application::time() const {
 		return glfwGetTime();
 	}
 

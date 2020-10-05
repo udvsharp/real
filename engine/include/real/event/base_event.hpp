@@ -15,8 +15,8 @@
 
 namespace real {
 
-	using ev_type_t = int;
-	using ev_category_t = int;
+	using ev_type_t = int32_t;
+	using ev_category_t = int32_t;
 
 	enum class ev_type : ev_type_t {
 		none = 0,
@@ -32,10 +32,10 @@ namespace real {
 	};
 
 	enum class ev_category : ev_category_t {
-		none      = 0,
-		window    = bit(1u),
-		input     = bit(2u),
-		mouse     = bit(3u),
+		none = 0,
+		window = bit(1u),
+		input = bit(2u),
+		mouse = bit(3u),
 		mouse_btn = bit(4u),
 	};
 
@@ -76,12 +76,8 @@ namespace real {
 				ev_type,
 				decltype(
 				detect(std::declval<
-						typename std::enable_if<
-								std::is_base_of<ev, T>::value,
-								T
-						>::type
-				>())
-				)
+						typename std::enable_if<std::is_base_of<ev, T>::value, T>::type
+				>()))
 		>::value;
 #pragma clang diagnostic pop
 	};

@@ -8,7 +8,7 @@
 
 namespace real {
 
-	vertex_buffer *vertex_buffer::make(float *data, unsigned int size) {
+	vertex_buffer *vertex_buffer::make(float *data, uint32_t size) {
 		switch (renderer::api().enumval()) {
 			case renderer_api::api::gl:
 				return new gl_vertex_buffer(data, size);
@@ -21,6 +21,6 @@ namespace real {
 
 	}
 
-	vertex_buffer::~vertex_buffer() {}
+	vertex_buffer::~vertex_buffer() = default;
 
 }

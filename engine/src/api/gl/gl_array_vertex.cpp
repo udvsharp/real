@@ -7,7 +7,7 @@
 
 namespace real {
 	gl_vertex_array::gl_vertex_array()
-		: vertex_buffers_{}, index_buffers_{} {
+			: renderer_id_{ 0 }, vertex_buffers_{}, index_buffers_{}, count_{ 0 } {
 		glGenVertexArrays(1, &renderer_id_);
 	}
 
@@ -16,19 +16,19 @@ namespace real {
 	}
 
 	void gl_vertex_array::add_vertex_buffer(const std::shared_ptr<real::vertex_buffer> &buffer) {
-		real_assert(buffer->layout().attributes().size(), "Vertex buffer has no layout!");
+		real_assert(!buffer->layout().attributes().empty(), "Vertex buffer has no layout!");
 
 		glBindVertexArray(renderer_id_);
 		buffer->bind();
 		buffer->link_to(std::shared_ptr<real::vertex_array>(this));
 
-		unsigned int index = 0;
-		for (auto& a: buffer->layout()) {
+		uint32_t index = 0;
+		for (auto &a: buffer->layout()) {
 			glEnableVertexAttribArray(index);
 			glVertexAttribPointer(index, a.component_count(),
-                  a.api_type(),
-                  a.normalized ? GL_TRUE : GL_FALSE,
-                  buffer->layout().stride(), (const void*)a.offset);
+			                      a.api_type(),
+			                      a.normalized ? GL_TRUE : GL_FALSE,
+			                      buffer->layout().stride(), (const void *) a.offset);
 
 			++index;
 		}
@@ -52,7 +52,7 @@ namespace real {
 		glBindVertexArray(0);
 	}
 
-	int gl_vertex_array::count() const {
+	int32_t gl_vertex_array::count() const {
 		return count_;
 	}
 }

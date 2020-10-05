@@ -11,12 +11,12 @@ namespace real::platform {
 
 	static bool s_glfw_initialized = false;
 
-	void glfw_error_callback(int code, const char* msg) {
+	void glfw_error_callback(int32_t code, const char *msg) {
 		REAL_CORE_ERROR("GLFW Error: ({:#x}) {}", code, msg);
 	}
 
-	window::window(window_data data) : data_(std::move(data)) {
-		// init();
+	window::window(window_data data)
+			: native_window_{ nullptr }, rendering_context_{ nullptr }, data_(std::move(data)) {
 	}
 
 	void window::init() {
@@ -43,7 +43,7 @@ namespace real::platform {
 		glfwWindowHint(GLFW_SAMPLES, 4);
 		native_window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(), nullptr, nullptr);
 		// TODO: abstract api
-		rendering_context_ = new gl_rendering_context{native_window_};
+		rendering_context_ = new gl_rendering_context{ native_window_ };
 		rendering_context_->init();
 
 		// Antialiasing
@@ -59,7 +59,7 @@ namespace real::platform {
 			data.width = width;
 			data.height = height;
 
-			window_resize_ev ev{static_cast<window_dimension_t>(width), static_cast<window_dimension_t>(height)};
+			window_resize_ev ev{ static_cast<window_dimension_t>(width), static_cast<window_dimension_t>(height) };
 			data.ev_callback(ev);
 		});
 
@@ -95,7 +95,7 @@ namespace real::platform {
 			}
 		});
 
-		glfwSetCharCallback(native_window_, [](GLFWwindow *window, unsigned int character) {
+		glfwSetCharCallback(native_window_, [](GLFWwindow *window, uint32_t character) {
 			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
 			key_typed_ev ev(character);
 			data.ev_callback(ev);

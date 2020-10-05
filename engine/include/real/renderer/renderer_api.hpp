@@ -22,11 +22,11 @@ namespace real {
 		inline void clear() { clear(default_clear_bits()); };
 		virtual void clear(int32_t bits) = 0;
 
-		virtual api enumval() const = 0;
+		[[nodiscard]] virtual api enumval() const = 0;
 
 		virtual void draw_indexed(const std::shared_ptr<vertex_array>& vao) = 0;
 	private:
-		virtual constexpr int32_t default_clear_bits() const noexcept = 0;
+		[[nodiscard]] virtual constexpr int32_t default_clear_bits() const noexcept = 0;
 		// static api api_;
 	};
 }

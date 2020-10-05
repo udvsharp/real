@@ -17,5 +17,5 @@ namespace real {
 		}
 	}
 
-	shader::~shader() {}
+	shader::~shader() = default;
 }

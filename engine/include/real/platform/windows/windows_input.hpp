@@ -9,7 +9,7 @@
 namespace real::platform {
     class REAL_API input : public ::real::input {
     public:
-        virtual ~input() {}
+        ~input() override = default;
 
         bool is_key_pressed(key_code keycode) override;
         bool is_mouse_btn_pressed(mouse_btn_t mouse_btn) override;

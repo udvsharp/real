@@ -47,7 +47,6 @@ add_library(
 		include/real/renderer/camera.hpp
 		include/real/renderer/common.hpp
 		# Time
-		include/real/time/base_time.hpp
 		include/real/time/timestep.hpp
 		## Api
 		## GL
@@ -65,7 +64,6 @@ add_library(
 		src/base_window.cpp
 		src/layer_stack.cpp
 		src/logger.cpp
-		src/time.cpp
 		# Layers
 		src/base_layer.cpp
 		src/layer/imgui_layer.cpp
@@ -119,22 +117,20 @@ endif ()
 # Shaders
 set(
 		SHADERS_SRCS
-		include/real/renderer/shaders/base.vs.glsl
-		include/real/renderer/shaders/base.fs.glsl
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.vs.glsl"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.fs.glsl"
 )
 
 file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders")
 
 # FIXME: multi-config generators bug
 foreach (SHADER_SRC ${SHADERS_SRCS})
-	get_filename_component(SHADER_FILENAME "${SHADER_SRC}" NAME)
+	get_filename_component(SHADER_OUTPUT_FILENAME "${SHADER_SRC}" NAME)
 
-	configure_file("${SHADER_SRC}" "${CMAKE_CURRENT_BINARY_DIR}/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
+	configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
 	if (MSVC)
 		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
 		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
-	else()
-		configure_file("${SHADER_SRC}" "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_OUTPUT_FILENAME}" COPYONLY)
 	endif ()
 #
 #	set(SHADER_OUTPUT_FILENAME "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_FILENAME}")
@@ -239,7 +235,7 @@ set_target_properties(
 # Utility
 # Generated Files
 write_compiler_detection_header(
-		FILE "${META_REAL_PROJECT_NAME_PREFIX}/core-compiler.hpp"
+		FILE "${META_REAL_PROJECT_NAME}/core-compiler.hpp"
 		PREFIX ${META_REAL_PROJECT_NAME_PREFIX}
 		COMPILERS Clang GNU MSVC
 		FEATURES cxx_override
@@ -251,7 +247,7 @@ generate_export_header(
 		PREFIX_NAME "${META_REAL_PROJECT_NAME_PREFIX}_"
 		INCLUDE_GUARD_NAME "${META_REAL_PROJECT_NAME_PREFIX}_CORE_COMPILER"
 		EXPORT_MACRO_NAME "API"
-		EXPORT_FILE_NAME "${META_REAL_PROJECT_NAME_PREFIX}/core-export.hpp"
+		EXPORT_FILE_NAME "${META_REAL_PROJECT_NAME}/core-export.hpp"
 		NO_EXPORT_MACRO_NAME "NO_EXPORT"
 		DEPRECATED_MACRO_NAME "DEPRECATED"
 		INCLUDE_GUARD_NAME "${META_REAL_PROJECT_NAME_PREFIX}_CORE_API"

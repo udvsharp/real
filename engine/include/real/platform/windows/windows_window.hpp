@@ -50,7 +50,7 @@ namespace real::platform {
 		[[nodiscard]] inline bool is_v_sync() const noexcept override { return data_.is_v_sync; }
 
 		[[nodiscard]] inline void *native() const noexcept override { return native_window_; }
-		[[nodiscard]] virtual rendering_context *context() const noexcept override { return rendering_context_; };
+		[[nodiscard]] rendering_context *context() const noexcept override { return rendering_context_; };
 
 		void ev_callback(const ev_callback_t &callback) override;
 		void vsync(bool enabled) override;

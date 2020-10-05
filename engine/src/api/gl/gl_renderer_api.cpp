@@ -15,10 +15,10 @@ namespace real {
 	}
 
 	void gl_api::draw_indexed(const std::shared_ptr<vertex_array> &vao) {
-		// TODO: remove hardcoded mode
 		vao->bind();
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // TODO: remove poly mode
 		// glEnable(GL_DEPTH_TEST);
+		// TODO: remove hardcoded mode
 		glDrawElements(GL_TRIANGLES, vao->count(), GL_UNSIGNED_INT, nullptr);
 	}
 

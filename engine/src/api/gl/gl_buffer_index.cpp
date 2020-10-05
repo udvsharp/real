@@ -5,12 +5,12 @@
 
 namespace real {
 
-	gl_index_buffer::gl_index_buffer(unsigned int *data, unsigned int size)
-			: count_{size} {
+	gl_index_buffer::gl_index_buffer(uint32_t *data, uint32_t size)
+			: renderer_id_{0}, count_{size} {
 		glGenBuffers(1, &renderer_id_);
 		// TODO: remove hardcoded buffer data usage
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id_);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count_ * sizeof(unsigned int), data, GL_DYNAMIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count_ * sizeof(uint32_t), data, GL_DYNAMIC_DRAW);
 	}
 
 	gl_index_buffer::~gl_index_buffer() {
@@ -25,7 +25,7 @@ namespace real {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	unsigned int gl_index_buffer::count() const {
+	uint32_t gl_index_buffer::count() const {
 		return count_;
 	}
 }

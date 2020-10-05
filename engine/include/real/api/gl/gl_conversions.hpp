@@ -28,8 +28,8 @@ namespace real {
 			case shader_data_t::bvec3 : return GL_BOOL;
 			case shader_data_t::bvec4 : return GL_BOOL;
 
-			case shader_data_t::none:
-			default: REAL_CORE_ERROR("Unsupported data type: {}!", type); return 0;
+			default:
+			case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!", type); return 0;
 		}
 	}
 }

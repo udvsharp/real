@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 cmake_policy(SET CMP0077 NEW) # option honors normal variables
 
 ### Meta info
-set(META_REAL_PROJECT_NAME "real-engine")
+set(META_REAL_PROJECT_NAME "real")
 string(TOUPPER "real" META_REAL_PROJECT_NAME_PREFIX)
 string(TOUPPER ${META_REAL_PROJECT_NAME} META_REAL_PROJECT_NAME_UPPER)
 set(META_REAL_PROJECT_FULL_NAME "${META_REAL_PROJECT_NAME}-engine")

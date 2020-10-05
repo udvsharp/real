@@ -26,7 +26,7 @@ namespace real {
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 	public:
-		static vertex_buffer *make(float* data, unsigned int size);
+		static vertex_buffer *make(float* data, uint32_t size);
 	};
 }
 

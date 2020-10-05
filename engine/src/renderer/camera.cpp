@@ -46,7 +46,7 @@ namespace real {
 	}
 	// endregion
 
-	//region Orhographic camera
+	//region Orthographic camera
 	camera_orthographic::camera_orthographic(float left, float right, float bottom, float top)
 			: camera{ glm::ortho(left, right, bottom, top, 0.1f, 10.0f) } {
 	}

@@ -8,7 +8,7 @@
 
 namespace real {
 
-	enum class shader_data_t : unsigned int {
+	enum class shader_data_t : uint32_t {
 		none = 0,
 		vec, vec2, vec3, vec4,
 		mat3, mat4,
@@ -16,7 +16,7 @@ namespace real {
 		bvec, bvec2, bvec3, bvec4,
 	};
 
-	[[nodiscard]] static constexpr unsigned int sizeofsdt(shader_data_t type) noexcept {
+	[[nodiscard]] static constexpr uint32_t sizeofsdt(shader_data_t type) noexcept {
 		switch (type) {
 			case shader_data_t::vec   : return 4;
 			case shader_data_t::vec2  : return 4 * 2;
@@ -33,8 +33,8 @@ namespace real {
 			case shader_data_t::bvec3 : return 1 * 3;
 			case shader_data_t::bvec4 : return 1 * 4;
 
-			case shader_data_t::none:
-			default: REAL_CORE_ERROR("Unsupported data type: {}!", type); return 0;
+			default:
+			case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!", type); return 0;
 		}
 	}
 }

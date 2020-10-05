@@ -9,7 +9,7 @@
 Then you need to build generated project.
 
 ### OR
-Use CLion!
+Use CLion!1
 
 ### MSVC
 Generate project files with `"Visual Studio 16 2019"` generator, open generated `.sln` file in Visual Studio and run build.

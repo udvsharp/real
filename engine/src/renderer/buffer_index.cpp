@@ -6,7 +6,7 @@
 
 namespace real {
 
-	index_buffer *index_buffer::make(unsigned int *data, unsigned int size) {
+	index_buffer *index_buffer::make(uint32_t *data, uint32_t size) {
 
 		switch (renderer::api().enumval()) {
 			case renderer_api::api::gl:
@@ -19,6 +19,6 @@ namespace real {
 		}
 	}
 
-	index_buffer::~index_buffer() {}
+	index_buffer::~index_buffer() = default;
 
 }

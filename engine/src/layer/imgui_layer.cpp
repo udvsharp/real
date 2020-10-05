@@ -128,7 +128,7 @@ namespace real {
             return false;
         });
         dispatcher.dispatch<key_typed_ev>([&io](key_typed_ev &ev) -> bool {
-            io.AddInputCharacter(ev.key_code());
+            io.AddInputCharacter(static_cast<unsigned int>(ev.key_code()));
 
             return false;
         });
@@ -142,7 +142,5 @@ namespace real {
     }
 #endif
 
-    imgui_layer::~imgui_layer() {
-
-    }
+    imgui_layer::~imgui_layer() = default;
 }

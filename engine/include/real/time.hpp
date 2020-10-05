@@ -3,7 +3,6 @@
 #ifndef REAL_TIME
 #define REAL_TIME
 
-#include "real/time/base_time.hpp"
 #include "real/time/timestep.hpp"
 
 #ifdef REAL_PLATFORM_WINDOWS
@@ -11,6 +10,11 @@
 #else
 	#error Unsupported platform!
 #endif
+
+namespace real {
+
+	inline double time() { return real::platform::time(); };
+}
 
 
 #endif //REAL_TIME

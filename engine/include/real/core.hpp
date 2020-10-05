@@ -21,7 +21,7 @@
 // endregion
 // region util
 #include <cassert>
-#define real_assert(expr, msg) assert(expr && msg)
+#define real_assert(expr, msg) assert((expr) && (msg))
 // endregion
 // endregion
 // region Core global functions

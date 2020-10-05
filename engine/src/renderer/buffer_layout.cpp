@@ -14,7 +14,7 @@ namespace real {
 	}
 
 	void buffer_layout::calculate_params() {
-		unsigned int offset = 0;
+		uint32_t offset = 0;
 
 		for (auto& a : attributes_) {
 			a.offset = offset;

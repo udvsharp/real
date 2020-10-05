@@ -123,7 +123,7 @@ namespace real {
 		std::ifstream in(filepath, std::ios::in | std::ios::binary);
 		if (in) {
 			in.seekg(0, std::ios::end);
-			size_t size = in.tellg();
+			int32_t size = in.tellg();
 			if (size != -1) {
 				result.resize(size);
 				in.seekg(0, std::ios::beg);

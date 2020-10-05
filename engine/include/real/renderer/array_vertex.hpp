@@ -23,7 +23,7 @@ namespace real {
 		virtual void add_vertex_buffer(const std::shared_ptr<real::vertex_buffer>& buffer) = 0;
 		virtual void add_index_buffer(const std::shared_ptr<real::index_buffer>& buffer) = 0;
 
-		virtual int count() const = 0;
+		virtual int32_t count() const = 0;
 
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;

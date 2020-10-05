@@ -36,7 +36,7 @@ namespace real {
 		[[nodiscard]] inline layer_stack &layers() noexcept { return this->layers_; }
 		[[nodiscard]] inline window &window() const noexcept { return *(this->window_); }
 
-		float time() const;
+		double time() const;
 		virtual void init();
 		void run();
 	protected:

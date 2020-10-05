@@ -8,12 +8,12 @@
 namespace real {
 	class REAL_API timestep {
 	public:
-		timestep(float time = 0.0f) : time_{ time } {}
+		timestep(double time = 0.0f) : time_{ time } {}
 
-		float seconds() const { return time_; };
-		float milliseconds() const { return time_ * 1000.0f; };
+		[[nodiscard]] float seconds() const { return time_; };
+		[[nodiscard]] float milliseconds() const { return time_ * 1000.0f; };
 	private:
-		float time_;
+		double time_;
 	};
 }
 
