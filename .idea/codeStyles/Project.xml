@@ -11,7 +11,7 @@
       <option name="KEEP_NESTED_NAMESPACES_IN_ONE_LINE" value="true" />
       <option name="INSERT_VIRTUAL_WITH_OVERRIDE" value="true" />
       <option name="ADD_GETTER_PREFIX" value="false" />
-      <option name="HEADER_GUARD_STYLE_PATTERN" value="VN_${FILE_NAME}" />
+      <option name="HEADER_GUARD_STYLE_PATTERN" value="REAL_${FILE_NAME}" />
     </Objective-C>
     <Objective-C-extensions>
       <extensions>

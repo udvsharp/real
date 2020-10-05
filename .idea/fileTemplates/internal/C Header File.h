@@ -2,9 +2,9 @@
 #[[#ifndef]]# ${INCLUDE_GUARD}
 #[[#define]]# ${INCLUDE_GUARD}
 
-#[[#include]]# "version/core.hpp"
+#[[#include]]# "real/core.hpp"
 
-namespace vn {
+namespace real {
     
 }
 

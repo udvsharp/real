@@ -1,8 +1,8 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/application.hpp"
+#include "real/application.hpp"
 
-namespace vn {
+namespace real {
 
 	application::application(std::string name)
 			: singleton<application>{},
@@ -23,10 +23,10 @@ namespace vn {
 	}
 
 	void application::run() {
-		VN_CORE_TRACE("Application is running!");
+		REAL_CORE_TRACE("Application is running!");
 
 		while (is_running_) {
-			float time = vn::time();
+			float time = real::time();
 			timestep timestep = time - frametime_;
 			frametime_ = time;
 
@@ -43,7 +43,7 @@ namespace vn {
 			update(timestep);
 		}
 
-		VN_CORE_TRACE("Closing application;");
+		REAL_CORE_TRACE("Closing application;");
 	}
 
 	void application::render(timestep ts) {}
@@ -51,7 +51,7 @@ namespace vn {
 	void application::update(timestep ts) {}
 
 	void application::on_event(ev &e) {
-		// VN_CORE_TRACE("Got event: {0}", e);
+		// REAL_CORE_TRACE("Got event: {0}", e);
 
 		ev_dispatcher dispatcher{&e};
 		dispatcher.dispatch<window_close_ev>([this](window_close_ev &event) -> bool {

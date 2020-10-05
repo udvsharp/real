@@ -1,8 +1,8 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/layer_stack.hpp"
+#include "real/layer_stack.hpp"
 
-namespace vn {
+namespace real {
 	layer_stack::layer_stack() : stack_{} {
 		layer_insert_ = stack_.begin();
 	}

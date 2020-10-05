@@ -2,17 +2,17 @@
 
 #include <utility>
 
-#include "version/layer/base_layer.hpp"
-#include "version/logger.hpp"
+#include "real/layer/base_layer.hpp"
+#include "real/logger.hpp"
 
-namespace vn {
+namespace real {
 
 	void layer::attach() {
-		VN_CORE_TRACE("Attached layer.");
+		REAL_CORE_TRACE("Attached layer.");
 	}
 
 	void layer::detach() {
-		VN_CORE_TRACE("Detached layer.");
+		REAL_CORE_TRACE("Detached layer.");
 	}
 
 	void layer::update(timestep ts) {
@@ -23,7 +23,7 @@ namespace vn {
 
 	}
 
-#ifdef VN_DEBUG
+#ifdef REAL_DEBUG
 	layer::layer(std::string name)
 			: name_{std::move(name)} {}
 #endif

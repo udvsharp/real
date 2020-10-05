@@ -4,7 +4,6 @@
   <component name="CidrRootsConfiguration">
     <sourceRoots>
       <file path="$PROJECT_DIR$/engine/include" />
-      <file path="$PROJECT_DIR$/engine/include/version" />
       <file path="$PROJECT_DIR$/engine/src" />
     </sourceRoots>
     <libraryRoots>

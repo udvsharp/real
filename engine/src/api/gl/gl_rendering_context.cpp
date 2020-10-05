@@ -1,13 +1,13 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/logger.hpp"
-#include "version/api/gl/gl_headers.hpp"
-#include "version/api/gl/gl_rendering_context.hpp"
+#include "real/logger.hpp"
+#include "real/api/gl/gl_headers.hpp"
+#include "real/api/gl/gl_rendering_context.hpp"
 
-namespace vn {
+namespace real {
 	gl_rendering_context::gl_rendering_context(GLFWwindow *window_handle) {
 		window_handle_ = window_handle;
-		vn_assert(window_handle_, "Window handle is nullptr!");
+		real_assert(window_handle_, "Window handle is nullptr!");
 	}
 
 	void gl_rendering_context::init() {
@@ -15,11 +15,11 @@ namespace vn {
 
 		// Glad
 		if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
-			VN_CORE_ERROR("Couldn't load GL!");
+			REAL_CORE_ERROR("Couldn't load GL!");
 		}
 
 		// Info
-		VN_CORE_INFO(
+		REAL_CORE_INFO(
 				"\nOpenGL info:\n"
 				"\tVendor  : {}\n"
 				"\tRenderer: {}\n"

@@ -1,9 +1,9 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/api/gl/gl_headers.hpp"
-#include "version/api/gl/gl_buffer_vertex.hpp"
+#include "real/api/gl/gl_headers.hpp"
+#include "real/api/gl/gl_buffer_vertex.hpp"
 
-namespace vn {
+namespace real {
 
 	gl_vertex_buffer::gl_vertex_buffer(float *data, unsigned int size)
 			: layout_{}, vertex_array_{nullptr} {
@@ -29,7 +29,7 @@ namespace vn {
 		layout_ = buffer_layout{attributes};
 	}
 
-	void gl_vertex_buffer::link_to(const std::shared_ptr<vn::vertex_array> &vertex_array) {
+	void gl_vertex_buffer::link_to(const std::shared_ptr<real::vertex_array> &vertex_array) {
 		vertex_array_ = vertex_array;
 	}
 }

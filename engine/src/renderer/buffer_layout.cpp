@@ -1,8 +1,8 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/renderer/buffer_layout.hpp"
+#include "real/renderer/buffer_layout.hpp"
 
-namespace vn {
+namespace real {
 	buffer_layout::buffer_layout(std::initializer_list<vertex_attribute> attributes)
 			: attributes_{attributes} {
 		calculate_params();

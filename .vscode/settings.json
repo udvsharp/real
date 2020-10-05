@@ -6,6 +6,6 @@
     "cmake.generator": "MinGW Makefiles",
 
     "cmake.configureSettings": {
-        "OPTION_VN_BUILD_EXAMPLES": "ON"
+        "OPTION_REAL_BUILD_EXAMPLES": "ON"
     },
 }

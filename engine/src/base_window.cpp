@@ -1,12 +1,12 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <version/time/timestep.hpp>
-#include "version/window.hpp"
+#include "real/time/timestep.hpp"
+#include "real/window.hpp"
 
-namespace vn {
+namespace real {
 	window *window::make(const window_props &props) {
 		window *window;
-#ifdef VN_PLATFORM_WINDOWS
+#ifdef REAL_PLATFORM_WINDOWS
 		window = new platform::window{props};
 #endif
 		return window;

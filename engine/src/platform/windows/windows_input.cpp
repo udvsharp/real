@@ -1,10 +1,10 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/keycode.hpp"
-#include "version/input.hpp"
-#include "version/application.hpp"
+#include "real/keycode.hpp"
+#include "real/input.hpp"
+#include "real/application.hpp"
 
-namespace vn::platform {
+namespace real::platform {
 	bool input::is_key_pressed(key_code keycode) {
 		auto window = static_cast<GLFWwindow *>(application::instance().window().native());
 		auto state  = glfwGetKey(window, static_cast<int>(keycode));

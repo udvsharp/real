@@ -1,9 +1,9 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/logger.hpp"
-#include "version/renderer.hpp"
+#include "real/logger.hpp"
+#include "real/renderer.hpp"
 
-namespace vn {
+namespace real {
 	// FIXME: write make rendering context method if needed
 	rendering_context *rendering_context::make(api api) {
 		switch (api) {
@@ -14,7 +14,7 @@ namespace vn {
 
 			case api::none:
 			default: {
-				VN_CORE_ERROR("Invalid api: {}", api);
+				REAL_CORE_ERROR("Invalid api: {}", api);
 				return nullptr;
 			}
 		}

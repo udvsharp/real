@@ -2,9 +2,9 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "version/renderer/camera.hpp"
+#include "real/renderer/camera.hpp"
 
-namespace vn {
+namespace real {
 	// region Camera
 	camera::camera(const glm::mat4 &projection, glm::vec3 position, glm::vec3 direction)
 			: position_{ position }, projection_{ projection }, direction_ { direction } {}

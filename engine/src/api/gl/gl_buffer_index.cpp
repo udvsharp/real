@@ -1,9 +1,9 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/api/gl/gl_headers.hpp"
-#include "version/api/gl/gl_buffer_index.hpp"
+#include "real/api/gl/gl_headers.hpp"
+#include "real/api/gl/gl_buffer_index.hpp"
 
-namespace vn {
+namespace real {
 
 	gl_index_buffer::gl_index_buffer(unsigned int *data, unsigned int size)
 			: count_{size} {

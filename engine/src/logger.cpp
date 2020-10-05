@@ -3,9 +3,9 @@
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-#include "version/logger.hpp"
+#include "real/logger.hpp"
 
-namespace vn {
+namespace real {
 	std::shared_ptr<spdlog::logger> logger::core_logger_;
 	std::shared_ptr<spdlog::logger> logger::client_logger_;
 

@@ -2,10 +2,10 @@
 
 #include <glm/glm.hpp>
 
-#include "version/api/gl/gl_headers.hpp"
-#include "version/api/gl/gl_renderer_api.hpp"
+#include "real/api/gl/gl_headers.hpp"
+#include "real/api/gl/gl_renderer_api.hpp"
 
-namespace vn {
+namespace real {
 	void gl_api::clear_color(glm::fvec4 color) {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}

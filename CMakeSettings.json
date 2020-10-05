@@ -7,7 +7,7 @@
       "inheritEnvironments": [ "msvc_x64_x64" ],
       "buildRoot": "${projectDir}\\build\\vs\\${name}",
       "installRoot": "${projectDir}\\out\\install\\${name}",
-      "cmakeCommandArgs": "-DOPTION_VN_BUILD_EXAMPLES=ON",
+      "cmakeCommandArgs": "-DOPTION_REAL_BUILD_EXAMPLES=ON",
       "buildCommandArgs": "",
       "ctestCommandArgs": "",
       "variables": []

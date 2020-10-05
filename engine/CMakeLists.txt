@@ -1,63 +1,63 @@
-message(STATUS "Configuring ${META_VN_NAME_VERSION}")
+message(STATUS "Configuring ${META_REAL_NAME_VERSION}")
 
 # Target
 add_library(
-		${VN_LIBRARY_TARGET_NAME}
+		${REAL_LIBRARY_TARGET_NAME}
 		SHARED  # It is necessary
 
 		### Headers
 		# util
-		include/version/util/singleton.hpp
+		include/real/util/singleton.hpp
 		# Core
-		include/version/version.hpp
-		include/version/core.hpp
-		include/version/application.hpp
-		include/version/logger.hpp
-		include/version/layer.hpp
-		include/version/layer_stack.hpp
-		include/version/input.hpp
-		include/version/window.hpp
-		include/version/event.hpp
-		include/version/time.hpp
-		include/version/transform.hpp
+		include/real/real.hpp
+		include/real/core.hpp
+		include/real/application.hpp
+		include/real/logger.hpp
+		include/real/layer.hpp
+		include/real/layer_stack.hpp
+		include/real/input.hpp
+		include/real/window.hpp
+		include/real/event.hpp
+		include/real/time.hpp
+		include/real/transform.hpp
 		# Layers
-		include/version/layer/base_layer.hpp
-		include/version/layer/imgui_layer.hpp
+		include/real/layer/base_layer.hpp
+		include/real/layer/imgui_layer.hpp
 		# Window
-		include/version/window/base_window.hpp
+		include/real/window/base_window.hpp
 		# Input
-		include/version/keycode.hpp
-		include/version/input/base_input.hpp
+		include/real/keycode.hpp
+		include/real/input/base_input.hpp
 		# Events
-		include/version/event/base_event.hpp
-		include/version/event/key_event.hpp
-		include/version/event/mouse_event.hpp
-		include/version/event/window_event.hpp
+		include/real/event/base_event.hpp
+		include/real/event/key_event.hpp
+		include/real/event/mouse_event.hpp
+		include/real/event/window_event.hpp
 		# Renderer
-		include/version/renderer.hpp
-		include/version/renderer/base_rendering_context.hpp
-		include/version/renderer/base_renderer.hpp
-		include/version/renderer/render_command.hpp
-		include/version/renderer/renderer_api.hpp
-		include/version/renderer/base_shader.hpp
-		include/version/renderer/buffer_layout.hpp
-		include/version/renderer/buffer_vertex.hpp
-		include/version/renderer/buffer_index.hpp
-		include/version/renderer/array_vertex.hpp
-		include/version/renderer/camera.hpp
-		include/version/renderer/common.hpp
+		include/real/renderer.hpp
+		include/real/renderer/base_rendering_context.hpp
+		include/real/renderer/base_renderer.hpp
+		include/real/renderer/render_command.hpp
+		include/real/renderer/renderer_api.hpp
+		include/real/renderer/base_shader.hpp
+		include/real/renderer/buffer_layout.hpp
+		include/real/renderer/buffer_vertex.hpp
+		include/real/renderer/buffer_index.hpp
+		include/real/renderer/array_vertex.hpp
+		include/real/renderer/camera.hpp
+		include/real/renderer/common.hpp
 		# Time
-		include/version/time/base_time.hpp
-		include/version/time/timestep.hpp
+		include/real/time/base_time.hpp
+		include/real/time/timestep.hpp
 		## Api
 		## GL
-		include/version/api/gl/gl_rendering_context.hpp
-		include/version/api/gl/gl_renderer_api.hpp
-		include/version/api/gl/gl_buffer_vertex.hpp
-		include/version/api/gl/gl_buffer_index.hpp
-		include/version/api/gl/gl_array_vertex.hpp
-		include/version/api/gl/gl_conversions.hpp
-		include/version/api/gl/gl_shader.hpp
+		include/real/api/gl/gl_rendering_context.hpp
+		include/real/api/gl/gl_renderer_api.hpp
+		include/real/api/gl/gl_buffer_vertex.hpp
+		include/real/api/gl/gl_buffer_index.hpp
+		include/real/api/gl/gl_array_vertex.hpp
+		include/real/api/gl/gl_conversions.hpp
+		include/real/api/gl/gl_shader.hpp
 
 		### Sources
 		# Core
@@ -98,14 +98,14 @@ add_library(
 # Platform-dependent sources
 if (WIN32)
 	target_sources(
-			${VN_LIBRARY_TARGET_NAME}
+			${REAL_LIBRARY_TARGET_NAME}
 			PUBLIC
 			# Window
-			include/version/platform/windows/windows_window.hpp
+			include/real/platform/windows/windows_window.hpp
 			# Input
-			include/version/platform/windows/windows_input.hpp
+			include/real/platform/windows/windows_input.hpp
 			# Time
-			include/version/platform/windows/windows_time.hpp
+			include/real/platform/windows/windows_time.hpp
 			PRIVATE
 			# Window
 			src/platform/windows/windows_window.cpp
@@ -119,8 +119,8 @@ endif ()
 # Shaders
 set(
 		SHADERS_SRCS
-		include/version/renderer/shaders/base.vs.glsl
-		include/version/renderer/shaders/base.fs.glsl
+		include/real/renderer/shaders/base.vs.glsl
+		include/real/renderer/shaders/base.fs.glsl
 )
 
 file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders")
@@ -140,7 +140,7 @@ foreach (SHADER_SRC ${SHADERS_SRCS})
 #	set(SHADER_OUTPUT_FILENAME "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_FILENAME}")
 #
 #	add_custom_command(
-#			TARGET ${VN_LIBRARY_TARGET_NAME} PRE_BUILD
+#			TARGET ${REAL_LIBRARY_TARGET_NAME} PRE_BUILD
 #			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 #			COMMENT "Copying shader (${SHADER_FILENAME}) to build directory..."
 #			BYPRODUCTS "${SHADER_OUTPUT_FILENAME}"
@@ -155,7 +155,7 @@ foreach (SHADER_SRC ${SHADERS_SRCS})
 endforeach ()
 
 target_include_directories(
-		${VN_LIBRARY_TARGET_NAME}
+		${REAL_LIBRARY_TARGET_NAME}
 		PUBLIC
 		"include"
 		"${CMAKE_CURRENT_BINARY_DIR}"
@@ -164,7 +164,7 @@ target_include_directories(
 )
 
 target_precompile_headers(
-		${VN_LIBRARY_TARGET_NAME}
+		${REAL_LIBRARY_TARGET_NAME}
 		PRIVATE
 		<utility>
 		<functional>
@@ -182,11 +182,11 @@ target_precompile_headers(
 
 # Properties
 set_target_properties(
-		${VN_LIBRARY_TARGET_NAME} PROPERTIES
+		${REAL_LIBRARY_TARGET_NAME} PROPERTIES
 
 		# Version
-		VERSION ${META_VN_VERSION}
-		SOVERSION ${META_VN_VERSION_MAJOR}
+		VERSION ${META_REAL_VERSION}
+		SOVERSION ${META_REAL_VERSION_MAJOR}
 
 		# C++
 		CXX_STANDARD ${CXX_STANDARD_DEFAULT}
@@ -200,35 +200,35 @@ set_target_properties(
 )
 
 target_compile_definitions(
-		${VN_LIBRARY_TARGET_NAME}
+		${REAL_LIBRARY_TARGET_NAME}
 		PRIVATE
 
 		PUBLIC
 		# Build type macros
-		$<$<CONFIG:Debug>:VN_DEBUG>
-		$<$<CONFIG:RelWithDebInfo>:VN_DEBUG>
-		$<$<CONFIG:Release>:VN_RELEASE>
-		$<$<CONFIG:Dist>:VN_DIST>
+		$<$<CONFIG:Debug>:REAL_DEBUG>
+		$<$<CONFIG:RelWithDebInfo>:REAL_DEBUG>
+		$<$<CONFIG:Release>:REAL_RELEASE>
+		$<$<CONFIG:Dist>:REAL_DIST>
 		# Platform macros
-		$<$<PLATFORM_ID:Windows>:VN_PLATFORM_WINDOWS>
+		$<$<PLATFORM_ID:Windows>:REAL_PLATFORM_WINDOWS>
 		INTERFACE
-		VN_CLIENT
+		REAL_CLIENT
 )
 
 target_compile_options(
-		${VN_LIBRARY_TARGET_NAME}
+		${REAL_LIBRARY_TARGET_NAME}
 		PUBLIC
 		${DEFAULT_COMPILER_OPTIONS}
 )
 
 target_link_options(
-		${VN_LIBRARY_TARGET_NAME}
+		${REAL_LIBRARY_TARGET_NAME}
 		PRIVATE
 		${DEFAULT_LINKER_OPTIONS}
 )
 
 set_target_properties(
-		${VN_LIBRARY_TARGET_NAME} PROPERTIES
+		${REAL_LIBRARY_TARGET_NAME} PROPERTIES
 
 		VISIBILITY_INLINES_HIDDEN YES
 		CXX_VISIBILITY_PRESET hidden
@@ -239,22 +239,22 @@ set_target_properties(
 # Utility
 # Generated Files
 write_compiler_detection_header(
-		FILE "${META_VN_PROJECT_NAME}/core-compiler.hpp"
-		PREFIX ${META_VN_PROJECT_NAME_PREFIX}
-		COMPILERS MSVC GNU
+		FILE "${META_REAL_PROJECT_NAME_PREFIX}/core-compiler.hpp"
+		PREFIX ${META_REAL_PROJECT_NAME_PREFIX}
+		COMPILERS Clang GNU MSVC
 		FEATURES cxx_override
 )
 
 generate_export_header(
-		${VN_LIBRARY_TARGET_NAME}
-		BASE_NAME "${META_VN_PROJECT_NAME_PREFIX}"
-		PREFIX_NAME "${META_VN_PROJECT_NAME_PREFIX}_"
-		INCLUDE_GUARD_NAME "${META_VN_PROJECT_NAME_PREFIX}_CORE_COMPILER"
+		${REAL_LIBRARY_TARGET_NAME}
+		BASE_NAME "${META_REAL_PROJECT_NAME_PREFIX}"
+		PREFIX_NAME "${META_REAL_PROJECT_NAME_PREFIX}_"
+		INCLUDE_GUARD_NAME "${META_REAL_PROJECT_NAME_PREFIX}_CORE_COMPILER"
 		EXPORT_MACRO_NAME "API"
-		EXPORT_FILE_NAME "${META_VN_PROJECT_NAME}/core-export.hpp"
+		EXPORT_FILE_NAME "${META_REAL_PROJECT_NAME_PREFIX}/core-export.hpp"
 		NO_EXPORT_MACRO_NAME "NO_EXPORT"
 		DEPRECATED_MACRO_NAME "DEPRECATED"
-		INCLUDE_GUARD_NAME "${META_VN_PROJECT_NAME_PREFIX}_CORE_API"
+		INCLUDE_GUARD_NAME "${META_REAL_PROJECT_NAME_PREFIX}_CORE_API"
 		STATIC_DEFINE "STATIC"
 		NO_DEPRECATED_MACRO_NAME "NO_DEPRECATED"
 
@@ -272,12 +272,12 @@ file(MAKE_DIRECTORY "${LOGS_DIR}")
 if (WIN32 AND MSVC)
 	# Save DLL exports
 	add_custom_command(
-			TARGET ${VN_LIBRARY_TARGET_NAME} POST_BUILD
+			TARGET ${REAL_LIBRARY_TARGET_NAME} POST_BUILD
 			WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
 			COMMENT "Saving DLL file exports"
 			BYPRODUCTS "${LOG_EXPORTS_FILE}"
 
-			COMMAND dumpbin /exports $<TARGET_FILE:${VN_LIBRARY_TARGET_NAME}> > "${LOG_EXPORTS_FILE}"
+			COMMAND dumpbin /exports $<TARGET_FILE:${REAL_LIBRARY_TARGET_NAME}> > "${LOG_EXPORTS_FILE}"
 
 			VERBATIM
 	)

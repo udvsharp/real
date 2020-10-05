@@ -5,7 +5,7 @@
         "commandLine": "",
         "environment": [
         ],
-        "executable": "@VN_RDOC_SANDBOX_FILE@",
+        "executable": "@REAL_RDOC_SANDBOX_FILE@",
         "inject": false,
         "numQueuedFrames": 0,
         "options": {
@@ -22,6 +22,6 @@
             "verifyBufferAccess": false
         },
         "queuedFrameCap": 0,
-        "workingDir": "@VN_RDOC_WORKING_DIR@"
+        "workingDir": "@REAL_RDOC_WORKING_DIR@"
     }
 }

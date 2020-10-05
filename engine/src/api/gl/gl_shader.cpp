@@ -4,10 +4,10 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
-#include "version/api/gl/gl_shader.hpp"
-#include "version/logger.hpp"
+#include "real/api/gl/gl_shader.hpp"
+#include "real/logger.hpp"
 
-namespace vn {
+namespace real {
 
 	gl_shader::gl_shader() : program_id_{ 0}, shaders_{} {
 		shaders_.reserve(2);
@@ -129,10 +129,10 @@ namespace vn {
 				in.seekg(0, std::ios::beg);
 				in.read(&result[0], size);
 			} else {
-				VN_CORE_ERROR("Could not read from file '{0}'", filepath);
+				REAL_CORE_ERROR("Could not read from file '{0}'", filepath);
 			}
 		} else {
-			VN_CORE_ERROR("Could not open file '{0}'", filepath);
+			REAL_CORE_ERROR("Could not open file '{0}'", filepath);
 		}
 
 		return result;
@@ -144,7 +144,7 @@ namespace vn {
 		glGetShaderiv(id, action, &success);
 		if (!success) {
 			glGetShaderInfoLog(id, 512, nullptr, info_log);
-			VN_CORE_ERROR("GL Shader error: {}", info_log);
+			REAL_CORE_ERROR("GL Shader error: {}", info_log);
 		}
 	}
 
@@ -154,7 +154,7 @@ namespace vn {
 		glGetProgramiv(id, action, &success);
 		if (!success) {
 			glGetProgramInfoLog(id, 512, nullptr, info_log);
-			VN_CORE_ERROR("GL Shader Program error: {}", info_log);
+			REAL_CORE_ERROR("GL Shader Program error: {}", info_log);
 		}
 
 	}

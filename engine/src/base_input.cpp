@@ -1,12 +1,12 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include "version/input.hpp"
+#include "real/input.hpp"
 
-namespace vn {
+namespace real {
     input *input::make() {
         input *input;
 
-#ifdef VN_PLATFORM_WINDOWS
+#ifdef REAL_PLATFORM_WINDOWS
         input = new platform::input{};
 #endif
         return input;

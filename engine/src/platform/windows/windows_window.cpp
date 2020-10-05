@@ -1,18 +1,18 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include <utility>
-#include <version/time/timestep.hpp>
+#include "real/time/timestep.hpp"
 
-#include "version/logger.hpp"
-#include "version/event.hpp"
-#include "version/platform/windows/windows_window.hpp"
+#include "real/logger.hpp"
+#include "real/event.hpp"
+#include "real/platform/windows/windows_window.hpp"
 
-namespace vn::platform {
+namespace real::platform {
 
 	static bool s_glfw_initialized = false;
 
 	void glfw_error_callback(int code, const char* msg) {
-		VN_CORE_ERROR("GLFW Error: ({:#x}) {}", code, msg);
+		REAL_CORE_ERROR("GLFW Error: ({:#x}) {}", code, msg);
 	}
 
 	window::window(window_data data) : data_(std::move(data)) {
@@ -21,19 +21,19 @@ namespace vn::platform {
 
 	void window::init() {
 		if (!s_glfw_initialized) {
-			VN_CORE_TRACE("Initializing GLFW...");
+			REAL_CORE_TRACE("Initializing GLFW...");
 
 			if (glfwInit() == GLFW_TRUE) {
 				s_glfw_initialized = true;
-				VN_CORE_INFO("Initialized GLFW");
+				REAL_CORE_INFO("Initialized GLFW");
 			} else {
-				VN_CORE_ERROR("Couldn't initialize GLFW!");
+				REAL_CORE_ERROR("Couldn't initialize GLFW!");
 			}
 
 			glfwSetErrorCallback(glfw_error_callback);
 		}
 
-		VN_CORE_TRACE("Creating window: {0}, {1}, {2}", data_.title, data_.width, data_.height);
+		REAL_CORE_TRACE("Creating window: {0}, {1}, {2}", data_.title, data_.width, data_.height);
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -90,7 +90,7 @@ namespace vn::platform {
 					break;
 				}
 				default: {
-					VN_CORE_ERROR("Unknown key action: {}", action);
+					REAL_CORE_ERROR("Unknown key action: {}", action);
 				}
 			}
 		});
@@ -116,7 +116,7 @@ namespace vn::platform {
 					break;
 				}
 				default: {
-					VN_CORE_ERROR("Unknown key action: {}", action);
+					REAL_CORE_ERROR("Unknown key action: {}", action);
 				}
 			}
 		});
@@ -137,14 +137,14 @@ namespace vn::platform {
 	}
 
 	window::~window() {
-		::vn::window::~window();
-		VN_CORE_TRACE("Destroying native window");
+		::real::window::~window();
+		REAL_CORE_TRACE("Destroying native window");
 		glfwDestroyWindow(native_window_);
 		glfwTerminate(); // TODO: terminate GLFW in rendering context?
 	}
 
 	void window::on_update(timestep ts) {
-		::vn::window::on_update(ts);
+		::real::window::on_update(ts);
 		glfwPollEvents();
 		rendering_context_->swap_buffers();
 	}
