@@ -19,7 +19,7 @@ namespace real {
 
 	}
 
-	void renderer::submit(const std::shared_ptr<vertex_array> &vao, const std::shared_ptr<shader> &shader,
+	void renderer::submit(const real::reference<vertex_array> &vao, const real::reference<shader> &shader,
 	                      const real::transform &model) noexcept {
 		shader->bind();
 		shader->uniform_matrix("u_vp", data_->viewprojection);

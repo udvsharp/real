@@ -12,7 +12,7 @@ namespace real {
 	public:
 		void clear_color(glm::fvec4 color) override;
 		void clear(int32_t bits) override;
-		void draw_indexed(const std::shared_ptr<vertex_array> &vao) override;
+		void draw_indexed(const real::reference<vertex_array> &vao) override;
 		[[nodiscard]] api enumval() const override;
 	private:
 		[[nodiscard]] int32_t default_clear_bits() const noexcept override;

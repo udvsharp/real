@@ -17,11 +17,11 @@ namespace real {
 	public:
 		virtual ~vertex_array();
 
-		[[nodiscard]] virtual const std::vector<std::shared_ptr<real::vertex_buffer>>& vertex_buffers() const = 0;
-		[[nodiscard]] virtual const std::vector<std::shared_ptr<real::index_buffer>>& index_buffers() const = 0;
+		[[nodiscard]] virtual const std::vector<real::reference<real::vertex_buffer>>& vertex_buffers() const = 0;
+		[[nodiscard]] virtual const std::vector<real::reference<real::index_buffer>>& index_buffers() const = 0;
 
-		virtual void add_vertex_buffer(const std::shared_ptr<real::vertex_buffer>& buffer) = 0;
-		virtual void add_index_buffer(const std::shared_ptr<real::index_buffer>& buffer) = 0;
+		virtual void add_vertex_buffer(const real::reference<real::vertex_buffer>& buffer) = 0;
+		virtual void add_index_buffer(const real::reference<real::index_buffer>& buffer) = 0;
 
 		virtual int32_t count() const = 0;
 

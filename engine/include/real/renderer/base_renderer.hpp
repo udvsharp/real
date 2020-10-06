@@ -16,7 +16,7 @@ namespace real {
 
 		static void start_scene(camera &camera) noexcept;
 		static void end_scene() noexcept;
-		static void submit(const std::shared_ptr<vertex_array> &vao, const std::shared_ptr<shader> &shader,
+		static void submit(const real::reference<vertex_array> &vao, const real::reference<shader> &shader,
 		                   const real::transform &model) noexcept;
 	private:
 		static renderer_api* api_;

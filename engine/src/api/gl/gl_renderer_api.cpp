@@ -14,7 +14,7 @@ namespace real {
 		glClear(bits);
 	}
 
-	void gl_api::draw_indexed(const std::shared_ptr<vertex_array> &vao) {
+	void gl_api::draw_indexed(const real::reference<vertex_array> &vao) {
 		vao->bind();
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // TODO: remove poly mode
 		// glEnable(GL_DEPTH_TEST);

@@ -29,7 +29,7 @@ namespace real {
 		layout_ = buffer_layout{attributes};
 	}
 
-	void gl_vertex_buffer::link_to(const std::shared_ptr<real::vertex_array> &vertex_array) {
+	void gl_vertex_buffer::link_to(const real::reference<real::vertex_array> &vertex_array) {
 		vertex_array_ = vertex_array;
 	}
 }

@@ -21,8 +21,8 @@ namespace real {
 	private:
 		std::string name_;
 
-		std::unique_ptr<real::window> window_;
-		std::unique_ptr<real::input> input_;
+		real::scoped_ptr<real::window> window_;
+		real::scoped_ptr<real::input> input_;
 
 		layer_stack layers_;
 

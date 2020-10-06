@@ -18,10 +18,10 @@ namespace real {
 		virtual ~vertex_buffer();
 
 		[[nodiscard]] virtual const buffer_layout& layout() const = 0;
-		[[nodiscard]] virtual const std::shared_ptr<real::vertex_array> & vertex_array() const = 0;
+		[[nodiscard]] virtual const real::reference<real::vertex_array> & vertex_array() const = 0;
 
 		virtual void layout(std::initializer_list<vertex_attribute> attributes) = 0;
-		virtual void link_to(const std::shared_ptr<real::vertex_array> &vertex_array) = 0;
+		virtual void link_to(const real::reference<real::vertex_array> &vertex_array) = 0;
 
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;

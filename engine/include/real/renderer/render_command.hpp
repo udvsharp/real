@@ -19,7 +19,7 @@ namespace real {
 			renderer::api().clear();
 		}
 
-		static inline void draw_indexed(const std::shared_ptr<vertex_array> &vertex_array) {
+		static inline void draw_indexed(const real::reference<vertex_array> &vertex_array) {
 			renderer::api().draw_indexed(vertex_array);
 		}
 	};

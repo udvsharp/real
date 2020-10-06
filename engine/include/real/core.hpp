@@ -26,24 +26,32 @@
 // endregion
 // region Core global functions
 #include <cstdint>
+#include <memory>
 
 namespace real {
 	// region types
-	// TODO: correct types
-	using keycode_t = int;
-
-	using mouse_btn_t = int;
-	using mouse_position_t = int;
-
-	using window_dimension_t = int;
-	using window_position_t = int;
-
+	using keycode_t = int32_t;
+	using mouse_btn_t = int32_t;
+	using mouse_position_t = int32_t;
+	using window_dimension_t = int32_t;
+	using window_position_t = int32_t;
 	using renderer_id_t = uint32_t;
 	// endregion
 	//region util
 	constexpr uint16_t bit(uint16_t x) {
 		return static_cast<uint16_t>(1u << x);
 	}
+	// endregion
+
+	// region Pointers
+	// TODO: make own pointers
+	template<typename T>
+	using reference = std::shared_ptr<T>;
+
+	template<typename T>
+	using scoped_ptr = std::unique_ptr<T>;
+
+
 	// endregion
 }
 // endregion
