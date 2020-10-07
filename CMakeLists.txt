@@ -25,8 +25,11 @@ set(REAL_LIBRARY_TARGET_NAME ${META_REAL_PROJECT_NAME})
 
 ### Project config options
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+
+# Examples
 option(OPTION_REAL_BUILD_EXAMPLES "Build examples" OFF)
-option(OPTION_REAL_BUILD_SANDBOX "Build examples" ON)
+option(OPTION_REAL_EXAMPLES_CUBE "Build rotating cube example" ON)
+option(OPTION_REAL_EXAMPLES_TEXTURE "Build texture example" ON)
 
 ### Language Options
 # C
@@ -42,7 +45,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # TODO: ASM
 
 ### Modules
-list(APPEND CMAKE_MODULE_PATH "cmake")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
 
 include(WriteCompilerDetectionHeader)
 include(GenerateExportHeader)
@@ -63,51 +66,18 @@ project(${META_REAL_PROJECT_FULL_NAME}
 		HOMEPAGE_URL ${META_REAL_AUTHOR_DOMAIN}
 		LANGUAGES C CXX ASM)
 
-include(cmake/compilerOptions.cmake)
+include(compilerOptions)
+include(rdoc)
 
 ### Engine
 add_subdirectory(engine)
 
 # TODO: get rid of dependencies
-## Submodules
+### Submodules
+add_subdirectory(vendor)
 
-# spdlog
-set(SPDLOG_INSTALL OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_BENCH OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_EXAMPLE OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_EXAMPLE_HO OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_SHARED OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(SPDLOG_BUILD_TESTS_HO OFF CACHE BOOL "" FORCE)
-add_subdirectory(vendor/spdlog)
-set_target_properties(spdlog PROPERTIES FOLDER vendor)
-
-# glfw
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
-add_subdirectory(vendor/glfw)
-set_target_properties(glfw PROPERTIES FOLDER vendor)
-
+### Packages
 find_package(OpenGL REQUIRED)
-
-# glad
-set(GLAD_INSTALL OFF CACHE BOOL "" FORCE)
-set(GLAD_PROFILE "core" CACHE STRING "" FORCE)
-add_subdirectory(vendor/glad)
-set_target_properties(glad PROPERTIES FOLDER vendor)
-set_target_properties(glad-generate-files PROPERTIES FOLDER vendor)
-
-# imgui
-set(IMGUI_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-add_subdirectory(vendor/imgui)
-set_target_properties(imgui PROPERTIES FOLDER vendor)
-
-# glm
-set(GLM_QUIET OFF CACHE BOOL "" FORCE)
-set(GLM_TEST_ENABLE OFF CACHE BOOL "" FORCE)
-add_subdirectory(vendor/glm)
 
 target_link_libraries(
 		${REAL_LIBRARY_TARGET_NAME}
