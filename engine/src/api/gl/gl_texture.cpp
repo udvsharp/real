@@ -13,24 +13,27 @@ namespace real {
 
 	void gl_texture2d::init() {
 		int w, h, channels;
+		stbi_set_flip_vertically_on_load(true);
 		stbi_uc *data = stbi_load(path_.c_str(), &w, &h, &channels, 0);
 		real_assert(data, "Failed to load texture image!");
 		width_ = w;
 		height_ = h;
 
-		glCreateTextures(GL_TEXTURE_2D, 1, &id_);
-		REAL_CORE_TRACE("LOL");
-		glTextureStorage2D(id_, 1, GL_RGB8, width_, height_);
+		glGenTextures(1, &id_);
+		// glTextureStorage2D(id_, 1, GL_RGB8, width_, height_); TODO: add dsa
+		glBindTexture(GL_TEXTURE_2D, id_);
 
-		glTextureParameteri(id_, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTextureParameteri(id_, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		// TODO: add API support for parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTextureSubImage2D(
-				id_, 0,
-				0, 0, width_, height_,
-				channels == 3 ? GL_RGB : GL_RGBA,
+		glTexImage2D(
+				GL_TEXTURE_2D, 0,
+				GL_RGB, width_, height_, 0,
+				channels == 3 ? GL_RGB : GL_RGBA, // TODO: add support for different formats
 				GL_UNSIGNED_BYTE, data
 		);
+		glGenerateMipmap(GL_TEXTURE_2D);
 
 		stbi_image_free(data);
 	}
@@ -40,7 +43,7 @@ namespace real {
 	}
 
 	void gl_texture2d::bind(uint32_t slot) const {
-		glBindTextureUnit(slot, id_);
+		glBindTexture(GL_TEXTURE_2D, id_);
 	}
 	// endregion
 }

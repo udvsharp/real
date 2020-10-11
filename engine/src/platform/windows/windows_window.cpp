@@ -25,7 +25,7 @@ namespace real::platform {
 
 			if (glfwInit() == GLFW_TRUE) {
 				s_glfw_initialized = true;
-				REAL_CORE_INFO("Initialized GLFW");
+				REAL_CORE_INFO("Successfully initialized GLFW");
 			} else {
 				REAL_CORE_ERROR("Couldn't initialize GLFW!");
 			}
@@ -46,7 +46,7 @@ namespace real::platform {
 		rendering_context_ = new gl_rendering_context{ native_window_ };
 		rendering_context_->init();
 
-		// Antialiasing
+		// Extensions
 		glEnable(GL_MULTISAMPLE);
 
 		glfwSetWindowUserPointer(native_window_, &data_);

@@ -30,11 +30,13 @@ protected:
 	virtual void init() override {
 		real::application::init();
 
+		REAL_TRACE("Initializing shaders...");
 		shader_.reset(real::shader::make());
 		shader_->add_shader(GL_VERTEX_SHADER, "shaders/tex.vs.glsl");
 		shader_->add_shader(GL_FRAGMENT_SHADER, "shaders/tex.fs.glsl");
 		shader_->link();
 
+		REAL_TRACE("Initializing textures...");
 		texture_ = real::texture2d::make(std::string("assets/textures/checkerboard.png"));
 		texture_->init();
 		shader_->uniform_int("u_texture", 0);
@@ -80,7 +82,7 @@ protected:
 	virtual void render(real::timestep ts) override {
 		real::renderer::start_scene(*camera_);
 
-		real::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
+		real::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
 
 		texture_->bind(0);
 		real::renderer::submit(vao_, shader_, transform);
@@ -95,6 +97,5 @@ protected:
 };
 
 real::application *real::create() {
-	REAL_TRACE("Creating application...");
 	return new ::application();
 }

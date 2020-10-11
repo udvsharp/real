@@ -13,10 +13,10 @@
 // endregion
 // region Macros
 // region Values
-#define REAL_APPLICATION_DEFAULT_NAME "The Version"
+#define REAL_APPLICATION_DEFAULT_NAME "Real Engine"
 #define REAL_DEFAULT_WINDOW_HEIGHT 720
 #define REAL_DEFAULT_WINDOW_WIDTH 1280
-#define REAL_DEFAULT_WINDOW_TITLE "Version Engine"
+#define REAL_DEFAULT_WINDOW_TITLE "Real Engine"
 #define REAL_DEFAULT_WINDOW_V_SYNC false
 // endregion
 // region util

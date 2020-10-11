@@ -7,23 +7,34 @@
 namespace real {
 	gl_rendering_context::gl_rendering_context(GLFWwindow *window_handle) {
 		window_handle_ = window_handle;
-		real_assert(window_handle_, "Window handle is nullptr!");
 	}
 
 	void gl_rendering_context::init() {
+		REAL_CORE_TRACE("Initializing GL rendering context...");
+
 		glfwMakeContextCurrent(window_handle_);
 
+		if (window_handle_ == nullptr) {
+			REAL_CORE_ERROR("Failed to create window(handle is nullptr)!");
+			glfwTerminate();
+			std::terminate();
+		}
+
 		// Glad
+		REAL_CORE_TRACE("Loading GL...");
 		if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
 			REAL_CORE_ERROR("Couldn't load GL!");
+			glfwTerminate();
+			std::terminate();
 		}
+		REAL_CORE_INFO("Loaded GL successfully!");
 
 		// Info
 		REAL_CORE_INFO(
 				"\nOpenGL info:\n"
 				"\tVendor  : {}\n"
 				"\tRenderer: {}\n"
-				"\tVersion : {}\n",
+				"\tVersion : {}",
 				glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION)
 		);
 	}

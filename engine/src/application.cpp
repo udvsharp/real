@@ -21,6 +21,7 @@ namespace real {
 	}
 
 	void application::init() {
+		REAL_CORE_TRACE("Initializing app...");
 		window_->init();
 	}
 

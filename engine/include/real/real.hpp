@@ -27,6 +27,7 @@
 int main ([[maybe_unused]] int argc, [[maybe_unused]] char** argv) {
 	real::logger::init();
 
+	REAL_CORE_TRACE("Creating application...");
 	auto* app = real::create();
 	app->init();
 	app->run();

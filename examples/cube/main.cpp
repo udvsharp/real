@@ -26,6 +26,7 @@ protected:
 	// Override this if you want
 	virtual void init() override {
 		real::application::init();
+
 		shader_.reset(real::shader::make());
 		shader_->add_shader(GL_VERTEX_SHADER, "shaders/base.vs.glsl");
 		shader_->add_shader(GL_FRAGMENT_SHADER, "shaders/base.fs.glsl");
@@ -106,6 +107,5 @@ protected:
 };
 
 real::application *real::create() {
-	REAL_TRACE("Creating application...");
 	return new ::application();
 }
