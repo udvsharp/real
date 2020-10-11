@@ -12,12 +12,14 @@
 #include "real/renderer/buffer_index.hpp"
 #include "real/renderer/buffer_layout.hpp"
 #include "real/renderer/base_shader.hpp"
+#include "real/renderer/base_texture.hpp"
 #include "real/renderer/camera.hpp"
 // region GL headers
 #include "real/api/gl/gl_rendering_context.hpp"
 #include "real/api/gl/gl_array_vertex.hpp"
 #include "real/api/gl/gl_buffer_vertex.hpp"
 #include "real/api/gl/gl_shader.hpp"
+#include "real/api/gl/gl_texture.hpp"
 #include "real/api/gl/gl_buffer_index.hpp"
 #include "real/api/gl/gl_conversions.hpp"
 // endregion

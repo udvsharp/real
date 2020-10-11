@@ -68,6 +68,7 @@ project(${META_REAL_PROJECT_FULL_NAME}
 
 include(compilerOptions)
 include(rdoc)
+include(assets)
 
 ### Engine
 add_subdirectory(engine)
@@ -88,6 +89,8 @@ target_link_libraries(
 		spdlog::spdlog
 		OpenGL::GL
 		glm::glm
+
+		stb
 )
 
 ### Examples

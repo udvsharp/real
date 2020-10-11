@@ -11,12 +11,9 @@ macro (add_example EX_NAME)
 	set(EXAMPLE_TARGET_NAME)
 	example_target_name_for(${EX_NAME} EXAMPLE_TARGET_NAME)
 
-	set(EXAMPLE_SOURCES)
+	set(EXAMPLE_SOURCES ${ARGN})
 
-	foreach (src IN LISTS ARGN)
-		list(APPEND EXAMPLE_SOURCES ${src})
-	endforeach ()
-
+	message(STATUS "Adding real example: ${EX_NAME}(${EXAMPLE_SOURCES})")
 	### Target
 	add_executable(
 			${EXAMPLE_TARGET_NAME}
@@ -71,6 +68,7 @@ if (OPTION_REAL_EXAMPLES_TEXTURE)
 			texture
 			texture/main.cpp
 	)
+	add_assets_dir(texture/assets)
 endif ()
 
 # RenderDoc

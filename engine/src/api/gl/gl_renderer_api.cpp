@@ -16,7 +16,7 @@ namespace real {
 
 	void gl_api::draw_indexed(const real::reference<vertex_array> &vao) {
 		vao->bind();
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // TODO: remove poly mode
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // TODO: remove poly mode
 		// glEnable(GL_DEPTH_TEST);
 		// TODO: remove hardcoded mode
 		glDrawElements(GL_TRIANGLES, vao->count(), GL_UNSIGNED_INT, nullptr);

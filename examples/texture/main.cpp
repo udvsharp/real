@@ -1,18 +1,18 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include <real/real.hpp>
-#include <cmath>
 
 class application : public real::application {
 private:
 	// Rendering
-	std::shared_ptr<real::vertex_array> vao_;
-	std::shared_ptr<real::vertex_buffer> vbo_;
-	std::shared_ptr<real::index_buffer> ibo_;
+	real::reference<real::vertex_array> vao_;
+	real::reference<real::vertex_buffer> vbo_;
+	real::reference<real::index_buffer> ibo_;
 
 	real::camera* camera_;
 
-	std::shared_ptr<real::shader> shader_;
+	real::reference<real::texture> texture_;
+	real::reference<real::shader> shader_;
 public:
 	application() : real::application() {
 		// layers().push_layer(new real::imgui_layer{});
@@ -21,37 +21,36 @@ public:
 
 		// Orthographic
 		// camera_ =  new real::camera_orthographic {-3.2f, 3.2f, -1.8f, 1.8f, };
+
+		camera_->position( {0.0f, 0.0f, 5.0f} );
+		camera_->look_at({ 0.0, 0.0, 0.0 });
 	}
 protected:
 	// Override this if you want
 	virtual void init() override {
 		real::application::init();
+
 		shader_.reset(real::shader::make());
-		shader_->add_shader(GL_VERTEX_SHADER, "shaders/base.vs.glsl");
-		shader_->add_shader(GL_FRAGMENT_SHADER, "shaders/base.fs.glsl");
+		shader_->add_shader(GL_VERTEX_SHADER, "shaders/tex.vs.glsl");
+		shader_->add_shader(GL_FRAGMENT_SHADER, "shaders/tex.fs.glsl");
 		shader_->link();
+
+		texture_ = real::texture2d::make(std::string("assets/textures/checkerboard.png"));
+		texture_->init();
+		shader_->uniform_int("u_texture", 0);
 
 		// region Setup rendering
 		// Vertices
 		float vertices[] = {
-			// Positions           // Colors
-			 1.0f,  1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTR
-			 1.0f, -1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBR
-			-1.0f, -1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBL
-			-1.0f,  1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTL
-			 1.0f,  1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTR
-			 1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBR
-			-1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBL
-			-1.0f,  1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTL
+			// Positions           // Texture coords   // Colors
+			 1.0f,  1.0f,  1.0f,   1.0f,  1.0f,        // 1.0f, 1.0f, 1.0f, 1.0f, // TR
+			 1.0f, -1.0f,  1.0f,   1.0f,  0.0f,        // 1.0f, 1.0f, 1.0f, 1.0f, // BR
+			-1.0f, -1.0f,  1.0f,   0.0f,  0.0f,        // 1.0f, 1.0f, 1.0f, 1.0f, // BL
+			-1.0f,  1.0f,  1.0f,   0.0f,  1.0f,        // 1.0f, 1.0f, 1.0f, 1.0f, // TL
 		};
 
 		unsigned int positions[]{
 				0, 1, 2, 0, 2, 3, // Front  0 1 2 3
-				4, 5, 6, 4, 6, 7, // Rear   4 5 6 7
-				2, 3, 6, 3, 6, 7, // Left   2 3 6 7
-				0, 1, 4, 1, 4, 5, // Right  0 1 4 5
-				0, 3, 4, 3, 4, 7, // Top    0 3 4 7
-				1, 2, 5, 2, 5, 6, // Bottom 1 2 5 6
 		};
 
 		// Vertex Array
@@ -62,6 +61,7 @@ protected:
 		vbo_.reset(real::vertex_buffer::make(vertices, sizeof(vertices)));
 		vbo_->layout({
 		    { real::shader_data_t::vec3, "_pos",  },
+		    { real::shader_data_t::vec2, "_texcoord",},
 		    // { real::shader_data_t::vec4, "_color",},
 		});
 
@@ -75,25 +75,14 @@ protected:
 		// endregion
 	}
 
-	virtual void update(real::timestep ts) override {
-		// rotation
-		// REAL_INFO("Frame Delta time: {}", ts.seconds());
-
-		const float radius = 5.0f;
-		const float speed = 0.5f;
-		float cx = std::sin(real::time() * speed) * radius;
-		float cz = std::cos(real::time() * speed) * radius;
-
-		// TODO: add Y axis
-		camera_->position( {cx, 3.0f, cz} );
-		camera_->look_at({ 0.0, 0.0, 0.0 });
-	}
+	virtual void update(real::timestep ts) override {}
 
 	virtual void render(real::timestep ts) override {
 		real::renderer::start_scene(*camera_);
 
 		real::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
 
+		texture_->bind(0);
 		real::renderer::submit(vao_, shader_, transform);
 		real::renderer::end_scene();
 

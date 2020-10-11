@@ -1,4 +1,4 @@
-# The Version
+# The Real Engine
 [//]: # (TODO: add logo)
 
 **The Real Engine** is a cross-platform 3D rendering engine.

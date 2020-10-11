@@ -12,6 +12,7 @@
       <file path="$PROJECT_DIR$/vendor/glm" />
       <file path="$PROJECT_DIR$/vendor/imgui" />
       <file path="$PROJECT_DIR$/vendor/spdlog" />
+      <file path="$PROJECT_DIR$/vendor/stb" />
     </libraryRoots>
     <excludeRoots>
       <file path="$PROJECT_DIR$/.vs" />

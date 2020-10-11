@@ -6,13 +6,13 @@
 class application : public real::application {
 private:
 	// Rendering
-	std::shared_ptr<real::vertex_array> vao_;
-	std::shared_ptr<real::vertex_buffer> vbo_;
-	std::shared_ptr<real::index_buffer> ibo_;
+	real::reference<real::vertex_array> vao_;
+	real::reference<real::vertex_buffer> vbo_;
+	real::reference<real::index_buffer> ibo_;
 
 	real::camera* camera_;
 
-	std::shared_ptr<real::shader> shader_;
+	real::reference<real::shader> shader_;
 public:
 	application() : real::application() {
 		// layers().push_layer(new real::imgui_layer{});

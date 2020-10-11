@@ -40,6 +40,7 @@ add_library(
 		include/real/renderer/render_command.hpp
 		include/real/renderer/renderer_api.hpp
 		include/real/renderer/base_shader.hpp
+		include/real/renderer/base_texture.hpp
 		include/real/renderer/buffer_layout.hpp
 		include/real/renderer/buffer_vertex.hpp
 		include/real/renderer/buffer_index.hpp
@@ -57,6 +58,7 @@ add_library(
 		include/real/api/gl/gl_array_vertex.hpp
 		include/real/api/gl/gl_conversions.hpp
 		include/real/api/gl/gl_shader.hpp
+		include/real/api/gl/gl_texture.hpp
 
 		### Sources
 		# Core
@@ -78,6 +80,7 @@ add_library(
 		src/renderer/buffer_layout.cpp
 		src/renderer/array_vertex.cpp
 		src/renderer/base_shader.cpp
+		src/renderer/base_texture.cpp
 		src/renderer/camera.cpp
 		## Api
 		## GL
@@ -88,9 +91,12 @@ add_library(
 		src/api/gl/gl_rendering_context.cpp
 		src/api/gl/gl_renderer_api.cpp
 		src/api/gl/gl_shader.cpp
+		src/api/gl/gl_texture.cpp
 		src/api/gl/gl_buffer_vertex.cpp
 		src/api/gl/gl_buffer_index.cpp
 		src/api/gl/gl_array_vertex.cpp
+		## Other
+		src/stb.cpp
 )
 
 # Platform-dependent sources
@@ -119,6 +125,8 @@ set(
 		SHADERS_SRCS
 		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.vs.glsl"
 		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.fs.glsl"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/tex.vs.glsl"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/tex.fs.glsl"
 )
 
 file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders")
