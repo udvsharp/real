@@ -19,18 +19,35 @@ namespace real {
 		width_ = w;
 		height_ = h;
 
-		glGenTextures(1, &id_);
-		// glTextureStorage2D(id_, 1, GL_RGB8, width_, height_); TODO: add dsa
+		GLenum format_internal = 0, format_data = 0;
+		if (channels == 4)
+		{
+			format_internal = GL_RGBA8;
+			format_data = GL_RGBA;
+		}
+		else if (channels == 3)
+		{
+			format_internal = GL_RGB8;
+			format_data = GL_RGB;
+		}
+
+		real_assert(format_internal & format_data, "Format not supported!");
+
+		glCreateTextures(GL_TEXTURE_2D, 1, &id_);
+		glTextureStorage2D(id_, 1, format_internal, width_, height_);
 		glBindTexture(GL_TEXTURE_2D, id_);
 
 		// TODO: add API support for parameters
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTextureParameteri(id_, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTextureParameteri(id_, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTexImage2D(
-				GL_TEXTURE_2D, 0,
-				GL_RGB, width_, height_, 0,
-				channels == 3 ? GL_RGB : GL_RGBA, // TODO: add support for different formats
+		glTextureParameteri(id_, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(id_, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		glTextureSubImage2D(
+				id_, 0,
+				0, 0, width_, height_,
+				format_data,
 				GL_UNSIGNED_BYTE, data
 		);
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -43,7 +60,7 @@ namespace real {
 	}
 
 	void gl_texture2d::bind(uint32_t slot) const {
-		glBindTexture(GL_TEXTURE_2D, id_);
+		glBindTextureUnit(slot, id_);
 	}
 	// endregion
 }

@@ -46,9 +46,6 @@ namespace real::platform {
 		rendering_context_ = new gl_rendering_context{ native_window_ };
 		rendering_context_->init();
 
-		// Extensions
-		glEnable(GL_MULTISAMPLE);
-
 		glfwSetWindowUserPointer(native_window_, &data_);
 		vsync_native(data_.is_v_sync);
 

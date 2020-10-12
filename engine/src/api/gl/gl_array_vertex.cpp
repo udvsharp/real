@@ -8,7 +8,7 @@
 namespace real {
 	gl_vertex_array::gl_vertex_array()
 			: renderer_id_{ 0 }, vertex_buffers_{}, index_buffers_{}, count_{ 0 } {
-		glGenVertexArrays(1, &renderer_id_);
+		glCreateVertexArrays(1, &renderer_id_);
 	}
 
 	gl_vertex_array::~gl_vertex_array() {

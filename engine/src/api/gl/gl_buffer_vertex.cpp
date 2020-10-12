@@ -7,7 +7,7 @@ namespace real {
 
 	gl_vertex_buffer::gl_vertex_buffer(float *data, uint32_t size)
 			: renderer_id_{0}, layout_{}, vertex_array_{nullptr} {
-		glGenBuffers(1, &renderer_id_);
+		glCreateBuffers(1, &renderer_id_);
 		// TODO: remove hardcoded buffer data usage
 		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
