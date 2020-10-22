@@ -14,6 +14,7 @@ namespace real {
 	public:
 		[[nodiscard]] static inline renderer_api& api() noexcept { return *api_; }
 
+		static void init();
 		static void start_scene(camera &camera) noexcept;
 		static void end_scene() noexcept;
 		static void submit(const real::reference<vertex_array> &vao, const real::reference<shader> &shader,

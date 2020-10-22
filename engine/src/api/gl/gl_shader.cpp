@@ -52,6 +52,7 @@ namespace real {
 	}
 
 	// region Uniforms
+	// IMP: migrate to "uniform" form
 	// TODO: read uniforms from shader source code
 
 	GLint gl_shader::location_of(const std::string &name) const {
@@ -60,7 +61,7 @@ namespace real {
 		}
 
 		GLint location = glGetUniformLocation(program_id_, name.c_str());
-		uniform_locations_cache_[name] = location;
+		uniform_locations_cache_[name] = location; 
 		return location;
 	}
 

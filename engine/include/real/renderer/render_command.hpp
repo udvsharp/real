@@ -15,6 +15,10 @@ namespace real {
 			renderer::api().clear_color(color);
 		}
 
+		static void init() {
+			renderer::api().init();
+		}
+
 		static inline void clear() {
 			renderer::api().clear();
 		}

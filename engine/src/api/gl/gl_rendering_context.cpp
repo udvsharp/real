@@ -37,10 +37,6 @@ namespace real {
 				"\tVersion : {}",
 				glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION)
 		);
-
-		// Extensions
-		glEnable(GL_MULTISAMPLE);
-		glEnable(GL_EXT_direct_state_access);
 	}
 
 	void gl_rendering_context::swap_buffers() {

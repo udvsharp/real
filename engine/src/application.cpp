@@ -23,6 +23,7 @@ namespace real {
 	void application::init() {
 		REAL_CORE_TRACE("Initializing app...");
 		window_->init();
+		renderer::init();
 	}
 
 	void application::run() {
@@ -33,7 +34,7 @@ namespace real {
 			timestep timestep = time - frametime_;
 			frametime_ = time;
 
-			render_command::clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
+			render_command::clear_color({ 1.0f, 1.0f, 1.0f, 1.0f });
 			render_command::clear();
 
 			render(timestep);

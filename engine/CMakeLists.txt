@@ -118,6 +118,14 @@ if (WIN32)
 			# Time
 			src/platform/windows/windows_time.cpp
 	)
+
+	target_precompile_headers(
+			${REAL_LIBRARY_TARGET_NAME}
+			PRIVATE
+
+			# Platform-dependent headers
+			<Windows.h>
+	)
 endif ()
 
 # Shaders
@@ -179,9 +187,6 @@ target_precompile_headers(
 		<map>
 		<string>
 		<set>
-
-		# Platform-dependent headers
-		$<$<PLATFORM_ID:Windows>:<Windows.h>>
 )
 
 # Properties

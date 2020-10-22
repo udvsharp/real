@@ -18,6 +18,7 @@ namespace real {
 			gl = 1,
 		};
 	public:
+		virtual void init() = 0;
 		virtual void clear_color(glm::fvec4 color) = 0;
 		inline void clear() { clear(default_clear_bits()); };
 		virtual void clear(int32_t bits) = 0;

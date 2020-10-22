@@ -6,6 +6,19 @@
 #include "real/api/gl/gl_renderer_api.hpp"
 
 namespace real {
+
+	void gl_api::init() {
+		// Multisampling
+		glEnable(GL_MULTISAMPLE);
+
+		// Blending
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		// Extensions
+		glEnable(GL_EXT_direct_state_access);
+	}
+
 	void gl_api::clear_color(glm::fvec4 color) {
 		glClearColor(color.r, color.g, color.b, color.a);
 	}

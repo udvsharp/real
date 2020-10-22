@@ -15,6 +15,10 @@ namespace real {
 		data_->viewprojection = camera.viewprojection();
 	}
 
+	void renderer::init() {
+		render_command::init();
+	}
+
 	void renderer::end_scene() noexcept {
 
 	}

@@ -2,6 +2,9 @@
 
 #include <real/real.hpp>
 
+// #define TEXTURE_FILENAME "assets/textures/checkerboard.png"
+#define TEXTURE_FILENAME "assets/textures/parrot.gif" // LOL this is bad texture...............
+
 class application : public real::application {
 private:
 	// Rendering
@@ -37,7 +40,7 @@ protected:
 		shader_->link();
 
 		REAL_TRACE("Initializing textures...");
-		texture_ = real::texture2d::make(std::string("assets/textures/checkerboard.png"));
+		texture_ = real::texture2d::make(std::string(TEXTURE_FILENAME));
 		texture_->init();
 		shader_->uniform_int("u_texture", 0);
 

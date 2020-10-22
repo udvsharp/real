@@ -10,6 +10,7 @@
 namespace real {
 	class REAL_API gl_api : public renderer_api {
 	public:
+		virtual void init() override;
 		void clear_color(glm::fvec4 color) override;
 		void clear(int32_t bits) override;
 		void draw_indexed(const real::reference<vertex_array> &vao) override;
