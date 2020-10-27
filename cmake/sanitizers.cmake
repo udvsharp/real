@@ -1,46 +1,21 @@
-include(CMakeParseArguments)
+set(WANTED_SANITIZE_THREAD ${SANITIZE_THREAD})
+set(WANTED_SANITIZE_UNDEFINED ${SANITIZE_UNDEFINED})
+set(WANTED_SANITIZE_MEMORY ${SANITIZE_MEMORY})
+set(WANTED_SANITIZE_ADDRESS ${SANITIZE_ADDRESS})
 
-set(SANITIZER_COMPILER_FLAGS ""
-		CACHE INTERNAL "")
-
-if (REAL_SANITIZER)
-	set(SANITIZER_COMPILER_FLAGS "-g -O3 -fsanitize=${REAL_SANITIZER}"
-			CACHE INTERNAL "")
-endif ()
-
-set(CMAKE_CXX_FLAGS_SANITIZER
-		${SANITIZER_COMPILER_FLAGS}
-		CACHE STRING "Flags used by the C++ compiler during coverage builds."
-		FORCE)
-set(CMAKE_C_FLAGS_SANITIZER
-		${SANITIZER_COMPILER_FLAGS}
-		CACHE STRING "Flags used by the C compiler during coverage builds."
-		FORCE)
-set(CMAKE_EXE_LINKER_FLAGS_SANITIZER
-		""
-		CACHE STRING "Flags used for linking binaries during coverage builds."
-		FORCE)
-set(CMAKE_SHARED_LINKER_FLAGS_SANITIZER
-		""
-		CACHE STRING "Flags used by the shared libraries linker during coverage builds."
-		FORCE)
-mark_as_advanced(
-		CMAKE_CXX_FLAGS_SANITIZER
-		CMAKE_C_FLAGS_SANITIZER
-		CMAKE_EXE_LINKER_FLAGS_SANITIZER
-		CMAKE_SHARED_LINKER_FLAGS_SANITIZER
-)
-
-if (NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
-	message(WARNING "Code coverage results with an optimised (non-Debug) build may be misleading")
-endif ()
-
-if (CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
-	link_libraries(gcov)
-endif ()
-
-function (append_sanitizer_compiler_flags)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_CXX_FLAGS_SANITIZER}" PARENT_SCOPE)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS_SANITIZER}" PARENT_SCOPE)
-	message(STATUS "Appending code coverage compiler flags: ${SANITIZER_COMPILER_FLAGS}")
+function (check_sanitizer NAME PREFIX)
+	if (${WANTED_SANITIZE_${NAME}})
+		if ("${${PREFIX}_${CMAKE_C_COMPILER_ID}_FLAGS}" STREQUAL "")
+			message(FATAL_ERROR ${NAME} " sanitizer is NOT available")
+		else ()
+			message(STATUS ${NAME} " sanitizer is available")
+		endif ()
+	endif ()
 endfunction ()
+
+check_sanitizer(THREAD TSan)
+check_sanitizer(UNDEFINED UBSan)
+check_sanitizer(MEMORY MSan)
+check_sanitizer(ADDRESS ASan)
+
+# TODO: figure out what to do with sanitizers!
