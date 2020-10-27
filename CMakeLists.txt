@@ -32,6 +32,8 @@ option(OPTION_REAL_EXAMPLES_CUBE "Build rotating cube example" ON)
 option(OPTION_REAL_EXAMPLES_TEXTURE "Build texture example" ON)
 option(OPTION_REAL_ENABLE_COVERAGE "Enable code coverage" OFF)
 option(OPTION_REAL_ENABLE_SANITIZE "Enable sanitizers" OFF)
+set(REAL_SANITIZER "" CACHE STRING "Choose which sanitizer to use")
+set_property(CACHE REAL_SANITIZER PROPERTY STRINGS "thread" "leak" "undefined" "address" "memory")
 
 ### Language Options
 # C

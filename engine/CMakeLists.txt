@@ -182,8 +182,11 @@ target_precompile_headers(
 		<functional>
 
 		<iostream>
+		<fstream>
 
 		<vector>
+		<array>
+		<unordered_map>
 		<map>
 		<string>
 		<set>
