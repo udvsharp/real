@@ -30,6 +30,8 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(OPTION_REAL_BUILD_EXAMPLES "Build examples" OFF)
 option(OPTION_REAL_EXAMPLES_CUBE "Build rotating cube example" ON)
 option(OPTION_REAL_EXAMPLES_TEXTURE "Build texture example" ON)
+option(OPTION_REAL_ENABLE_COVERAGE "Enable code coverage" OFF)
+option(OPTION_REAL_ENABLE_SANITIZE "Enable sanitizers" OFF)
 
 ### Language Options
 # C
@@ -45,10 +47,28 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # TODO: ASM
 
 ### Modules
+# Directories
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
-
+# Standard
 include(WriteCompilerDetectionHeader)
 include(GenerateExportHeader)
+
+# Own
+include(compilerOptions)
+include(rdoc)
+include(assets)
+
+### Code analysis
+# Coverage
+if (OPTION_REAL_ENABLE_COVERAGE)
+	include(coverage)
+	append_coverage_compiler_flags()
+endif ()
+# Sanitizers
+if (OPTION_REAL_ENABLE_SANITIZE)
+	include(sanitizers)
+	append_sanitizer_compiler_flags()
+endif ()
 
 ### Build system setup
 if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
@@ -65,10 +85,6 @@ project(${META_REAL_PROJECT_FULL_NAME}
 		DESCRIPTION ${META_REAL_PROJECT_DESCRIPTION}
 		HOMEPAGE_URL ${META_REAL_AUTHOR_DOMAIN}
 		LANGUAGES C CXX ASM)
-
-include(compilerOptions)
-include(rdoc)
-include(assets)
 
 ### Engine
 add_subdirectory(engine)
