@@ -12,8 +12,7 @@ function(generate_rdoc_settings_from TEMPLATE_FILENAME TARGET_NAME RDOC_CONFIG_O
 
 	configure_file("${CMAKE_SOURCE_DIR}/rdoc/settings.cap" "${RDOC_CONFIG_OUTFILE}")
 
-	# FIXME: solve problem with single and multiconfig generators
-	if (CMAKE_CONFIGURATION_TYPES)
+	if (REAL_GENERATOR_IS_MULTI_CONFIG)
 		file(
 				GENERATE
 				OUTPUT "${RDOC_CONFIG_OUTFILE}.$<CONFIG>"

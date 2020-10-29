@@ -46,7 +46,7 @@ mark_as_advanced(
 		CMAKE_SHARED_LINKER_FLAGS_COVERAGE
 )
 
-if (NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+if (NOT CMAKE_BUILD_TYPE STREQUAL "Debug" AND NOT REAL_GENERATOR_IS_MULTI_CONFIG)
 	message(WARNING "Code coverage results with an optimised (non-Debug) build may be misleading")
 endif ()
 
