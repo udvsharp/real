@@ -3,7 +3,13 @@
 #ifndef REAL_BASE_SHADER
 #define REAL_BASE_SHADER
 
+#include <unordered_map>
+#include <string>
+
 #include "real/core.hpp"
+
+#define SHADERS_MAX_COUNT 4
+#define SHADERS_AVG_COUNT 2
 
 namespace real {
 	class REAL_API shader {
@@ -34,6 +40,17 @@ namespace real {
 
 	public:
 		static shader *make();
+	};
+
+	class REAL_API shader_lib {
+	public:
+		void add(const real::reference<shader> &shader);
+		real::reference<shader> load(const std::string &filepath);
+		real::reference<shader> load(const std::string &filepath, const std::string& name);
+
+		real::reference<shader> get(const std::string &name);
+	private:
+		std::unordered_map<std::string , real::reference<shader>> shaders_;
 	};
 }
 

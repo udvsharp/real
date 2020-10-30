@@ -4,12 +4,16 @@
 #define REAL_GL_SHADER
 
 #include <unordered_map>
+#include <array>
 
 #include <glm/glm.hpp>
 
 #include "real/core.hpp"
 #include "real/renderer/base_shader.hpp"
 #include "real/api/gl/gl_headers.hpp"
+
+#define GL_SHADERS_MAX_COUNT SHADERS_MAX_COUNT
+#define GL_SHADERS_AVG_COUNT SHADERS_AVG_COUNT
 
 namespace real {
 	class REAL_API gl_shader : public real::shader {
@@ -49,7 +53,9 @@ namespace real {
 		inline GLint location_of(const std::string& name) const;
 	private:
 		GLuint program_id_;
-		std::vector<GLuint> shaders_;
+
+		size_t count_ = 0;
+		std::array<GLuint, GL_SHADERS_MAX_COUNT> shaders_;
 
 		mutable std::unordered_map<std::string, GLint> uniform_locations_cache_;
 	};

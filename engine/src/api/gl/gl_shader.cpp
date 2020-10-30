@@ -9,12 +9,12 @@
 
 namespace real {
 
-	gl_shader::gl_shader() : program_id_{ 0}, shaders_{} {
-		shaders_.reserve(2);
+	gl_shader::gl_shader() : program_id_{ 0 }, shaders_{} {
 		program_id_ = glCreateProgram();
 	}
 
 	void gl_shader::add_shader(int64_t type, const std::string &filename) {
+		real_assert(count_ < shaders_.size(), "Reached max shaders count!");
 		const std::string &source = read_file(filename);
 		const GLchar *const source_buffer = source.c_str();
 
@@ -23,19 +23,19 @@ namespace real {
 		glShaderSource(shader_id, 1, &source_buffer, nullptr);
 		glCompileShader(shader_id);
 		checkhandle_shader_error(shader_id, GL_COMPILE_STATUS);
-		shaders_.push_back(shader_id);
+		shaders_[count_++] = shader_id;
 	}
 
 	void gl_shader::link() {
-		for (const GLuint& id : shaders_) {
-			glAttachShader(program_id_, id);
+		for (size_t i = 0; i < count_; ++i) {
+			glAttachShader(program_id_, shaders_[i]);
 		}
 
 		glLinkProgram(program_id_);
 		checkhandle_program_error(program_id_, GL_LINK_STATUS);
 
-		for (const GLuint& id : shaders_) {
-			glDeleteShader(id);
+		for (size_t i = 0; i < count_; ++i) {
+			glDeleteShader(shaders_[i]);
 		}
 	}
 
@@ -61,7 +61,7 @@ namespace real {
 		}
 
 		GLint location = glGetUniformLocation(program_id_, name.c_str());
-		uniform_locations_cache_[name] = location; 
+		uniform_locations_cache_[name] = location;
 		return location;
 	}
 
