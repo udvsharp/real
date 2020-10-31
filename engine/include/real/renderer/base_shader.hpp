@@ -8,16 +8,15 @@
 
 #include "real/core.hpp"
 
+#define GL_SYNTAX_ERROR_MESSAGE "Syntax error"
 #define SHADERS_MAX_COUNT 4
 #define SHADERS_AVG_COUNT 2
 
 namespace real {
+	// TODO: Iterate over shader API again
 	class REAL_API shader {
 	public:
 		virtual ~shader();
-
-		virtual void add_shader(int64_t type, const std::string &filename) = 0;
-		virtual void link() = 0;
 
 		// region Uniforms
 		// Floats
@@ -35,11 +34,13 @@ namespace real {
 		virtual void uniform_int(const std::string &name, const glm::ivec4 &value) = 0;
 		// endregion
 
+		virtual const std::string& name() const = 0;
+
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 
 	public:
-		static shader *make();
+		static shader *make(std::string name);
 	};
 
 	class REAL_API shader_lib {

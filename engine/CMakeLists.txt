@@ -133,10 +133,8 @@ file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders")
 
 set(
 		SHADERS_SRCS
-		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.vs.glsl"
-		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.fs.glsl"
-		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/tex.vs.glsl"
-		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/tex.fs.glsl"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.glsl"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/tex.glsl"
 )
 
 foreach (SHADER_SRC ${SHADERS_SRCS})

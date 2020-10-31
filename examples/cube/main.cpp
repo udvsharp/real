@@ -27,10 +27,7 @@ protected:
 	virtual void init() override {
 		real::application::init();
 
-		shader_.reset(real::shader::make());
-		shader_->add_shader(GL_VERTEX_SHADER, "shaders/base.vs.glsl");
-		shader_->add_shader(GL_FRAGMENT_SHADER, "shaders/base.fs.glsl");
-		shader_->link();
+		shader_.reset(real::shader::make("shaders/base.glsl"));
 
 		// region Setup rendering
 		// Vertices

@@ -4,39 +4,25 @@
 
 #include <glm/gtc/type_ptr.hpp>
 
+#include "real/api/gl/gl_conversions.hpp"
 #include "real/api/gl/gl_shader.hpp"
 #include "real/logger.hpp"
 
 namespace real {
 
-	gl_shader::gl_shader() : program_id_{ 0 }, shaders_{} {
+	gl_shader::gl_shader(std::string filename) : program_id_{ 0 }, shaders_{} {
 		program_id_ = glCreateProgram();
-	}
+		auto start = filename.find_last_of("/\\");
+		start = (start == std::string::npos) ? 0 : start + 1;
+		auto end = filename.rfind(".");
+		auto count = end == std::string::npos ? filename.size() - start : end - start;
+		name_ = filename.substr(start, count);
 
-	void gl_shader::add_shader(int64_t type, const std::string &filename) {
-		real_assert(count_ < shaders_.size(), "Reached max shaders count!");
-		const std::string &source = read_file(filename);
-		const GLchar *const source_buffer = source.c_str();
-
-		GLuint shader_id;
-		shader_id = glCreateShader(type);
-		glShaderSource(shader_id, 1, &source_buffer, nullptr);
-		glCompileShader(shader_id);
-		checkhandle_shader_error(shader_id, GL_COMPILE_STATUS);
-		shaders_[count_++] = shader_id;
-	}
-
-	void gl_shader::link() {
-		for (size_t i = 0; i < count_; ++i) {
-			glAttachShader(program_id_, shaders_[i]);
-		}
-
-		glLinkProgram(program_id_);
-		checkhandle_program_error(program_id_, GL_LINK_STATUS);
-
-		for (size_t i = 0; i < count_; ++i) {
-			glDeleteShader(shaders_[i]);
-		}
+		std::string sources = read_file(filename);
+		preprocess(sources);
+		const auto &shader_srcs = split(sources);
+		compile(shader_srcs);
+		link();
 	}
 
 	void gl_shader::bind() const {
@@ -116,8 +102,69 @@ namespace real {
 	}
 	// endregion
 
-
 	//region Helpers
+	void gl_shader::preprocess(std::string &source) const {
+		// TODO: add preprocessing step
+	}
+
+	std::unordered_map<GLenum, std::string>
+	gl_shader::split(const std::string &source) const {
+		real_assert(count_ < shaders_.size(), "Reached max shaders count!");
+		std::unordered_map<GLenum, std::string> shader_sources;
+
+		const char *token_type = "#shader";
+		auto pos = source.find(token_type);
+		while (pos != std::string::npos) {
+			auto eol = source.find_first_of(SYM_EOL, pos);
+			real_assert(eol != std::string::npos, GL_SYNTAX_ERROR_MESSAGE);
+			auto begin = pos + std::strlen(token_type) + 1;
+			std::string typestr = source.substr(begin, eol - begin);
+
+			GLenum type = gl_shader_type_from(typestr);
+			real_assert(type, "Invalid shader type specified");
+
+			auto shader_code_start = source.find_first_not_of(SYM_EOL, eol);
+			real_assert(shader_code_start != std::string::npos, GL_SYNTAX_ERROR_MESSAGE);
+			pos = source.find(token_type, shader_code_start);
+
+			shader_sources[type] = (pos == std::string::npos)
+			                       ? source.substr(shader_code_start)
+			                       : source.substr(shader_code_start,
+			                                       pos - shader_code_start);
+		}
+
+		return shader_sources;
+	}
+
+	void gl_shader::compile(
+			const std::unordered_map<GLenum, std::string> &shader_srcs) {
+		for (auto it = shader_srcs.begin(); it != shader_srcs.end(); ++it) {
+			auto type = it->first;
+			auto src = it->second;
+			const GLchar *const source_buffer = src.c_str();
+
+			GLuint shader_id;
+			shader_id = glCreateShader(type);
+			glShaderSource(shader_id, 1, &source_buffer, nullptr);
+			glCompileShader(shader_id);
+			checkhandle_shader_error(shader_id, GL_COMPILE_STATUS);
+			shaders_[count_++] = shader_id;
+		}
+	}
+
+	void gl_shader::link() const {
+		for (size_t i = 0; i < count_; ++i) {
+			glAttachShader(program_id_, shaders_[i]);
+		}
+
+		glLinkProgram(program_id_);
+		checkhandle_program_error(program_id_, GL_LINK_STATUS);
+
+		for (size_t i = 0; i < count_; ++i) {
+			glDeleteShader(shaders_[i]);
+		}
+	}
+
 	std::string gl_shader::read_file(const std::string &filepath) {
 
 		std::string result;

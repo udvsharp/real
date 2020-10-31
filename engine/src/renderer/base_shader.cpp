@@ -7,9 +7,9 @@
 #include "real/renderer.hpp"
 
 namespace real {
-	shader *shader::make() {
+	shader *shader::make(std::string name) {
 		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl: return new gl_shader{};
+			case renderer_api::api::gl: return new gl_shader{name};
 
 			default:
 			case renderer_api::api::none:
@@ -22,7 +22,8 @@ namespace real {
 
 	// Shader library
 	void shader_lib::add(const reference<shader> &shader) {
-		
+		auto& name = shader->name();
+		shaders_[name] = shader;
 	}
 
 	real::reference<shader> shader_lib::load(const std::string &filepath) {

@@ -5,6 +5,7 @@
 
 #include <unordered_map>
 #include <array>
+#include <string>
 
 #include <glm/glm.hpp>
 
@@ -18,11 +19,8 @@
 namespace real {
 	class REAL_API gl_shader : public real::shader {
 	public:
-		gl_shader();
+		gl_shader(std::string filename);
 		~gl_shader() override;
-
-		void add_shader(int64_t type, const std::string& filename) override;
-		void link() override;
 
 		// region Uniforms
 		// Floats
@@ -40,11 +38,18 @@ namespace real {
 		void uniform_int(const std::string &name, const glm::ivec4 &value) override;
 		// endregion
 
+		const std::string& name() const override { return name_; }
+
 		void bind() const override;
 		void unbind() const override;
 	private:
 		//region Helpers
 		static std::string read_file(const std::string &filepath);
+
+		void preprocess(std::string &source) const;
+		std::unordered_map<GLenum, std::string> split(const std::string& source) const;
+		void compile(const std::unordered_map<GLenum, std::string>& shader_srcs);
+		void link() const;
 
 		static void checkhandle_program_error(GLuint id, GLenum action);
 		static void checkhandle_shader_error(GLuint id, GLenum action);
@@ -53,6 +58,7 @@ namespace real {
 		inline GLint location_of(const std::string& name) const;
 	private:
 		GLuint program_id_;
+		std::string name_;
 
 		size_t count_ = 0;
 		std::array<GLuint, GL_SHADERS_MAX_COUNT> shaders_;

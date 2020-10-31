@@ -32,6 +32,19 @@ namespace real {
 			case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!", type); return 0;
 		}
 	}
+
+	inline GLenum gl_shader_type_from(std::string_view type) noexcept {
+		if (type == "vertex") {
+			return GL_VERTEX_SHADER;
+		}
+
+		if (type == "fragment") {
+			return GL_FRAGMENT_SHADER;
+		}
+
+		REAL_CORE_ERROR("Unknown shader type {0}", type);
+		return 0;
+	}
 }
 
 #endif //REAL_GL_CONVERSIONS

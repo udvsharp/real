@@ -34,10 +34,7 @@ protected:
 		real::application::init();
 
 		REAL_TRACE("Initializing shaders...");
-		shader_.reset(real::shader::make());
-		shader_->add_shader(GL_VERTEX_SHADER, "shaders/tex.vs.glsl");
-		shader_->add_shader(GL_FRAGMENT_SHADER, "shaders/tex.fs.glsl");
-		shader_->link();
+		shader_.reset(real::shader::make("shader/tex.glsl"));
 
 		REAL_TRACE("Initializing textures...");
 		texture_ = real::texture2d::make(std::string(TEXTURE_FILENAME));

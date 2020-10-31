@@ -18,6 +18,8 @@
 #define REAL_DEFAULT_WINDOW_WIDTH 1280
 #define REAL_DEFAULT_WINDOW_TITLE "Real Engine"
 #define REAL_DEFAULT_WINDOW_V_SYNC false
+
+#define SYM_EOL "\r\n"
 // endregion
 // region util
 #include <cassert>
