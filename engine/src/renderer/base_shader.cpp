@@ -7,9 +7,9 @@
 #include "real/renderer.hpp"
 
 namespace real {
-	shader *shader::make(std::string name) {
+	real::reference<shader> shader::make(std::string filename) {
 		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl: return new gl_shader{name};
+			case renderer_api::api::gl: return std::make_shared<gl_shader>(filename);
 
 			default:
 			case renderer_api::api::none:
@@ -21,20 +21,35 @@ namespace real {
 	shader::~shader() = default;
 
 	// Shader library
-	void shader_lib::add(const reference<shader> &shader) {
+	void shader_lib::add(const real::reference<shader> &shader) {
+		if (shaders_.contains(shader->name())) {
+			return;
+		}
+
 		auto& name = shader->name();
 		shaders_[name] = shader;
 	}
 
-	real::reference<shader> shader_lib::load(const std::string &filepath) {
-		return real::reference<shader>();
+	real::reference<shader> shader_lib::load(const std::string &filename) {
+		auto shader = shader::make(filename);
+		add(shader);
+		return shader;
 	}
 
-	real::reference<shader> shader_lib::load(const std::string &filepath, const std::string &name) {
-		return real::reference<shader>();
+	real::reference<shader>
+	shader_lib::load(const std::string &name, const std::string &filename) {
+		auto shader = shader::make(filename);
+		shader->name(name);
+		add(shader);
+		return shader;
+	}
+
+	bool shader_lib::contains(const std::string &name) {
+		return shaders_.contains(name);
 	}
 
 	real::reference<shader> shader_lib::get(const std::string &name) {
-		return real::reference<shader>();
+		real_assert(contains(name), "Shader not found!"); // TODO: assertions
+		return shaders_[name];
 	}
 }

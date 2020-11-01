@@ -38,7 +38,8 @@ namespace real {
 		void uniform_int(const std::string &name, const glm::ivec4 &value) override;
 		// endregion
 
-		const std::string& name() const override { return name_; }
+		const std::string &name() const override { return name_; }
+		void name(std::string name) override { name_ = name; }
 
 		void bind() const override;
 		void unbind() const override;
@@ -47,15 +48,15 @@ namespace real {
 		static std::string read_file(const std::string &filepath);
 
 		void preprocess(std::string &source) const;
-		std::unordered_map<GLenum, std::string> split(const std::string& source) const;
-		void compile(const std::unordered_map<GLenum, std::string>& shader_srcs);
+		std::unordered_map<GLenum, std::string> split(const std::string &source) const;
+		void compile(const std::unordered_map<GLenum, std::string> &shader_srcs);
 		void link() const;
 
 		static void checkhandle_program_error(GLuint id, GLenum action);
 		static void checkhandle_shader_error(GLuint id, GLenum action);
 		//endregion
 
-		inline GLint location_of(const std::string& name) const;
+		inline GLint location_of(const std::string &name) const;
 	private:
 		GLuint program_id_;
 		std::string name_;

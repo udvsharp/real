@@ -12,7 +12,7 @@ private:
 
 	real::camera* camera_;
 
-	real::reference<real::shader> shader_;
+	real::reference<real::shader_lib> shader_lib_ = std::make_shared<real::shader_lib>();
 public:
 	application() : real::application() {
 		// layers().push_layer(new real::imgui_layer{});
@@ -27,7 +27,7 @@ protected:
 	virtual void init() override {
 		real::application::init();
 
-		shader_.reset(real::shader::make("shaders/base.glsl"));
+		shader_lib_->load("shaders/base.glsl");
 
 		// region Setup rendering
 		// Vertices
@@ -92,7 +92,7 @@ protected:
 
 		real::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
 
-		real::renderer::submit(vao_, shader_, transform);
+		real::renderer::submit(vao_, shader_lib_->get("base"), transform);
 		real::renderer::end_scene();
 
 		real::render_command::draw_indexed(vao_);

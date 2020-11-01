@@ -15,7 +15,7 @@ private:
 	real::camera* camera_;
 
 	real::reference<real::texture> texture_;
-	real::reference<real::shader> shader_;
+	real::reference<real::shader_lib> shader_lib_ = std::make_shared<real::shader_lib>();
 public:
 	application() : real::application() {
 		// layers().push_layer(new real::imgui_layer{});
@@ -34,12 +34,12 @@ protected:
 		real::application::init();
 
 		REAL_TRACE("Initializing shaders...");
-		shader_.reset(real::shader::make("shader/tex.glsl"));
+		auto shader = shader_lib_->load("shader/tex.glsl");
 
 		REAL_TRACE("Initializing textures...");
 		texture_ = real::texture2d::make(std::string(TEXTURE_FILENAME));
 		texture_->init();
-		shader_->uniform_int("u_texture", 0);
+		shader->uniform_int("u_texture", 0);
 
 		// region Setup rendering
 		// Vertices
@@ -85,7 +85,7 @@ protected:
 		real::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
 
 		texture_->bind(0);
-		real::renderer::submit(vao_, shader_, transform);
+		real::renderer::submit(vao_, shader_lib_->get("tex"), transform);
 		real::renderer::end_scene();
 
 		real::render_command::draw_indexed(vao_);

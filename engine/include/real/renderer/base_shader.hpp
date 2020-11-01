@@ -24,8 +24,10 @@ namespace real {
 		virtual void uniform_float(const std::string &name, const glm::fvec2 &value) = 0;
 		virtual void uniform_float(const std::string &name, const glm::fvec3 &value) = 0;
 		virtual void uniform_float(const std::string &name, const glm::fvec4 &value) = 0;
-		virtual void uniform_matrix(const std::string &name, const glm::fmat3 &matrix) = 0;
-		virtual void uniform_matrix(const std::string &name, const glm::fmat4 &matrix) = 0;
+		virtual void
+		uniform_matrix(const std::string &name, const glm::fmat3 &matrix) = 0;
+		virtual void
+		uniform_matrix(const std::string &name, const glm::fmat4 &matrix) = 0;
 
 		// Ints
 		virtual void uniform_int(const std::string &name, glm::int32 value) = 0;
@@ -34,24 +36,30 @@ namespace real {
 		virtual void uniform_int(const std::string &name, const glm::ivec4 &value) = 0;
 		// endregion
 
-		virtual const std::string& name() const = 0;
+		virtual const std::string &name() const = 0;
+		virtual void name(std::string name) = 0;
 
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 
 	public:
-		static shader *make(std::string name);
+		static real::reference<shader> make(std::string filename);
 	};
 
 	class REAL_API shader_lib {
 	public:
+		shader_lib() : shaders_{} {}
+
 		void add(const real::reference<shader> &shader);
-		real::reference<shader> load(const std::string &filepath);
-		real::reference<shader> load(const std::string &filepath, const std::string& name);
+		real::reference<shader> load(const std::string &filename);
+		real::reference<shader>
+		load(const std::string &name, const std::string &filename);
 
 		real::reference<shader> get(const std::string &name);
+
+		bool contains(const std::string &name);
 	private:
-		std::unordered_map<std::string , real::reference<shader>> shaders_;
+		std::unordered_map<std::string, real::reference<shader>> shaders_;
 	};
 }
 
