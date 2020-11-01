@@ -9,12 +9,11 @@ namespace real {
 	index_buffer *index_buffer::make(uint32_t *data, uint32_t size) {
 
 		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl:
-				return new gl_index_buffer(data, size);
+			case renderer_api::api::gl: return new gl_index_buffer(data, size);
 
 			default:
-			case renderer_api::api::none:
-				REAL_CORE_ERROR("Invalid renderer api: {}", renderer_api::api::none);
+			case renderer_api::api::none: REAL_CORE_ERROR("Invalid renderer api: {}",
+			                                              renderer_api::api::none);
 				return nullptr;
 		}
 	}

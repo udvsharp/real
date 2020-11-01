@@ -1,6 +1,6 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <utility>
+
 #include "real/time/timestep.hpp"
 
 #include "real/logger.hpp"
@@ -16,7 +16,8 @@ namespace real::platform {
 	}
 
 	window::window(window_data data)
-			: native_window_{ nullptr }, rendering_context_{ nullptr }, data_(std::move(data)) {
+			: native_window_{ nullptr }, rendering_context_{ nullptr },
+			  data_(std::move(data)) {
 	}
 
 	void window::init() {
@@ -33,7 +34,8 @@ namespace real::platform {
 			glfwSetErrorCallback(glfw_error_callback);
 		}
 
-		REAL_CORE_TRACE("Creating window: {0}, {1}, {2}", data_.title, data_.width, data_.height);
+		REAL_CORE_TRACE("Creating window: {0}, {1}, {2}", data_.title, data_.width,
+		                data_.height);
 
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -41,7 +43,8 @@ namespace real::platform {
 		// Testing
 		// Antialiasing
 		glfwWindowHint(GLFW_SAMPLES, 4);
-		native_window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(), nullptr, nullptr);
+		native_window_ = glfwCreateWindow(data_.width, data_.height, data_.title.c_str(),
+		                                  nullptr, nullptr);
 		// TODO: abstract api
 		rendering_context_ = new gl_rendering_context{ native_window_ };
 		rendering_context_->init();
@@ -50,15 +53,19 @@ namespace real::platform {
 		vsync_native(data_.is_v_sync);
 
 		// GLFW callbacks
-		glfwSetWindowSizeCallback(native_window_, [](GLFWwindow *window, int width, int height) {
-			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
+		glfwSetWindowSizeCallback(native_window_,
+		                          [](GLFWwindow *window, int width, int height) {
+			                          window_data &data = *(window_data *) glfwGetWindowUserPointer(
+					                          window);
 
-			data.width = width;
-			data.height = height;
+			                          data.width = width;
+			                          data.height = height;
 
-			window_resize_ev ev{ static_cast<window_dimension_t>(width), static_cast<window_dimension_t>(height) };
-			data.ev_callback(ev);
-		});
+			                          window_resize_ev ev{
+					                          static_cast<window_dimension_t>(width),
+					                          static_cast<window_dimension_t>(height) };
+			                          data.ev_callback(ev);
+		                          });
 
 		glfwSetWindowCloseCallback(native_window_, [](GLFWwindow *window) {
 			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
@@ -67,30 +74,33 @@ namespace real::platform {
 			data.ev_callback(ev);
 		});
 
-		glfwSetKeyCallback(native_window_, [](GLFWwindow *window, int key, int scancode, int action, int mods) {
-			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
+		glfwSetKeyCallback(native_window_,
+		                   [](GLFWwindow *window, int key, int scancode, int action,
+		                      int mods) {
+			                   window_data &data = *(window_data *) glfwGetWindowUserPointer(
+					                   window);
 
-			switch (action) {
-				case GLFW_PRESS: {
-					key_press_ev event(key);
-					data.ev_callback(event);
-					break;
-				}
-				case GLFW_RELEASE: {
-					key_release_ev event(key);
-					data.ev_callback(event);
-					break;
-				}
-				case GLFW_REPEAT: {
-					key_press_ev event(key);
-					data.ev_callback(event);
-					break;
-				}
-				default: {
-					REAL_CORE_ERROR("Unknown key action: {}", action);
-				}
-			}
-		});
+			                   switch (action) {
+				                   case GLFW_PRESS: {
+					                   key_press_ev event(key);
+					                   data.ev_callback(event);
+					                   break;
+				                   }
+				                   case GLFW_RELEASE: {
+					                   key_release_ev event(key);
+					                   data.ev_callback(event);
+					                   break;
+				                   }
+				                   case GLFW_REPEAT: {
+					                   key_press_ev event(key);
+					                   data.ev_callback(event);
+					                   break;
+				                   }
+				                   default: {
+					                   REAL_CORE_ERROR("Unknown key action: {}", action);
+				                   }
+			                   }
+		                   });
 
 		glfwSetCharCallback(native_window_, [](GLFWwindow *window, uint32_t character) {
 			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
@@ -98,39 +108,47 @@ namespace real::platform {
 			data.ev_callback(ev);
 		});
 
-		glfwSetMouseButtonCallback(native_window_, [](GLFWwindow *window, int button, int action, int mods) {
-			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
+		glfwSetMouseButtonCallback(native_window_,
+		                           [](GLFWwindow *window, int button, int action,
+		                              int mods) {
+			                           window_data &data = *(window_data *) glfwGetWindowUserPointer(
+					                           window);
 
-			switch (action) {
-				case GLFW_PRESS: {
-					mouse_btn_press_ev event(button);
-					data.ev_callback(event);
-					break;
-				}
-				case GLFW_RELEASE: {
-					mouse_btn_release_ev event(button);
-					data.ev_callback(event);
-					break;
-				}
-				default: {
-					REAL_CORE_ERROR("Unknown key action: {}", action);
-				}
-			}
-		});
+			                           switch (action) {
+				                           case GLFW_PRESS: {
+					                           mouse_btn_press_ev event(button);
+					                           data.ev_callback(event);
+					                           break;
+				                           }
+				                           case GLFW_RELEASE: {
+					                           mouse_btn_release_ev event(button);
+					                           data.ev_callback(event);
+					                           break;
+				                           }
+				                           default: {
+					                           REAL_CORE_ERROR("Unknown key action: {}",
+					                                           action);
+				                           }
+			                           }
+		                           });
 
-		glfwSetScrollCallback(native_window_, [](GLFWwindow *window, double xOffset, double yOffset) {
-			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
+		glfwSetScrollCallback(native_window_,
+		                      [](GLFWwindow *window, double xOffset, double yOffset) {
+			                      window_data &data = *(window_data *) glfwGetWindowUserPointer(
+					                      window);
 
-			mouse_scroll_ev event((float) xOffset, (float) yOffset);
-			data.ev_callback(event);
-		});
+			                      mouse_scroll_ev event((float) xOffset, (float) yOffset);
+			                      data.ev_callback(event);
+		                      });
 
-		glfwSetCursorPosCallback(native_window_, [](GLFWwindow *window, double xPos, double yPos) {
-			window_data &data = *(window_data *) glfwGetWindowUserPointer(window);
+		glfwSetCursorPosCallback(native_window_,
+		                         [](GLFWwindow *window, double xPos, double yPos) {
+			                         window_data &data = *(window_data *) glfwGetWindowUserPointer(
+					                         window);
 
-			mouse_move_ev event((float) xPos, (float) yPos);
-			data.ev_callback(event);
-		});
+			                         mouse_move_ev event((float) xPos, (float) yPos);
+			                         data.ev_callback(event);
+		                         });
 	}
 
 	window::~window() {

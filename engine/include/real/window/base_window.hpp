@@ -3,9 +3,6 @@
 #ifndef REAL_WINDOW_BASE
 #define REAL_WINDOW_BASE
 
-#include <string>
-#include <utility>
-#include <functional>
 #include "real/time/timestep.hpp"
 
 #include "real/core.hpp"
@@ -14,7 +11,7 @@
 
 namespace real {
 
-	using ev_callback_t = std::function<void(ev & )>;
+	using ev_callback_t = std::function<void(ev &)>;
 
 	namespace platform {
 		// To be defined per platform

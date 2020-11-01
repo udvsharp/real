@@ -13,12 +13,12 @@ namespace real {
 	class vertex_array;
 
 	class REAL_API vertex_buffer {
-	private:
 	public:
 		virtual ~vertex_buffer();
 
-		[[nodiscard]] virtual const buffer_layout& layout() const = 0;
-		[[nodiscard]] virtual const real::reference<real::vertex_array> & vertex_array() const = 0;
+		[[nodiscard]] virtual const buffer_layout &layout() const = 0;
+		[[nodiscard]] virtual const real::reference<real::vertex_array> &
+		vertex_array() const = 0;
 
 		virtual void layout(std::initializer_list<vertex_attribute> attributes) = 0;
 		virtual void link_to(const real::reference<real::vertex_array> &vertex_array) = 0;
@@ -26,7 +26,7 @@ namespace real {
 		virtual void bind() const = 0;
 		virtual void unbind() const = 0;
 	public:
-		static vertex_buffer *make(float* data, uint32_t size);
+		static vertex_buffer *make(float *data, uint32_t size);
 	};
 }
 

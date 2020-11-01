@@ -12,22 +12,23 @@
 namespace real {
 	class REAL_API renderer {
 	public:
-		[[nodiscard]] static inline renderer_api& api() noexcept { return *api_; }
+		[[nodiscard]] static inline renderer_api &api() noexcept { return *api_; }
 
 		static void init();
 		static void start_scene(camera &camera) noexcept;
 		static void end_scene() noexcept;
-		static void submit(const real::reference<vertex_array> &vao, const real::reference<shader> &shader,
+		static void submit(const real::reference<vertex_array> &vao,
+		                   const real::reference<shader> &shader,
 		                   const real::transform &model) noexcept;
 	private:
-		static renderer_api* api_;
+		static renderer_api *api_;
 
 		// TODO: remove this COMPLETELY Temporary stuff
 		struct scene_data {
 			glm::mat4 viewprojection;
 		};
 
-		static scene_data* data_;
+		static scene_data *data_;
 	};
 }
 

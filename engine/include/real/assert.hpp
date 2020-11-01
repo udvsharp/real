@@ -83,5 +83,4 @@ static inline void real_debugbreak(void) { __asm__ __volatile__(".inst 0xde01");
 
 //endregion
 
-
 #endif //REAL_ASSERT

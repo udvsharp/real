@@ -1,6 +1,6 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <utility>
+
 
 #include "real/layer/base_layer.hpp"
 #include "real/logger.hpp"
@@ -25,6 +25,6 @@ namespace real {
 
 #ifdef REAL_DEBUG
 	layer::layer(std::string name)
-			: name_{std::move(name)} {}
+			: name_{ std::move(name) } {}
 #endif
 }

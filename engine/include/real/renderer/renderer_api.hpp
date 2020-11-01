@@ -25,7 +25,7 @@ namespace real {
 
 		[[nodiscard]] virtual api enumval() const = 0;
 
-		virtual void draw_indexed(const real::reference<vertex_array>& vao) = 0;
+		virtual void draw_indexed(const real::reference<vertex_array> &vao) = 0;
 	private:
 		[[nodiscard]] virtual constexpr int32_t default_clear_bits() const noexcept = 0;
 		// static api api_;

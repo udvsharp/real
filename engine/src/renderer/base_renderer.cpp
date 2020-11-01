@@ -8,8 +8,8 @@
 
 namespace real {
 	// TODO: initialize dynamically
-	renderer_api* renderer::api_ = new gl_api{};
-	renderer::scene_data* renderer::data_ = new renderer::scene_data{};
+	renderer_api *renderer::api_ = new gl_api{};
+	renderer::scene_data *renderer::data_ = new renderer::scene_data{};
 
 	void renderer::start_scene(real::camera &camera) noexcept {
 		data_->viewprojection = camera.viewprojection();
@@ -23,7 +23,8 @@ namespace real {
 
 	}
 
-	void renderer::submit(const real::reference<vertex_array> &vao, const real::reference<shader> &shader,
+	void renderer::submit(const real::reference<vertex_array> &vao,
+	                      const real::reference<shader> &shader,
 	                      const real::transform &model) noexcept {
 		shader->bind();
 		shader->uniform_matrix("u_vp", data_->viewprojection);

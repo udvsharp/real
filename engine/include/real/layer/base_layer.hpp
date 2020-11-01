@@ -3,7 +3,6 @@
 #ifndef REAL_LAYER_BASE
 #define REAL_LAYER_BASE
 
-#include <string>
 #include "real/time/timestep.hpp"
 
 #include "real/core.hpp"
@@ -11,10 +10,6 @@
 
 namespace real {
 	class REAL_API layer {
-	private:
-#ifdef REAL_DEBUG
-		std::string name_;
-#endif
 	public:
 		layer() = default;
 #ifdef REAL_DEBUG
@@ -24,7 +19,11 @@ namespace real {
 		virtual void attach();
 		virtual void detach();
 		virtual void update(timestep ts);
-		virtual void handle_event(ev& e);
+		virtual void handle_event(ev &e);
+	private:
+#ifdef REAL_DEBUG
+		std::string name_;
+#endif
 	};
 }
 

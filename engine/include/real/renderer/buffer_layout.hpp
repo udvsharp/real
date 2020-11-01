@@ -3,9 +3,6 @@
 #ifndef REAL_BUFFER_LAYOUT
 #define REAL_BUFFER_LAYOUT
 
-#include <utility>
-#include <vector>
-#include <string>
 #include <cstdint>
 
 #include "real/core.hpp"
@@ -23,13 +20,17 @@ namespace real {
 		bool normalized = false;
 
 		vertex_attribute(const shader_data_t &type, std::string name)
-				: type{type}, name{std::move(name)}, size{sizeofsdt(type)}, offset{0}, normalized{false} {}
+				: type{ type }, name{ std::move(name) }, size{ sizeofsdt(type) },
+				  offset{ 0 }, normalized{ false } {}
 
 		vertex_attribute(const shader_data_t &type, std::string name, bool normalized)
-				: type{type}, name{std::move(name)}, size{sizeofsdt(type)}, offset{0}, normalized{normalized} {}
+				: type{ type }, name{ std::move(name) }, size{ sizeofsdt(type) },
+				  offset{ 0 }, normalized{ normalized } {}
 
-		vertex_attribute(const shader_data_t &type, std::string name, uint32_t size, int64_t offset, bool normalized)
-				: type{type}, name{std::move(name)}, size{size}, offset{offset}, normalized{normalized} {}
+		vertex_attribute(const shader_data_t &type, std::string name, uint32_t size,
+		                 int64_t offset, bool normalized)
+				: type{ type }, name{ std::move(name) }, size{ size }, offset{ offset },
+				  normalized{ normalized } {}
 
 		[[nodiscard]] inline uint32_t component_count() const noexcept {
 			switch (type) {
@@ -49,18 +50,19 @@ namespace real {
 				case shader_data_t::bvec4 : return 1 * 4;
 
 				default:
-				case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!", type); return 0;
+				case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!",
+				                                          type);
+					return 0;
 			}
 		}
 
 		[[nodiscard]] inline int32_t api_type() const noexcept {
-			switch(renderer::api().enumval()) {
-				case renderer_api::api::gl:
-					return gl_type_from(type);
+			switch (renderer::api().enumval()) {
+				case renderer_api::api::gl: return gl_type_from(type);
 
 				default:
-				case renderer_api::api::none:
-					REAL_CORE_ERROR("Invalid renderer api: {}", renderer_api::api::none);
+				case renderer_api::api::none: REAL_CORE_ERROR("Invalid renderer api: {}",
+				                                              renderer_api::api::none);
 					return -1;
 			}
 		}
@@ -80,15 +82,18 @@ namespace real {
 
 		//region Iterators
 		[[nodiscard]] iterator begin() noexcept { return attributes_.begin(); };
-		[[nodiscard]] const_iterator cbegin() const noexcept { return attributes_.begin(); };
-		[[nodiscard]] const_iterator begin() const noexcept { return attributes_.begin(); };
+		[[nodiscard]] const_iterator
+		cbegin() const noexcept { return attributes_.begin(); };
+		[[nodiscard]] const_iterator
+		begin() const noexcept { return attributes_.begin(); };
 
 		[[nodiscard]] iterator end() noexcept { return attributes_.end(); };
 		[[nodiscard]] const_iterator end() const noexcept { return attributes_.end(); };
 		[[nodiscard]] const_iterator cend() const noexcept { return attributes_.end(); };
 		//endregion
 
-		[[nodiscard]] inline std::vector<vertex_attribute> attributes() const { return attributes_; }
+		[[nodiscard]] inline std::vector<vertex_attribute>
+		attributes() const { return attributes_; }
 		[[nodiscard]] inline uint32_t stride() const { return stride_; }
 
 	private:

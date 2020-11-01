@@ -15,8 +15,10 @@ namespace real {
 		glDeleteVertexArrays(1, &renderer_id_);
 	}
 
-	void gl_vertex_array::add_vertex_buffer(const real::reference<real::vertex_buffer> &buffer) {
-		real_assert(!buffer->layout().attributes().empty(), "Vertex buffer has no layout!");
+	void gl_vertex_array::add_vertex_buffer(
+			const real::reference<real::vertex_buffer> &buffer) {
+		real_msg_assert(!buffer->layout().attributes().empty(),
+		            "Vertex buffer has no layout!");
 
 		glBindVertexArray(renderer_id_);
 		buffer->bind();
@@ -36,7 +38,8 @@ namespace real {
 		vertex_buffers_.push_back(buffer);
 	}
 
-	void gl_vertex_array::add_index_buffer(const real::reference<real::index_buffer> &buffer) {
+	void
+	gl_vertex_array::add_index_buffer(const real::reference<real::index_buffer> &buffer) {
 		glBindVertexArray(renderer_id_);
 		buffer->bind();
 		count_ += buffer->count();

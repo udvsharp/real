@@ -1,12 +1,14 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <fstream>
+
 
 #include <glm/gtc/type_ptr.hpp>
 
 #include "real/api/gl/gl_conversions.hpp"
 #include "real/api/gl/gl_shader.hpp"
 #include "real/logger.hpp"
+
+#define SYM_EOL "\r\n"
 
 namespace real {
 
@@ -109,22 +111,22 @@ namespace real {
 
 	std::unordered_map<GLenum, std::string>
 	gl_shader::split(const std::string &source) const {
-		real_assert(count_ < shaders_.size(), "Reached max shaders count!");
+		real_msg_assert(count_ < shaders_.size(), "Reached max shaders count!");
 		std::unordered_map<GLenum, std::string> shader_sources;
 
 		const char *token_type = "#shader";
 		auto pos = source.find(token_type);
 		while (pos != std::string::npos) {
 			auto eol = source.find_first_of(SYM_EOL, pos);
-			real_assert(eol != std::string::npos, GL_SYNTAX_ERROR_MESSAGE);
+			real_msg_assert(eol != std::string::npos, GL_SYNTAX_ERROR_MESSAGE);
 			auto begin = pos + std::strlen(token_type) + 1;
 			std::string typestr = source.substr(begin, eol - begin);
 
 			GLenum type = gl_shader_type_from(typestr);
-			real_assert(type, "Invalid shader type specified");
+			real_msg_assert(type, "Invalid shader type specified");
 
 			auto shader_code_start = source.find_first_not_of(SYM_EOL, eol);
-			real_assert(shader_code_start != std::string::npos, GL_SYNTAX_ERROR_MESSAGE);
+			real_msg_assert(shader_code_start != std::string::npos, GL_SYNTAX_ERROR_MESSAGE);
 			pos = source.find(token_type, shader_code_start);
 
 			shader_sources[type] = (pos == std::string::npos)

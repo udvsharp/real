@@ -4,19 +4,19 @@
 
 namespace real {
 	buffer_layout::buffer_layout(std::initializer_list<vertex_attribute> attributes)
-			: attributes_{attributes} {
+			: attributes_{ attributes } {
 		calculate_params();
 	}
 
 	buffer_layout::buffer_layout()
-		: attributes_{} {
+			: attributes_{} {
 
 	}
 
 	void buffer_layout::calculate_params() {
 		uint32_t offset = 0;
 
-		for (auto& a : attributes_) {
+		for (auto &a : attributes_) {
 			a.offset = offset;
 			offset += a.size;
 

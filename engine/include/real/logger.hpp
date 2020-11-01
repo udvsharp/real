@@ -4,7 +4,6 @@
 #define REAL_LOGGER
 
 #include <memory>
-#include <utility>
 
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
@@ -13,13 +12,12 @@
 
 // TODO: new logging!
 namespace real {
-	class REAL_API logger
-	{
+	class REAL_API logger {
 	public:
 		static void init();
 
-		static std::shared_ptr<spdlog::logger>& core() { return core_logger_; }
-		static std::shared_ptr<spdlog::logger>& client() { return client_logger_; }
+		static std::shared_ptr<spdlog::logger> &core() { return core_logger_; }
+		static std::shared_ptr<spdlog::logger> &client() { return client_logger_; }
 	private:
 		static std::shared_ptr<spdlog::logger> core_logger_;
 		static std::shared_ptr<spdlog::logger> client_logger_;

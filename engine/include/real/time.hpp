@@ -16,5 +16,4 @@ namespace real {
 	inline double time() { return real::platform::time(); };
 }
 
-
 #endif //REAL_TIME

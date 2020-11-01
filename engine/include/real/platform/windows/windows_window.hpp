@@ -3,7 +3,6 @@
 #ifndef REAL_WINDOWS_WINDOW
 #define REAL_WINDOWS_WINDOW
 
-#include <utility>
 #include "real/time/timestep.hpp"
 
 // TODO: remove api dependency completely
@@ -27,30 +26,38 @@ namespace real::platform {
 				bool is_v_sync = REAL_DEFAULT_WINDOW_V_SYNC,
 				ev_callback_t callback = nullptr
 		)
-				: title(std::move(title)), width(width), height(height), is_v_sync(is_v_sync),
+				: title(std::move(title)), width(width), height(height),
+				  is_v_sync(is_v_sync),
 				  ev_callback(std::move(callback)) {}
 
-		explicit window_data(const ::real::window_props &props, bool is_v_sync = REAL_DEFAULT_WINDOW_V_SYNC,
+		explicit window_data(const ::real::window_props &props,
+		                     bool is_v_sync = REAL_DEFAULT_WINDOW_V_SYNC,
 		                     ev_callback_t callback = nullptr)
-				: title(props.title), width(props.width), height(props.height), is_v_sync(is_v_sync),
+				: title(props.title), width(props.width), height(props.height),
+				  is_v_sync(is_v_sync),
 				  ev_callback(std::move(callback)) {}
 	};
 
 	class REAL_API window : public ::real::window {
 	public:
 		explicit window(window_data data);
-		explicit window(const window_props &props) : window(window_data{props}) {};
+		explicit window(const window_props &props) : window(window_data{ props }) {};
 
 		~window() override;
 
 		void init() override;
 
-		[[nodiscard]] inline window_dimension_t width() const noexcept override { return data_.width; };
-		[[nodiscard]] inline window_dimension_t height() const noexcept override { return data_.height; };
-		[[nodiscard]] inline bool is_v_sync() const noexcept override { return data_.is_v_sync; }
+		[[nodiscard]] inline window_dimension_t
+		width() const noexcept override { return data_.width; };
+		[[nodiscard]] inline window_dimension_t
+		height() const noexcept override { return data_.height; };
+		[[nodiscard]] inline bool
+		is_v_sync() const noexcept override { return data_.is_v_sync; }
 
-		[[nodiscard]] inline void *native() const noexcept override { return native_window_; }
-		[[nodiscard]] rendering_context *context() const noexcept override { return rendering_context_; };
+		[[nodiscard]] inline void *
+		native() const noexcept override { return native_window_; }
+		[[nodiscard]] rendering_context *
+		context() const noexcept override { return rendering_context_; };
 
 		void ev_callback(const ev_callback_t &callback) override;
 		void vsync(bool enabled) override;

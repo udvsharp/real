@@ -9,29 +9,26 @@
 namespace real {
 	// region GL Texture2D
 	gl_texture2d::gl_texture2d(const std::string &path)
-			: path_{ path }, width_ {0}, height_ {0}, id_ {0} {}
+			: path_{ path }, width_{ 0 }, height_{ 0 }, id_{ 0 } {}
 
 	void gl_texture2d::init() {
 		int w, h, channels;
 		stbi_set_flip_vertically_on_load(true);
 		stbi_uc *data = stbi_load(path_.c_str(), &w, &h, &channels, 0);
-		real_assert(data, "Failed to load texture image!");
+		real_msg_assert(data, "Failed to load texture image!");
 		width_ = w;
 		height_ = h;
 
 		GLenum format_internal = 0, format_data = 0;
-		if (channels == 4)
-		{
+		if (channels == 4) {
 			format_internal = GL_RGBA8;
 			format_data = GL_RGBA;
-		}
-		else if (channels == 3)
-		{
+		} else if (channels == 3) {
 			format_internal = GL_RGB8;
 			format_data = GL_RGB;
 		}
 
-		real_assert(format_internal & format_data, "Format not supported!");
+		real_msg_assert(format_internal & format_data, "Format not supported!");
 
 		glCreateTextures(GL_TEXTURE_2D, 1, &id_);
 		glTextureStorage2D(id_, 1, format_internal, width_, height_);

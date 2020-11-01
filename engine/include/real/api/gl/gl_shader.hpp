@@ -3,10 +3,6 @@
 #ifndef REAL_GL_SHADER
 #define REAL_GL_SHADER
 
-#include <unordered_map>
-#include <array>
-#include <string>
-
 #include <glm/glm.hpp>
 
 #include "real/core.hpp"

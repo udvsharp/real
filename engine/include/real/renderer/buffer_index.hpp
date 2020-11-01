@@ -16,7 +16,7 @@ namespace real {
 
 		[[nodiscard]] virtual uint32_t count() const = 0;
 	public:
-		static index_buffer *make(uint32_t* data, uint32_t size);
+		static index_buffer *make(uint32_t *data, uint32_t size);
 	};
 }
 

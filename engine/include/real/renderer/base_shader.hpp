@@ -3,9 +3,6 @@
 #ifndef REAL_BASE_SHADER
 #define REAL_BASE_SHADER
 
-#include <unordered_map>
-#include <string>
-
 #include "real/core.hpp"
 
 #define GL_SYNTAX_ERROR_MESSAGE "Syntax error"

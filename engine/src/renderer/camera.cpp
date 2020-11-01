@@ -7,7 +7,7 @@
 namespace real {
 	// region Camera
 	camera::camera(const glm::mat4 &projection, glm::vec3 position, glm::vec3 direction)
-			: position_{ position }, projection_{ projection }, direction_ { direction } {}
+			: position_{ position }, projection_{ projection }, direction_{ direction } {}
 
 	void camera::update() {
 		update_view();
@@ -47,7 +47,8 @@ namespace real {
 	// endregion
 
 	//region Orthographic camera
-	camera_orthographic::camera_orthographic(float left, float right, float bottom, float top)
+	camera_orthographic::camera_orthographic(float left, float right, float bottom,
+	                                         float top)
 			: camera{ glm::ortho(left, right, bottom, top, 0.1f, 10.0f) } {
 	}
 
@@ -55,7 +56,8 @@ namespace real {
 		// TODO: improve this
 		glm::mat4 transform =
 				glm::translate(glm::identity<glm::mat4>(), position_) *
-				glm::rotate(glm::identity<glm::mat4>(), glm::radians(0.0f), glm::vec3(0, 0, 1));
+				glm::rotate(glm::identity<glm::mat4>(), glm::radians(0.0f),
+				            glm::vec3(0, 0, 1));
 
 		view_ = glm::inverse(transform);
 	}
@@ -70,7 +72,8 @@ namespace real {
 		// TODO: improve this
 		glm::mat4 transform =
 				glm::translate(glm::identity<glm::mat4>(), position_) *
-				glm::rotate(glm::identity<glm::mat4>(), glm::radians(0.0f), glm::vec3(0, 0, 1));
+				glm::rotate(glm::identity<glm::mat4>(), glm::radians(0.0f),
+				            glm::vec3(0, 0, 1));
 
 		view_ = glm::inverse(transform);
 	}

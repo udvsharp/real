@@ -90,7 +90,6 @@ namespace real {
 	public:
 		mouse_move_ev(mouse_position_t x, mouse_position_t y) : x_(x), y_(y) {}
 
-
 		[[nodiscard]] mouse_position_t x() const { return x_; }
 		[[nodiscard]] mouse_position_t y() const { return y_; }
 
@@ -119,9 +118,10 @@ namespace real {
 
 	class mouse_scroll_ev : public mouse_ev {
 	public:
-		mouse_scroll_ev(mouse_position_t x_offset, mouse_position_t y_offset) : x_offset_(x_offset),
-		                                                                        y_offset_(y_offset) {}
-
+		mouse_scroll_ev(mouse_position_t x_offset, mouse_position_t y_offset) : x_offset_(
+				x_offset),
+		                                                                        y_offset_(
+				                                                                        y_offset) {}
 
 		[[nodiscard]] mouse_position_t x_offset() const { return x_offset_; }
 		[[nodiscard]] mouse_position_t y_offset() const { return y_offset_; }

@@ -8,7 +8,7 @@
 
 namespace real {
 	class REAL_API layer_stack {
-		using container = std::vector<layer*>;
+		using container = std::vector<layer *>;
 		using iterator = container::iterator;
 		using const_iterator = container::const_iterator;
 	private:
@@ -29,11 +29,11 @@ namespace real {
 		const_iterator cend() const noexcept { return stack_.end(); };
 		//endregion
 
-		void push_layer(layer* layer);
-		void pop_layer(layer* layer);
+		void push_layer(layer *layer);
+		void pop_layer(layer *layer);
 
-		void push_overlay(layer* overlay);
-		void pop_overlay(layer* overlay);
+		void push_overlay(layer *overlay);
+		void pop_overlay(layer *overlay);
 	};
 }
 

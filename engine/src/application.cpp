@@ -1,6 +1,6 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
-#include <utility>
+
 
 #include "real/application.hpp"
 
@@ -8,7 +8,7 @@ namespace real {
 
 	application::application(std::string name)
 			: singleton<application>{},
-			  name_{std::move(name)} {
+			  name_{ std::move(name) } {
 
 		// Setup systems
 		window_props props{};
@@ -57,7 +57,7 @@ namespace real {
 	void application::on_event(ev &e) {
 		// REAL_CORE_TRACE("Got event: {0}", e);
 
-		ev_dispatcher dispatcher{&e};
+		ev_dispatcher dispatcher{ &e };
 		dispatcher.dispatch<window_close_ev>([this](window_close_ev &event) -> bool {
 			this->on_window_close(event);
 			return false;

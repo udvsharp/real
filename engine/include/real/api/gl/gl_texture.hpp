@@ -10,7 +10,7 @@ namespace real {
 
 	class REAL_API gl_texture2d : public real::texture2d {
 	public:
-		gl_texture2d(const std::string& path);
+		gl_texture2d(const std::string &path);
 		~gl_texture2d();
 
 		virtual void init() override;

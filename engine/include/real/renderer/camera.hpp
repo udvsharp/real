@@ -20,8 +20,9 @@ namespace real {
 		glm::vec3 position_ = { 0.0f, 0.0f, 0.0f, };
 		glm::vec3 direction_ = { 0.0f, 0.0f, 0.0f, };
 	public:
-		explicit camera(const glm::mat4 &projection, glm::vec3 position = { 0.0f, 0.0f, 0.0f, },
-		       glm::vec3 direction = { 0.0f, 0.0f, 0.0f, });
+		explicit camera(const glm::mat4 &projection,
+		                glm::vec3 position = { 0.0f, 0.0f, 0.0f, },
+		                glm::vec3 direction = { 0.0f, 0.0f, 0.0f, });
 
 		virtual void init();
 
@@ -38,7 +39,8 @@ namespace real {
 		};
 
 		[[nodiscard]] virtual glm::mat4 view() const noexcept { return view_; };
-		[[nodiscard]] virtual glm::mat4 viewprojection() const noexcept { return cache_viewprojection_; };
+		[[nodiscard]] virtual glm::mat4
+		viewprojection() const noexcept { return cache_viewprojection_; };
 
 		virtual void look_at(glm::vec3 target);
 	protected:

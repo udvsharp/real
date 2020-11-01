@@ -6,7 +6,7 @@
 namespace real {
 
 	gl_vertex_buffer::gl_vertex_buffer(float *data, uint32_t size)
-			: renderer_id_{0}, layout_{}, vertex_array_{nullptr} {
+			: renderer_id_{ 0 }, layout_{}, vertex_array_{ nullptr } {
 		glCreateBuffers(1, &renderer_id_);
 		// TODO: remove hardcoded buffer data usage
 		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
@@ -26,10 +26,11 @@ namespace real {
 	}
 
 	void gl_vertex_buffer::layout(std::initializer_list<vertex_attribute> attributes) {
-		layout_ = buffer_layout{attributes};
+		layout_ = buffer_layout{ attributes };
 	}
 
-	void gl_vertex_buffer::link_to(const real::reference<real::vertex_array> &vertex_array) {
+	void
+	gl_vertex_buffer::link_to(const real::reference<real::vertex_array> &vertex_array) {
 		vertex_array_ = vertex_array;
 	}
 }

@@ -18,8 +18,6 @@
 
 #include "real/pch.hpp"
 #include "real/assert.hpp"
-#include <cassert>
-#define real_assert(expr, msg) assert((expr) && (msg))
 
 namespace real {
 	// region types
@@ -47,8 +45,20 @@ namespace real {
 	template<typename T>
 	using reference = std::shared_ptr<T>;
 
+	template<typename T, typename ... Args>
+	constexpr reference<T> make_reference(Args&& ... args)
+	{
+		return std::make_shared<T>(std::forward<Args>(args)...);
+	}
+
 	template<typename T>
 	using scoped_ptr = std::unique_ptr<T>;
+
+	template<typename T, typename ... Args>
+	constexpr scoped_ptr<T> make_scoped(Args&& ... args)
+	{
+		return std::make_unique<T>(std::forward<Args>(args)...);
+	}
 	// endregion
 }
 

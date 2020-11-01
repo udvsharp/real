@@ -3,8 +3,6 @@
 #ifndef REAL_SINGLETON
 #define REAL_SINGLETON
 
-#include <iostream>
-
 namespace real {
 	template<typename T>
 	class singleton {
@@ -13,7 +11,8 @@ namespace real {
 		static T *instance_;
 	public:
 		singleton() {
-			real_assert(instance_ == nullptr, "Only one instance of singleton is allowed!");
+			real_msg_assert(instance_ == nullptr,
+			            "Only one instance of singleton is allowed!");
 			instance_ = static_cast<T *>(this);
 		}
 
@@ -31,7 +30,7 @@ namespace real {
 		// endregion
 	};
 
-	template <typename T> T* singleton<T>::instance_ = nullptr;
+	template<typename T> T *singleton<T>::instance_ = nullptr;
 }
 
 // region util macros

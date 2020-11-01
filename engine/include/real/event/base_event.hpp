@@ -3,9 +3,6 @@
 #ifndef REAL_EVENT_BASE
 #define REAL_EVENT_BASE
 
-#include <string>
-#include <functional>
-#include <utility>
 #include <type_traits>
 #include <sstream>
 

@@ -3,24 +3,24 @@
 #ifndef REAL_GL_ARRAY_VERTEX
 #define REAL_GL_ARRAY_VERTEX
 
-#include <memory>
-#include <vector>
-
 #include "real/core.hpp"
 #include "real/renderer/array_vertex.hpp"
 
 namespace real {
 	class REAL_API gl_vertex_array : public vertex_array {
-	private:
 	public:
 		gl_vertex_array();
 		~gl_vertex_array() override;
 
-		[[nodiscard]] virtual const std::vector<real::reference<real::vertex_buffer>>& vertex_buffers() const override { return vertex_buffers_; };
-		[[nodiscard]] virtual const std::vector<real::reference<real::index_buffer>>& index_buffers() const override { return index_buffers_; };
+		[[nodiscard]] virtual const std::vector<real::reference<real::vertex_buffer>> &
+		vertex_buffers() const override { return vertex_buffers_; };
+		[[nodiscard]] virtual const std::vector<real::reference<real::index_buffer>> &
+		index_buffers() const override { return index_buffers_; };
 
-		virtual void add_vertex_buffer(const real::reference<real::vertex_buffer>& buffer) override;
-		virtual void add_index_buffer(const real::reference<real::index_buffer>& buffer) override;
+		virtual void
+		add_vertex_buffer(const real::reference<real::vertex_buffer> &buffer) override;
+		virtual void
+		add_index_buffer(const real::reference<real::index_buffer> &buffer) override;
 
 		virtual int32_t count() const override;
 

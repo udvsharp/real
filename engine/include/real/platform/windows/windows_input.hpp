@@ -7,17 +7,17 @@
 #include "real/input/base_input.hpp"
 
 namespace real::platform {
-    class REAL_API input : public ::real::input {
-    public:
-        ~input() override = default;
+	class REAL_API input : public ::real::input {
+	public:
+		~input() override = default;
 
-        bool is_key_pressed(key_code keycode) override;
-        bool is_mouse_btn_pressed(mouse_btn_t mouse_btn) override;
+		bool is_key_pressed(key_code keycode) override;
+		bool is_mouse_btn_pressed(mouse_btn_t mouse_btn) override;
 
-        std::pair<mouse_position_t, mouse_position_t> mouse_position() override;
-        mouse_position_t mouse_x() override;
-        mouse_position_t mouse_y() override;
-    };
+		std::pair<mouse_position_t, mouse_position_t> mouse_position() override;
+		mouse_position_t mouse_x() override;
+		mouse_position_t mouse_y() override;
+	};
 }
 
 #endif //REAL_WINDOWS_INPUT

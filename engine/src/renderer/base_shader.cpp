@@ -9,11 +9,11 @@
 namespace real {
 	real::reference<shader> shader::make(std::string filename) {
 		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl: return std::make_shared<gl_shader>(filename);
+			case renderer_api::api::gl: return real::make_reference<gl_shader>(filename);
 
 			default:
-			case renderer_api::api::none:
-				REAL_CORE_ERROR("Invalid renderer api: {}", renderer_api::api::none);
+			case renderer_api::api::none: REAL_CORE_ERROR("Invalid renderer api: {}",
+			                                              renderer_api::api::none);
 				return nullptr;
 		}
 	}
@@ -26,7 +26,7 @@ namespace real {
 			return;
 		}
 
-		auto& name = shader->name();
+		auto &name = shader->name();
 		shaders_[name] = shader;
 	}
 
@@ -49,7 +49,7 @@ namespace real {
 	}
 
 	real::reference<shader> shader_lib::get(const std::string &name) {
-		real_assert(contains(name), "Shader not found!"); // TODO: assertions
+		real_msg_assert(contains(name), "Shader not found!"); // TODO: assertions
 		return shaders_[name];
 	}
 }

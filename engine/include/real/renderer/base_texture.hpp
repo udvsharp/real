@@ -22,7 +22,7 @@ namespace real {
 	public:
 		~texture2d();
 	public:
-		static real::reference<texture2d> make(const std::string& path);
+		static real::reference<texture2d> make(const std::string &path);
 	};
 }
 

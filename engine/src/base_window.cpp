@@ -7,7 +7,7 @@ namespace real {
 	window *window::make(const window_props &props) {
 		window *window;
 #ifdef REAL_PLATFORM_WINDOWS
-		window = new platform::window{props};
+		window = new platform::window{ props };
 #endif
 		return window;
 	}
