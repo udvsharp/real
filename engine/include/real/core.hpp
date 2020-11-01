@@ -4,31 +4,22 @@
 #define REAL_CORE
 
 // region Configured By CMake
-// region Export Macros
+// Export Macros
 #include "real/core-export.hpp"
-// endregion
-// region Compilers
+// Compilers
 #include "real/core-compiler.hpp"
 // endregion
-// endregion
-// region Macros
-// region Values
+
 #define REAL_APPLICATION_DEFAULT_NAME "Real Engine"
 #define REAL_DEFAULT_WINDOW_HEIGHT 720
 #define REAL_DEFAULT_WINDOW_WIDTH 1280
 #define REAL_DEFAULT_WINDOW_TITLE "Real Engine"
 #define REAL_DEFAULT_WINDOW_V_SYNC false
 
-#define SYM_EOL "\r\n"
-// endregion
-// region util
+#include "real/pch.hpp"
+#include "real/assert.hpp"
 #include <cassert>
 #define real_assert(expr, msg) assert((expr) && (msg))
-// endregion
-// endregion
-// region Core global functions
-#include <cstdint>
-#include <memory>
 
 namespace real {
 	// region types
@@ -60,6 +51,5 @@ namespace real {
 	using scoped_ptr = std::unique_ptr<T>;
 	// endregion
 }
-// endregion
 
 #endif //REAL_CORE

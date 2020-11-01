@@ -10,6 +10,8 @@ add_library(
 		include/real/util/singleton.hpp
 		# Core
 		include/real/real.hpp
+		include/real/pch.hpp
+		include/real/assert.hpp
 		include/real/core.hpp
 		include/real/application.hpp
 		include/real/logger.hpp
@@ -172,18 +174,7 @@ target_include_directories(
 target_precompile_headers(
 		${REAL_LIBRARY_TARGET_NAME}
 		PRIVATE
-		<utility>
-		<functional>
-
-		<iostream>
-		<fstream>
-
-		<vector>
-		<array>
-		<unordered_map>
-		<map>
-		<string>
-		<set>
+		"include/real/pch.hpp"
 )
 
 # Properties

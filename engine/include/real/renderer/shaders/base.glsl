@@ -10,8 +10,8 @@ void main() {
     color_ = u_color;
 }
 
-#shader vertex
-#version 330 core
+    #shader vertex
+    #version 330 core
 
 layout(location = 0) in vec3 _pos;
 
