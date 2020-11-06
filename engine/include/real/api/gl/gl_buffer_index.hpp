@@ -6,19 +6,19 @@
 #include "real/core.hpp"
 #include "real/renderer/buffer_index.hpp"
 
-namespace real {
-	class REAL_API gl_index_buffer : public index_buffer {
+namespace Real {
+	class REAL_API GLIndexBuffer : public IndexBuffer {
 	public:
-		gl_index_buffer(uint32_t *data, uint32_t size);
-		~gl_index_buffer() override;
+		GLIndexBuffer(uint32_t *data, uint32_t size);
+		~GLIndexBuffer() override;
 
-		void bind() const override;
-		void unbind() const override;
+		void Bind() const override;
+		void Unbind() const override;
 
-		[[nodiscard]] uint32_t count() const override;
+		[[nodiscard]] uint32_t Count() const override;
 	private:
-		renderer_id_t renderer_id_;
-		uint32_t count_;
+		renderer_id_t rendererId;
+		uint32_t count;
 	};
 }
 

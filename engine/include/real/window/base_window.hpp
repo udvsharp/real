@@ -9,46 +9,51 @@
 #include "real/event.hpp"
 #include "real/renderer.hpp"
 
-namespace real {
+namespace Real
+{
 
-	using ev_callback_t = std::function<void(ev &)>;
+	using event_callback_t = std::function<void(Event&)>;
 
-	namespace platform {
+	namespace Platform
+	{
 		// To be defined per platform
-		struct window_data;
+		struct WindowData;
 	}
 
-	struct window_props {
+	struct WindowProperties
+	{
 		std::string title;
 		window_dimension_t width;
 		window_dimension_t height;
 
-		explicit window_props(std::string title = REAL_DEFAULT_WINDOW_TITLE,
-		                      window_dimension_t width = REAL_DEFAULT_WINDOW_WIDTH,
-		                      window_dimension_t height = REAL_DEFAULT_WINDOW_HEIGHT)
-				: title(std::move(title)), width(width), height(height) {}
+		explicit WindowProperties(std::string title = REAL_DEFAULT_WINDOW_TITLE,
+				window_dimension_t width = REAL_DEFAULT_WINDOW_WIDTH,
+				window_dimension_t height = REAL_DEFAULT_WINDOW_HEIGHT)
+				:title { std::move(title) }, width { width }, height { height }
+		{}
 	};
 
-	class REAL_API window {
+	class REAL_API Window
+	{
 	public:
-		virtual ~window();
+		virtual ~Window();
 
-		virtual void on_update(timestep ts);
+		virtual void OnUpdate(Timestep ts);
 
-		virtual void init() = 0;
+		virtual void Init() = 0;
 
-		[[nodiscard]] virtual window_dimension_t width() const = 0;
-		[[nodiscard]] virtual window_dimension_t height() const = 0;
+		[[nodiscard]] virtual window_dimension_t Width() const = 0;
+		[[nodiscard]] virtual window_dimension_t Height() const = 0;
 
-		virtual void ev_callback(const ev_callback_t &callback) = 0;
-		virtual void vsync(bool enabled) = 0;
-		[[nodiscard]] virtual bool is_v_sync() const = 0;
+		virtual void EventCallback(const event_callback_t& callback) = 0;
+		virtual void VSync(bool enabled) = 0;
+		[[nodiscard]] virtual bool IsVSync() const = 0;
 
-		virtual void *native() const = 0;
-		virtual rendering_context *context() const = 0;
+		virtual void* Native() const = 0;
+		virtual RenderingContext* Context() const = 0;
 
 		// Generates window depending on platform
-		static window *make(const window_props &props);
+		static Window* Make(const WindowProperties& props);
 	};
 }
 

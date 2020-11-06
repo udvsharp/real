@@ -5,26 +5,32 @@
 #include "real/layer/base_layer.hpp"
 #include "real/logger.hpp"
 
-namespace real {
+namespace Real
+{
 
-	void layer::attach() {
+	void Layer::Attach()
+	{
 		REAL_CORE_TRACE("Attached layer.");
 	}
 
-	void layer::detach() {
+	void Layer::Detach()
+	{
 		REAL_CORE_TRACE("Detached layer.");
 	}
 
-	void layer::update(timestep ts) {
+	void Layer::Update(Timestep ts)
+	{
 
 	}
 
-	void layer::handle_event(ev &e) {
+	void Layer::HandleEvent(Event& e)
+	{
 
 	}
 
 #ifdef REAL_DEBUG
-	layer::layer(std::string name)
-			: name_{ std::move(name) } {}
+	Layer::Layer(std::string name)
+			:name { std::move(name) }
+	{}
 #endif
 }

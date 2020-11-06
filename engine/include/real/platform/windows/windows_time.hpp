@@ -6,8 +6,9 @@
 #include "real/core.hpp"
 #include "real/api/gl/gl_headers.hpp"
 
-namespace real::platform {
-	REAL_API double time();
+namespace Real::Platform
+{
+	REAL_API double Time();
 }
 
 #endif //REAL_WINDOWS_TIME

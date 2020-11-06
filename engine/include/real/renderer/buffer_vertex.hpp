@@ -9,24 +9,24 @@
 #include "real/renderer/base_rendering_context.hpp"
 #include "real/renderer/buffer_layout.hpp"
 
-namespace real {
-	class vertex_array;
+namespace Real {
+	class VertexArray;
 
-	class REAL_API vertex_buffer {
+	class REAL_API VertexBuffer {
 	public:
-		virtual ~vertex_buffer();
+		virtual ~VertexBuffer();
 
-		[[nodiscard]] virtual const buffer_layout &layout() const = 0;
-		[[nodiscard]] virtual const real::reference<real::vertex_array> &
-		vertex_array() const = 0;
+		[[nodiscard]] virtual const BufferLayout &Layout() const = 0;
+		[[nodiscard]] virtual const Real::Reference<Real::VertexArray> &
+		VertexArray() const = 0;
 
-		virtual void layout(std::initializer_list<vertex_attribute> attributes) = 0;
-		virtual void link_to(const real::reference<real::vertex_array> &vertex_array) = 0;
+		virtual void Layout(std::initializer_list<VertexAttribute> attributes) = 0;
+		virtual void LinkTo(const Real::Reference<Real::VertexArray> &vertex_array) = 0;
 
-		virtual void bind() const = 0;
-		virtual void unbind() const = 0;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 	public:
-		static vertex_buffer *make(float *data, uint32_t size);
+		static VertexBuffer *Make(float *data, uint32_t size);
 	};
 }
 

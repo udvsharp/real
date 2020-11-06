@@ -6,44 +6,50 @@
 #include "real/api/gl/gl_headers.hpp"
 #include "real/api/gl/gl_texture.hpp"
 
-namespace real {
+namespace Real
+{
 	// region GL Texture2D
-	gl_texture2d::gl_texture2d(const std::string &path)
-			: path_{ path }, width_{ 0 }, height_{ 0 }, id_{ 0 } {}
+	GLTexture2D::GLTexture2D(const std::string& path)
+			:path { path }, width { 0 }, height { 0 }, rendererId { 0 }
+	{}
 
-	void gl_texture2d::init() {
+	void GLTexture2D::Init()
+	{
 		int w, h, channels;
 		stbi_set_flip_vertically_on_load(true);
-		stbi_uc *data = stbi_load(path_.c_str(), &w, &h, &channels, 0);
+		stbi_uc* data = stbi_load(path.c_str(), &w, &h, &channels, 0);
 		real_msg_assert(data, "Failed to load texture image!");
-		width_ = w;
-		height_ = h;
+		width = w;
+		height = h;
 
 		GLenum format_internal = 0, format_data = 0;
-		if (channels == 4) {
+		if (channels == 4)
+		{
 			format_internal = GL_RGBA8;
 			format_data = GL_RGBA;
-		} else if (channels == 3) {
+		}
+		else if (channels == 3)
+		{
 			format_internal = GL_RGB8;
 			format_data = GL_RGB;
 		}
 
 		real_msg_assert(format_internal & format_data, "Format not supported!");
 
-		glCreateTextures(GL_TEXTURE_2D, 1, &id_);
-		glTextureStorage2D(id_, 1, format_internal, width_, height_);
-		glBindTexture(GL_TEXTURE_2D, id_);
+		glCreateTextures(GL_TEXTURE_2D, 1, &rendererId);
+		glTextureStorage2D(rendererId, 1, format_internal, width, height);
+		glBindTexture(GL_TEXTURE_2D, rendererId);
 
 		// TODO: add API support for parameters
-		glTextureParameteri(id_, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTextureParameteri(id_, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTextureParameteri(rendererId, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTextureParameteri(rendererId, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		glTextureParameteri(id_, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTextureParameteri(id_, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTextureParameteri(rendererId, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTextureParameteri(rendererId, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		glTextureSubImage2D(
-				id_, 0,
-				0, 0, width_, height_,
+				rendererId, 0,
+				0, 0, width, height,
 				format_data,
 				GL_UNSIGNED_BYTE, data
 		);
@@ -52,12 +58,14 @@ namespace real {
 		stbi_image_free(data);
 	}
 
-	gl_texture2d::~gl_texture2d() {
-		glDeleteTextures(1, &id_);
+	GLTexture2D::~GLTexture2D()
+	{
+		glDeleteTextures(1, &rendererId);
 	}
 
-	void gl_texture2d::bind(uint32_t slot) const {
-		glBindTextureUnit(slot, id_);
+	void GLTexture2D::Bind(uint32_t slot) const
+	{
+		glBindTextureUnit(slot, rendererId);
 	}
 	// endregion
 }

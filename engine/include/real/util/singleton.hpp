@@ -3,39 +3,43 @@
 #ifndef REAL_SINGLETON
 #define REAL_SINGLETON
 
-namespace real {
+namespace Real
+{
 	template<typename T>
-	class singleton {
-		using type = singleton<T>;
+	class Singleton
+	{
+		using type = Singleton<T>;
 	private:
-		static T *instance_;
+		static T* instance;
 	public:
-		singleton() {
-			real_msg_assert(instance_ == nullptr,
-			            "Only one instance of singleton is allowed!");
-			instance_ = static_cast<T *>(this);
+		Singleton()
+		{
+			real_msg_assert(instance == nullptr,
+					"Only one instance of singleton is allowed!");
+			instance = static_cast<T*>(this);
 		}
 
-		~singleton() {
-			instance_ = nullptr;
+		~Singleton()
+		{
+			instance = nullptr;
 		}
 
-		static T &instance() {
-			return *instance_;
+		static T& Instance()
+		{
+			return *instance;
 		}
 
 		// region Forbidden Operations
-		singleton(type &) = delete;
-		void operator=(const type &) = delete;
+		Singleton(type&) = delete;
+		void operator=(const type&) = delete;
 		// endregion
 	};
 
-	template<typename T> T *singleton<T>::instance_ = nullptr;
+	template<typename T> T* Singleton<T>::instance = nullptr;
 }
 
 // region util macros
-#define SINGLETON(x) x : public real::singleton<x>
-#define DEFINE_SINGLETON_INSTANCE(x, val) template <> (x)* singleton<x>::instance_ = val;
+#define SINGLETON(x) x : public Real::Singleton<x>
 // endregion
 
 #endif //REAL_SINGLETON

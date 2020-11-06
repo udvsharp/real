@@ -5,18 +5,23 @@
 #include "real/renderer/array_vertex.hpp"
 #include "real/api/gl/gl_array_vertex.hpp"
 
-namespace real {
-	vertex_array *vertex_array::make() {
+namespace Real
+{
+	VertexArray* VertexArray::Make()
+	{
 
-		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl: return new gl_vertex_array();
+		switch (Renderer::Api().Value())
+		{
+		case RendererAPI::API::GL:
+			return new GLVertexArray();
 
-			default:
-			case renderer_api::api::none: REAL_CORE_ERROR("Invalid renderer api: {}",
-			                                              renderer_api::api::none);
-				return nullptr;
+		default:
+		case RendererAPI::API::none:
+			REAL_CORE_ERROR("Invalid renderer api: {}",
+					RendererAPI::API::none);
+			return nullptr;
 		}
 	}
 
-	vertex_array::~vertex_array() = default;
+	VertexArray::~VertexArray() = default;
 }

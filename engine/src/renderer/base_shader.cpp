@@ -6,50 +6,61 @@
 #include "real/logger.hpp"
 #include "real/renderer.hpp"
 
-namespace real {
-	real::reference<shader> shader::make(std::string filename) {
-		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl: return real::make_reference<gl_shader>(filename);
+namespace Real
+{
+	Real::Reference<Shader> Shader::Make(std::string filename)
+	{
+		switch (Renderer::Api().Value())
+		{
+		case RendererAPI::API::GL:
+			return Real::MakeReference<GLShader>(filename);
 
-			default:
-			case renderer_api::api::none: REAL_CORE_ERROR("Invalid renderer api: {}",
-			                                              renderer_api::api::none);
-				return nullptr;
+		default:
+		case RendererAPI::API::none:
+			REAL_CORE_ERROR("Invalid renderer api: {}",
+					RendererAPI::API::none);
+			return nullptr;
 		}
 	}
 
-	shader::~shader() = default;
+	Shader::~Shader() = default;
 
 	// Shader library
-	void shader_lib::add(const real::reference<shader> &shader) {
-		if (shaders_.contains(shader->name())) {
+	void ShaderLibrary::Add(const Real::Reference<Shader>& shader)
+	{
+		if (shaderMap.contains(shader->Name()))
+		{
 			return;
 		}
 
-		auto &name = shader->name();
-		shaders_[name] = shader;
+		auto& name = shader->Name();
+		shaderMap[name] = shader;
 	}
 
-	real::reference<shader> shader_lib::load(const std::string &filename) {
-		auto shader = shader::make(filename);
-		add(shader);
+	Real::Reference<Shader> ShaderLibrary::Load(const std::string& filename)
+	{
+		auto shader = Shader::Make(filename);
+		Add(shader);
 		return shader;
 	}
 
-	real::reference<shader>
-	shader_lib::load(const std::string &name, const std::string &filename) {
-		auto shader = shader::make(filename);
-		shader->name(name);
-		add(shader);
+	Real::Reference<Shader> ShaderLibrary::Load(const std::string& name,
+			const std::string& filename)
+	{
+		auto shader = Shader::Make(filename);
+		shader->Name(name);
+		Add(shader);
 		return shader;
 	}
 
-	bool shader_lib::contains(const std::string &name) {
-		return shaders_.contains(name);
+	bool ShaderLibrary::Contains(const std::string& name)
+	{
+		return shaderMap.contains(name);
 	}
 
-	real::reference<shader> shader_lib::get(const std::string &name) {
-		real_msg_assert(contains(name), "Shader not found!"); // TODO: assertions
-		return shaders_[name];
+	Real::Reference<Shader> ShaderLibrary::Get(const std::string& name)
+	{
+		real_msg_assert(Contains(name), "Shader not found!"); // TODO: assertions
+		return shaderMap[name];
 	}
 }

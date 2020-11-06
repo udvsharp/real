@@ -2,12 +2,14 @@
 
 #include "real/input.hpp"
 
-namespace real {
-	input *input::make() {
-		input *input;
+namespace Real
+{
+	Input* Input::Make()
+	{
+		Input* input;
 
 #ifdef REAL_PLATFORM_WINDOWS
-		input = new platform::input{};
+		input = new Platform::Input {};
 #endif
 		return input;
 	}

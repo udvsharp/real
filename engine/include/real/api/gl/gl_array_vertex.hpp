@@ -6,32 +6,34 @@
 #include "real/core.hpp"
 #include "real/renderer/array_vertex.hpp"
 
-namespace real {
-	class REAL_API gl_vertex_array : public vertex_array {
+namespace Real
+{
+	class REAL_API GLVertexArray : public VertexArray
+	{
 	public:
-		gl_vertex_array();
-		~gl_vertex_array() override;
+		GLVertexArray();
+		~GLVertexArray() override;
 
-		[[nodiscard]] virtual const std::vector<real::reference<real::vertex_buffer>> &
-		vertex_buffers() const override { return vertex_buffers_; };
-		[[nodiscard]] virtual const std::vector<real::reference<real::index_buffer>> &
-		index_buffers() const override { return index_buffers_; };
+		[[nodiscard]] virtual const std::vector<Real::Reference<Real::VertexBuffer>>& VertexBuffers() const override
+		{ return vertexBuffers; };
+		[[nodiscard]] virtual const std::vector<Real::Reference<Real::IndexBuffer>>& IndexBuffers() const override
+		{ return indexBuffers; };
 
-		virtual void
-		add_vertex_buffer(const real::reference<real::vertex_buffer> &buffer) override;
-		virtual void
-		add_index_buffer(const real::reference<real::index_buffer> &buffer) override;
+		virtual void AddVertexBuffer(
+				const Real::Reference<Real::VertexBuffer>& buffer) override;
+		virtual void AddIndexBuffer(
+				const Real::Reference<Real::IndexBuffer>& buffer) override;
 
-		virtual int32_t count() const override;
+		virtual int32_t Count() const override;
 
-		virtual void bind() const override;
-		virtual void unbind() const override;
+		virtual void Bind() const override;
+		virtual void Unbind() const override;
 	private:
-		renderer_id_t renderer_id_;
-		uint32_t count_;
+		renderer_id_t rendererId;
+		uint32_t count;
 
-		std::vector<real::reference<vertex_buffer>> vertex_buffers_;
-		std::vector<real::reference<index_buffer>> index_buffers_;
+		std::vector<Real::Reference<VertexBuffer>> vertexBuffers;
+		std::vector<Real::Reference<IndexBuffer>> indexBuffers;
 	};
 }
 

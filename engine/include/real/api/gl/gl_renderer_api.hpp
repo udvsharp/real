@@ -7,16 +7,18 @@
 #include "real/renderer/renderer_api.hpp"
 #include "real/renderer/array_vertex.hpp"
 
-namespace real {
-	class REAL_API gl_api : public renderer_api {
+namespace Real
+{
+	class REAL_API GLRendererApi : public RendererAPI
+	{
 	public:
-		virtual void init() override;
-		void clear_color(glm::fvec4 color) override;
-		void clear(int32_t bits) override;
-		void draw_indexed(const real::reference<vertex_array> &vao) override;
-		[[nodiscard]] api enumval() const override;
+		virtual void Init() override;
+		void ClearColor(glm::fvec4 color) override;
+		void Clear(int32_t bits) override;
+		void DrawIndexed(const Real::Reference<VertexArray>& vao) override;
+		[[nodiscard]] API Value() const override;
 	private:
-		[[nodiscard]] int32_t default_clear_bits() const noexcept override;
+		[[nodiscard]] int32_t DefaultClearBits() const noexcept override;
 	};
 }
 

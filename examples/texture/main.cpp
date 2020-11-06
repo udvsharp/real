@@ -5,41 +5,41 @@
 // #define TEXTURE_FILENAME "assets/textures/checkerboard.png"
 #define TEXTURE_FILENAME "assets/textures/parrot.gif" // LOL this is bad texture...............
 
-class application : public real::application {
+class Application : public Real::Application {
 private:
 	// Rendering
-	real::reference<real::vertex_array> vao_;
-	real::reference<real::vertex_buffer> vbo_;
-	real::reference<real::index_buffer> ibo_;
+	Real::Reference<Real::VertexArray> vao;
+	Real::Reference<Real::VertexBuffer> vbo;
+	Real::Reference<Real::IndexBuffer> ibo;
 
-	real::camera* camera_;
+	Real::Camera* camera;
 
-	real::reference<real::texture> texture_;
-	real::reference<real::shader_lib> shader_lib_ = std::make_shared<real::shader_lib>();
+	Real::Reference<Real::Texture> texture;
+	Real::ShaderLibrary shaderLib;
 public:
-	application() : real::application() {
+	Application() :Real::Application() {
 		// layers().push_layer(new real::imgui_layer{});
 		// Perspective
-		camera_ = new real::camera_perspective{ 45.0f, 16.0f, 9.0f };
+		camera = new Real::PerspectiveCamera{ 45.0f, 16.0f, 9.0f };
 
 		// Orthographic
 		// camera_ =  new real::camera_orthographic {-3.2f, 3.2f, -1.8f, 1.8f, };
 
-		camera_->position( {0.0f, 0.0f, 5.0f} );
-		camera_->look_at({ 0.0, 0.0, 0.0 });
+		camera->Position({ 0.0f, 0.0f, 5.0f });
+		camera->LookAt({ 0.0, 0.0, 0.0 });
 	}
 protected:
 	// Override this if you want
-	virtual void init() override {
-		real::application::init();
+	virtual void Init() override {
+		Real::Application::Init();
 
 		REAL_TRACE("Initializing shaders...");
-		auto shader = shader_lib_->load("shader/tex.glsl");
+		auto shader = shaderLib.Load("shaders/tex.glsl");
 
 		REAL_TRACE("Initializing textures...");
-		texture_ = real::texture2d::make(std::string(TEXTURE_FILENAME));
-		texture_->init();
-		shader->uniform_int("u_texture", 0);
+		texture = Real::Texture2D::Make(std::string(TEXTURE_FILENAME));
+		texture->Init();
+		shader->UniformInt("u_texture", 0);
 
 		// region Setup rendering
 		// Vertices
@@ -56,46 +56,44 @@ protected:
 		};
 
 		// Vertex Array
-		vao_.reset(real::vertex_array::make());
-		vao_->bind();
+		vao.reset(Real::VertexArray::Make());
 
 		// Vertex Buffer
-		vbo_.reset(real::vertex_buffer::make(vertices, sizeof(vertices)));
-		vbo_->layout({
-		    { real::shader_data_t::vec3, "_pos",  },
-		    { real::shader_data_t::vec2, "_texcoord",},
-		    // { real::shader_data_t::vec4, "_color",},
+		vbo.reset(Real::VertexBuffer::Make(vertices, sizeof(vertices)));
+		vbo->Layout({
+				{ Real::shader_data_t::vec3, "_pos", },
+				{ Real::shader_data_t::vec2, "_texcoord", },
+				// { real::shader_data_t::vec4, "_color",},
 		});
 
 		// Index Buffer
-		ibo_.reset(real::index_buffer::make(positions, sizeof(positions) / sizeof(unsigned int)));
-		ibo_->bind();
+		ibo.reset(Real::IndexBuffer::Make(positions, sizeof(positions) / sizeof(unsigned int)));
 
 		// Link buffers to vertex array
-		vao_->add_vertex_buffer(vbo_);
-		vao_->add_index_buffer(ibo_);
+		vao->AddVertexBuffer(vbo);
+		vao->AddIndexBuffer(ibo);
 		// endregion
 	}
 
-	virtual void update(real::timestep ts) override {}
+	virtual void Update(Real::Timestep ts) override {}
 
-	virtual void render(real::timestep ts) override {
-		real::renderer::start_scene(*camera_);
+	virtual void Render(Real::Timestep ts) override {
+		Real::Renderer::StartScene(*camera);
 
-		real::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
+		Real::Transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.0f));
 
-		texture_->bind(0);
-		real::renderer::submit(vao_, shader_lib_->get("tex"), transform);
-		real::renderer::end_scene();
+		texture->Bind(0);
+		Real::Renderer::Submit(vao, shaderLib.Get("tex"), transform);
+		Real::Renderer::EndScene();
 
-		real::render_command::draw_indexed(vao_);
+		Real::RenderCommand::DrawIndexed(vao);
 	}
 
-	virtual void on_event(real::ev &e) override {
-		real::application::on_event(e);
+	virtual void OnEvent(Real::Event &e) override {
+		Real::Application::OnEvent(e);
 	}
 };
 
-real::application *real::create() {
-	return new ::application();
+Real::Application *Real::Make() {
+	return new ::Application();
 }

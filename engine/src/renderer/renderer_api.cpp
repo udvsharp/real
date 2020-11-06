@@ -2,6 +2,6 @@
 
 #include "real/renderer/renderer_api.hpp"
 
-namespace real {
+namespace Real {
 	// renderer_api::api renderer_api::api_ = renderer_api::api::gl;
 }

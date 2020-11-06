@@ -6,16 +6,16 @@
 #include "real/core.hpp"
 #include "real/layer/base_layer.hpp"
 
-namespace real {
-	class REAL_API imgui_layer : public layer {
+namespace Real {
+	class REAL_API ImGUILayer : public Layer {
 	public:
-		imgui_layer();
-		~imgui_layer();
+		ImGUILayer();
+		~ImGUILayer();
 
-		void attach() override;
-		void detach() override;
-		void update(timestep ts) override;
-		void handle_event(ev &ev) override;
+		void Attach() override;
+		void Detach() override;
+		void Update(Timestep ts) override;
+		void HandleEvent(Event &ev) override;
 	};
 }
 

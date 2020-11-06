@@ -6,26 +6,30 @@
 #include "real/core.hpp"
 #include "real/renderer/base_texture.hpp"
 
-namespace real {
+namespace Real
+{
 
-	class REAL_API gl_texture2d : public real::texture2d {
+	class REAL_API GLTexture2D : public Real::Texture2D
+	{
 	public:
-		gl_texture2d(const std::string &path);
-		~gl_texture2d();
+		GLTexture2D(const std::string& path);
+		~GLTexture2D();
 
-		virtual void init() override;
+		virtual void Init() override;
 
-		virtual inline texture_dimension_t width() const override { return width_; };
-		virtual inline texture_dimension_t height() const override { return height_; };
+		virtual inline texture_dimension_t Width() const override
+		{ return width; };
+		virtual inline texture_dimension_t Height() const override
+		{ return height; };
 
-		virtual void bind(uint32_t slot = 0) const override;
+		virtual void Bind(uint32_t slot = 0) const override;
 	private:
-		std::string path_;
+		std::string path;
 
-		texture_dimension_t width_;
-		texture_dimension_t height_;
+		texture_dimension_t width;
+		texture_dimension_t height;
 
-		renderer_id_t id_;
+		renderer_id_t rendererId;
 	};
 }
 

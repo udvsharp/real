@@ -5,151 +5,188 @@
 
 #include "real/event/base_event.hpp"
 
-namespace real {
+namespace Real
+{
 
-	class mouse_ev : public ev {
+	class MouseEvent : public Event
+	{
 	public:
-		[[nodiscard]] inline ev_category_t categories() const override {
-			return static_cast<ev_category_t>(ev_category::mouse);
+		[[nodiscard]] inline ev_category_t Categories() const override
+		{
+			return static_cast<ev_category_t>(EventCategory::Mouse);
 		}
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::none;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::None;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::none;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::None;
 		};
 	};
 
-	class mouse_btn_press_ev : public mouse_ev {
+	class MouseBtnPressedEvent : public MouseEvent
+	{
 	private:
-		mouse_btn_t btn_;
+		mouse_btn_t mouseBtn;
 	public:
-		explicit mouse_btn_press_ev(mouse_btn_t btn) : btn_(btn) {};
+		explicit MouseBtnPressedEvent(mouse_btn_t btn)
+				:mouseBtn(btn)
+		{};
 
-		[[nodiscard]] mouse_btn_t button() const { return btn_; }
+		[[nodiscard]] mouse_btn_t Button() const
+		{ return mouseBtn; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::mouse_btn_press;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::MouseBtnPress;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::mouse_btn_press;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::MouseBtnPress;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "mouse_btn_press_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "mouse_btn_press_ev: (";
-			ss << btn_;
+			ss << mouseBtn;
 			ss << ")";
 			return ss.str();
 		}
 
 	};
 
-	class mouse_btn_release_ev : public mouse_ev {
+	class MouseBtnReleasedEvent : public MouseEvent
+	{
 	private:
-		mouse_btn_t btn_;
+		mouse_btn_t mouseBtn;
 	public:
-		explicit mouse_btn_release_ev(mouse_btn_t btn) : btn_(btn) {};
+		explicit MouseBtnReleasedEvent(mouse_btn_t btn)
+				:mouseBtn(btn)
+		{};
 
-		[[nodiscard]] mouse_btn_t button() const { return btn_; }
+		[[nodiscard]] mouse_btn_t Button() const
+		{ return mouseBtn; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::mouse_btn_release;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::MouseBtnRelease;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::mouse_btn_release;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::MouseBtnRelease;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "mouse_btn_release_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "mouse_btn_release_ev: (";
-			ss << btn_;
+			ss << mouseBtn;
 			ss << ")";
 			return ss.str();
 		}
 
 	};
 
-	class mouse_move_ev : public mouse_ev {
+	class MouseMovedEvent : public MouseEvent
+	{
 	private:
-		mouse_position_t x_, y_;
+		mouse_position_t xPos, yPos;
 	public:
-		mouse_move_ev(mouse_position_t x, mouse_position_t y) : x_(x), y_(y) {}
+		MouseMovedEvent(mouse_position_t x, mouse_position_t y)
+				:xPos(x), yPos(y)
+		{}
 
-		[[nodiscard]] mouse_position_t x() const { return x_; }
-		[[nodiscard]] mouse_position_t y() const { return y_; }
+		[[nodiscard]] mouse_position_t X() const
+		{ return xPos; }
+		[[nodiscard]] mouse_position_t Y() const
+		{ return yPos; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::mouse_move;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::MouseMove;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::mouse_move;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::MouseMove;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "mouse_move_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "mouse_move_ev: (";
-			ss << x_ << ", " << y_;
+			ss << xPos << ", " << yPos;
 			ss << ")";
 			return ss.str();
 		}
 
 	};
 
-	class mouse_scroll_ev : public mouse_ev {
+	class MouseScrolledEvent : public MouseEvent
+	{
 	public:
-		mouse_scroll_ev(mouse_position_t x_offset, mouse_position_t y_offset) : x_offset_(
-				x_offset),
-		                                                                        y_offset_(
-				                                                                        y_offset) {}
+		MouseScrolledEvent(mouse_position_t x_offset, mouse_position_t y_offset)
+				:xOffset(x_offset),
+				 yOffset(y_offset)
+		{}
 
-		[[nodiscard]] mouse_position_t x_offset() const { return x_offset_; }
-		[[nodiscard]] mouse_position_t y_offset() const { return y_offset_; }
+		[[nodiscard]] mouse_position_t XOffset() const
+		{ return xOffset; }
+		[[nodiscard]] mouse_position_t YOffset() const
+		{ return yOffset; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::mouse_scroll;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::MouseScroll;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::mouse_scroll;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::MouseScroll;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "mouse_scroll_ev";
 		}
 #endif
 
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "mouse_btn_press_ev: (";
-			ss << x_offset_ << ", " << y_offset_;
+			ss << xOffset << ", " << yOffset;
 			ss << ")";
 			return ss.str();
 		}
 	private:
-		mouse_position_t x_offset_;
-		mouse_position_t y_offset_;
+		mouse_position_t xOffset;
+		mouse_position_t yOffset;
 	};
 }
 

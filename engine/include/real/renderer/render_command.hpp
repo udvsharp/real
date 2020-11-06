@@ -8,24 +8,29 @@
 #include "real/core.hpp"
 #include "real/renderer/array_vertex.hpp"
 
-namespace real {
-	class REAL_API render_command {
+namespace Real
+{
+	class REAL_API RenderCommand
+	{
 	public:
-		static inline void clear_color(glm::fvec4 color) {
-			renderer::api().clear_color(color);
+		static inline void ClearColor(glm::fvec4 color)
+		{
+			Renderer::Api().ClearColor(color);
 		}
 
-		static void init() {
-			renderer::api().init();
+		static void Init()
+		{
+			Renderer::Api().Init();
 		}
 
-		static inline void clear() {
-			renderer::api().clear();
+		static inline void Clear()
+		{
+			Renderer::Api().clear();
 		}
 
-		static inline void
-		draw_indexed(const real::reference<vertex_array> &vertex_array) {
-			renderer::api().draw_indexed(vertex_array);
+		static inline void DrawIndexed(const Real::Reference<VertexArray>& vertexArray)
+		{
+			Renderer::Api().DrawIndexed(vertexArray);
 		}
 	};
 }

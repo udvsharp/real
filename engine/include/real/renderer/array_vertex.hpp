@@ -7,30 +7,30 @@
 
 #include "real/core.hpp"
 
-namespace real {
-	class vertex_buffer;
-	class index_buffer;
+namespace Real {
+	class VertexBuffer;
+	class IndexBuffer;
 
-	class REAL_API vertex_array {
+	class REAL_API VertexArray {
 	public:
-		virtual ~vertex_array();
+		virtual ~VertexArray();
 
-		[[nodiscard]] virtual const std::vector<real::reference<real::vertex_buffer>> &
-		vertex_buffers() const = 0;
-		[[nodiscard]] virtual const std::vector<real::reference<real::index_buffer>> &
-		index_buffers() const = 0;
+		[[nodiscard]] virtual const std::vector<Real::Reference<Real::VertexBuffer>> &
+		VertexBuffers() const = 0;
+		[[nodiscard]] virtual const std::vector<Real::Reference<Real::IndexBuffer>> &
+		IndexBuffers() const = 0;
 
 		virtual void
-		add_vertex_buffer(const real::reference<real::vertex_buffer> &buffer) = 0;
+		AddVertexBuffer(const Real::Reference<Real::VertexBuffer> &buffer) = 0;
 		virtual void
-		add_index_buffer(const real::reference<real::index_buffer> &buffer) = 0;
+		AddIndexBuffer(const Real::Reference<Real::IndexBuffer> &buffer) = 0;
 
-		virtual int32_t count() const = 0;
+		virtual int32_t Count() const = 0;
 
-		virtual void bind() const = 0;
-		virtual void unbind() const = 0;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 	public:
-		static vertex_array *make();
+		static VertexArray *Make();
 	};
 }
 

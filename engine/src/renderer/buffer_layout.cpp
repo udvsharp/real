@@ -2,25 +2,30 @@
 
 #include "real/renderer/buffer_layout.hpp"
 
-namespace real {
-	buffer_layout::buffer_layout(std::initializer_list<vertex_attribute> attributes)
-			: attributes_{ attributes } {
-		calculate_params();
+namespace Real
+{
+	BufferLayout::BufferLayout(std::initializer_list<VertexAttribute> attributes)
+			:attributes { attributes }
+	{
+		CalculateParams();
 	}
 
-	buffer_layout::buffer_layout()
-			: attributes_{} {
+	BufferLayout::BufferLayout()
+			:attributes {}
+	{
 
 	}
 
-	void buffer_layout::calculate_params() {
+	void BufferLayout::CalculateParams()
+	{
 		uint32_t offset = 0;
 
-		for (auto &a : attributes_) {
+		for (auto& a : attributes)
+		{
 			a.offset = offset;
 			offset += a.size;
 
-			stride_ += a.size;
+			stride += a.size;
 		}
 	}
 }

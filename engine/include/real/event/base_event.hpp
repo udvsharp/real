@@ -10,101 +10,115 @@
 
 #include "real/core.hpp"
 
-namespace real {
+namespace Real
+{
 
 	using ev_type_t = int32_t;
 	using ev_category_t = int32_t;
 
-	enum class ev_type : ev_type_t {
-		none = 0,
+	enum class EventType : ev_type_t
+	{
+		None = 0,
 
 		// category_window types
-		window_close, window_resize, window_focus, window_unfocus, window_move,
+		WindowClose, WindowResize, WindowFocus, WindowUnfocus, WindowMove,
 
 		// key types
-		key_pressed, key_released, key_typed,
+		KeyPressed, KeyReleased, KeyTyped,
 
 		// category_mouse types
-		mouse_btn_press, mouse_btn_release, mouse_move, mouse_scroll,
+		MouseBtnPress, MouseBtnRelease, MouseMove, MouseScroll,
 	};
 
-	enum class ev_category : ev_category_t {
-		none = 0,
-		window = bit(1u),
-		input = bit(2u),
-		mouse = bit(3u),
-		mouse_btn = bit(4u),
+	enum class EventCategory : ev_category_t
+	{
+		None = 0,
+		Window = bit(1u),
+		Input = bit(2u),
+		Mouse = bit(3u),
+		MouseBtn = bit(4u),
 	};
 
-	class ev {
-		friend class ev_dispatcher;
+	class Event
+	{
+		friend class EventDispatcher;
 
-		friend std::ostream &operator<<(std::ostream &os, const ev &ev);
+		friend std::ostream& operator<<(std::ostream& os, const Event& ev);
 	public:
-		[[nodiscard]] virtual inline ev_category_t categories() const = 0;
-		[[nodiscard]] virtual inline ev_type type() const = 0;
+		[[nodiscard]] virtual inline ev_category_t Categories() const = 0;
+		[[nodiscard]] virtual inline EventType Type() const = 0;
 
-		[[nodiscard]] inline bool handled() const { return _handled; }
+		[[nodiscard]] inline bool IsHandled() const
+		{ return handled; }
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] virtual std::string name() const = 0;
-		[[nodiscard]] virtual std::string to_string() const { return name(); }
+		[[nodiscard]] virtual std::string Name() const = 0;
+		[[nodiscard]] virtual std::string ToString() const
+		{ return Name(); }
 #else
-		[[nodiscard]] virtual std::string to_string() const { return "event"; }
+		[[nodiscard]] virtual std::string ToString() const { return "event"; }
 #endif
 
-		[[nodiscard]] inline bool has_category(ev_category c) const {
-			return static_cast<bool>(static_cast<ev_category_t>(c) & categories());
+		[[nodiscard]] inline bool HasCategory(EventCategory c) const
+		{
+			return static_cast<bool>(static_cast<ev_category_t>(c) & Categories());
 		}
 	protected:
-		bool _handled = false;
+		bool handled = false;
 	};
 
 	template<typename T>
-	struct is_event {
+	struct IsEvent
+	{
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "NotImplementedFunctions"
-		static int detect(...);
+		static int Detect(...);
 
 		template<typename U>
-		static decltype(U::static_type()) detect(const U &);
+		static decltype(U::StaticType()) Detect(const U&);
 
 		static constexpr bool value = std::is_same<
-				ev_type,
+				EventType,
 				decltype(
-				detect(std::declval<
-						typename std::enable_if<std::is_base_of<ev, T>::value, T>::type
+				Detect(std::declval<
+						typename std::enable_if<std::is_base_of<Event, T>::value, T>::type
 				>()))
 		>::value;
 #pragma clang diagnostic pop
 	};
 
-	class ev_dispatcher {
+	class EventDispatcher
+	{
 		template<typename T>
-		using ev_function_t = std::function<bool(T &)>;
+		using ev_function_t = std::function<bool(T&)>;
 	public:
 
-		explicit ev_dispatcher(ev *ev) : ev_(ev) {}
+		explicit EventDispatcher(Event* ev)
+				:event(ev)
+		{}
 
 		template<typename T>
-		bool dispatch(
+		bool Dispatch(
 				ev_function_t<
-						typename std::enable_if<is_event<T>::value, T>::type
+						typename std::enable_if<IsEvent<T>::value, T>::type
 				> function
-		) noexcept {
-			if (ev_->type() == T::static_type()) {
-				ev_->_handled = function(*((T *) ev_));
+		) noexcept
+		{
+			if (event->Type() == T::StaticType())
+			{
+				event->handled = function(*((T*)event));
 				return true;
 			}
 			return false;
 		}
 
 	private:
-		ev *ev_;
+		Event* event;
 	};
 
-	inline std::ostream &operator<<(std::ostream &os, const ev &ev) {
-		os << ev.to_string() << ", handled: " << ev._handled;
+	inline std::ostream& operator<<(std::ostream& os, const Event& event)
+	{
+		os << event.ToString() << ", handled: " << event.handled;
 		return os;
 	}
 }

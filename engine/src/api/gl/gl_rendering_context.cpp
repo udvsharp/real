@@ -4,17 +4,21 @@
 #include "real/api/gl/gl_headers.hpp"
 #include "real/api/gl/gl_rendering_context.hpp"
 
-namespace real {
-	gl_rendering_context::gl_rendering_context(GLFWwindow *window_handle) {
-		window_handle_ = window_handle;
+namespace Real
+{
+	GLRenderingContext::GLRenderingContext(GLFWwindow* windowHandle)
+	{
+		this->glfwWindowHandle = windowHandle;
 	}
 
-	void gl_rendering_context::init() {
+	void GLRenderingContext::Init()
+	{
 		REAL_CORE_TRACE("Initializing GL rendering context...");
 
-		glfwMakeContextCurrent(window_handle_);
+		glfwMakeContextCurrent(glfwWindowHandle);
 
-		if (window_handle_ == nullptr) {
+		if (glfwWindowHandle == nullptr)
+		{
 			REAL_CORE_ERROR("Failed to create window(handle is nullptr)!");
 			glfwTerminate();
 			std::terminate();
@@ -22,7 +26,8 @@ namespace real {
 
 		// Glad
 		REAL_CORE_TRACE("Loading GL...");
-		if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
+		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+		{
 			REAL_CORE_ERROR("Couldn't load GL!");
 			glfwTerminate();
 			std::terminate();
@@ -39,14 +44,19 @@ namespace real {
 		);
 	}
 
-	void gl_rendering_context::swap_buffers() {
-		glfwSwapBuffers(window_handle_);
+	void GLRenderingContext::SwapBuffers()
+	{
+		glfwSwapBuffers(glfwWindowHandle);
 	}
 
-	void gl_rendering_context::vsync(bool enabled) {
-		if (enabled) {
+	void GLRenderingContext::VSync(bool enabled)
+	{
+		if (enabled)
+		{
 			glfwSwapInterval(1);
-		} else {
+		}
+		else
+		{
 			glfwSwapInterval(0);
 		}
 	}

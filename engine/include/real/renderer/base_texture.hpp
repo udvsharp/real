@@ -5,24 +5,24 @@
 
 #include "real/core.hpp"
 
-namespace real {
-	class REAL_API texture {
+namespace Real {
+	class REAL_API Texture {
 	public:
-		~texture();
+		~Texture();
 
-		virtual void init() = 0;
+		virtual void Init() = 0;
 
-		virtual texture_dimension_t width() const = 0;
-		virtual texture_dimension_t height() const = 0;
+		virtual texture_dimension_t Width() const = 0;
+		virtual texture_dimension_t Height() const = 0;
 
-		virtual void bind(uint32_t slot = 0) const = 0;
+		virtual void Bind(uint32_t slot = 0) const = 0;
 	};
 
-	class REAL_API texture2d : public texture {
+	class REAL_API Texture2D : public Texture {
 	public:
-		~texture2d();
+		~Texture2D();
 	public:
-		static real::reference<texture2d> make(const std::string &path);
+		static Real::Reference<Texture2D> Make(const std::string &path);
 	};
 }
 

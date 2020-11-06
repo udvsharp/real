@@ -5,10 +5,10 @@
 
 #include "real/core.hpp"
 
-namespace real {
-	class REAL_API timestep {
+namespace Real {
+	class REAL_API Timestep {
 	public:
-		timestep(double time = 0.0f) : time_{ time } {}
+		Timestep(double time = 0.0f) :time_{ time } {}
 
 		[[nodiscard]] float seconds() const { return time_; };
 		[[nodiscard]] float milliseconds() const { return time_ * 1000.0f; };

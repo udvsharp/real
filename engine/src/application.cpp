@@ -4,79 +4,94 @@
 
 #include "real/application.hpp"
 
-namespace real {
+namespace Real
+{
 
-	application::application(std::string name)
-			: singleton<application>{},
-			  name_{ std::move(name) } {
+	Application::Application(std::string name)
+			:Singleton<Application> {},
+			 name { std::move(name) }
+	{
 
 		// Setup systems
-		window_props props{};
-		window_.reset(window::make(props));
-		input_.reset(input::make());
+		WindowProperties props {};
+		window.reset(Window::Make(props));
+		input.reset(Input::Make());
 
-		window_->ev_callback([this](ev &e) {
-			application::on_event(e);
+		window->EventCallback([this](Event& e)
+		{
+			Application::OnEvent(e);
 		});
 	}
 
-	void application::init() {
+	void Application::Init()
+	{
 		REAL_CORE_TRACE("Initializing app...");
-		window_->init();
-		renderer::init();
+		window->Init();
+		Renderer::Init();
 	}
 
-	void application::run() {
+	void Application::Run()
+	{
 		REAL_CORE_TRACE("Application is running!");
 
-		while (is_running_) {
-			double time = real::time();
-			timestep timestep = time - frametime_;
-			frametime_ = time;
+		while (isRunning)
+		{
+			double time = Real::Time();
+			Timestep timestep = time - frametime;
+			frametime = time;
 
-			render_command::clear_color({ 0.1f, 0.1f, 0.1f, 1.0f });
-			render_command::clear();
+			RenderCommand::ClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+			RenderCommand::Clear();
 
-			render(timestep);
+			Render(timestep);
 
-			for (auto *layer : layers_) {
-				layer->update(timestep);
+			for (auto* layer : layerStack)
+			{
+				layer->Update(timestep);
 			}
 
-			window_->on_update(timestep);
-			update(timestep);
+			window->OnUpdate(timestep);
+			Update(timestep);
 		}
 
 		REAL_CORE_TRACE("Closing application;");
 	}
 
-	void application::render(timestep ts) {}
+	void Application::Render(Timestep ts)
+	{}
 
-	void application::update(timestep ts) {}
+	void Application::Update(Timestep ts)
+	{}
 
-	void application::on_event(ev &e) {
+	void Application::OnEvent(Event& e)
+	{
 		// REAL_CORE_TRACE("Got event: {0}", e);
 
-		ev_dispatcher dispatcher{ &e };
-		dispatcher.dispatch<window_close_ev>([this](window_close_ev &event) -> bool {
-			this->on_window_close(event);
+		EventDispatcher dispatcher { &e };
+		dispatcher.Dispatch<WindowClosedEvent>([this](WindowClosedEvent& event) -> bool
+		{
+			this->OnWindowClose(event);
 			return false;
 		});
 
-		for (auto it = layers_.end(); it != layers_.begin();) {
-			(*--it)->handle_event(e);
-			if (e.handled()) {
+		for (auto it = layerStack.end(); it != layerStack.begin();)
+		{
+			(*--it)->HandleEvent(e);
+			if (e.IsHandled())
+			{
 				break;
 			}
 		}
 	}
 
-	double application::time() const {
+	double Application::Time() const
+	{
 		return glfwGetTime();
 	}
 
-	void application::on_window_close(window_close_ev &e) {
-		this->is_running_ = false;
+	void Application::OnWindowClose(WindowClosedEvent& event)
+	{
+		this->isRunning = false;
 	}
 }
 

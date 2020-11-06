@@ -11,31 +11,35 @@
 #include "real/core.hpp"
 
 // TODO: new logging!
-namespace real {
-	class REAL_API logger {
+namespace Real
+{
+	class REAL_API Logger
+	{
 	public:
-		static void init();
+		static void Init();
 
-		static std::shared_ptr<spdlog::logger> &core() { return core_logger_; }
-		static std::shared_ptr<spdlog::logger> &client() { return client_logger_; }
+		static std::shared_ptr<spdlog::logger>& Core()
+		{ return coreLogger; }
+		static std::shared_ptr<spdlog::logger>& Client()
+		{ return clientLogger; }
 	private:
-		static std::shared_ptr<spdlog::logger> core_logger_;
-		static std::shared_ptr<spdlog::logger> client_logger_;
+		static std::shared_ptr<spdlog::logger> coreLogger;
+		static std::shared_ptr<spdlog::logger> clientLogger;
 	};
 }
 
 // Core log macros
-#define REAL_CORE_TRACE(...)    ::real::logger::core()->trace(__VA_ARGS__)
-#define REAL_CORE_INFO(...)     ::real::logger::core()->info(__VA_ARGS__)
-#define REAL_CORE_WARN(...)     ::real::logger::core()->warn(__VA_ARGS__)
-#define REAL_CORE_ERROR(...)    ::real::logger::core()->error(__VA_ARGS__)
-#define REAL_CORE_CRITICAL(...) ::real::logger::core()->critical(__VA_ARGS__)
+#define REAL_CORE_TRACE(...)    ::Real::Logger::Core()->trace(__VA_ARGS__)
+#define REAL_CORE_INFO(...)     ::Real::Logger::Core()->info(__VA_ARGS__)
+#define REAL_CORE_WARN(...)     ::real::Logger::Core()->warn(__VA_ARGS__)
+#define REAL_CORE_ERROR(...)    ::Real::Logger::Core()->error(__VA_ARGS__)
+#define REAL_CORE_CRITICAL(...) ::real::Logger::Core()->critical(__VA_ARGS__)
 
 // Client log macros
-#define REAL_TRACE(...)         ::real::logger::client()->trace(__VA_ARGS__)
-#define REAL_INFO(...)          ::real::logger::client()->info(__VA_ARGS__)
-#define REAL_WARN(...)          ::real::logger::client()->warn(__VA_ARGS__)
-#define REAL_ERROR(...)         ::real::logger::client()->error(__VA_ARGS__)
-#define REAL_CRITICAL(...)      ::real::logger::client()->critical(__VA_ARGS__)
+#define REAL_TRACE(...)         ::Real::Logger::Client()->trace(__VA_ARGS__)
+#define REAL_INFO(...)          ::real::Logger::Client()->info(__VA_ARGS__)
+#define REAL_WARN(...)          ::real::Logger::Client()->warn(__VA_ARGS__)
+#define REAL_ERROR(...)         ::real::Logger::Client()->error(__VA_ARGS__)
+#define REAL_CRITICAL(...)      ::real::Logger::Client()->critical(__VA_ARGS__)
 
 #endif //REAL_LOGGER

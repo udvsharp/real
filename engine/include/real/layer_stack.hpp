@@ -6,34 +6,42 @@
 #include "real/core.hpp"
 #include "real/layer.hpp"
 
-namespace real {
-	class REAL_API layer_stack {
-		using container = std::vector<layer *>;
+namespace Real
+{
+	class REAL_API LayerStack
+	{
+		using container = std::vector<Layer*>;
 		using iterator = container::iterator;
 		using const_iterator = container::const_iterator;
 	private:
 		// TODO: own vector
-		container stack_;
-		iterator layer_insert_;
+		container stack;
+		iterator layerInsert;
 	public:
-		layer_stack();
-		~layer_stack();
+		LayerStack();
+		~LayerStack();
 
 		//region Iterators
-		iterator begin() noexcept { return stack_.begin(); };
-		const_iterator cbegin() const noexcept { return stack_.begin(); };
-		const_iterator begin() const noexcept { return stack_.begin(); };
+		iterator begin() noexcept
+		{ return stack.begin(); };
+		const_iterator cbegin() const noexcept
+		{ return stack.begin(); };
+		const_iterator begin() const noexcept
+		{ return stack.begin(); };
 
-		iterator end() noexcept { return stack_.end(); };
-		const_iterator end() const noexcept { return stack_.end(); };
-		const_iterator cend() const noexcept { return stack_.end(); };
+		iterator end() noexcept
+		{ return stack.end(); };
+		const_iterator end() const noexcept
+		{ return stack.end(); };
+		const_iterator cend() const noexcept
+		{ return stack.end(); };
 		//endregion
 
-		void push_layer(layer *layer);
-		void pop_layer(layer *layer);
+		void PushLayer(Layer* layer);
+		void PopLayer(Layer* layer);
 
-		void push_overlay(layer *overlay);
-		void pop_overlay(layer *overlay);
+		void PushOverlay(Layer* overlay);
+		void PopOverlay(Layer* overlay);
 	};
 }
 

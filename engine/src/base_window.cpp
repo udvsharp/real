@@ -3,18 +3,21 @@
 #include "real/time/timestep.hpp"
 #include "real/window.hpp"
 
-namespace real {
-	window *window::make(const window_props &props) {
-		window *window;
+namespace Real
+{
+	Window* Window::Make(const WindowProperties& props)
+	{
+		Window* window;
 #ifdef REAL_PLATFORM_WINDOWS
-		window = new platform::window{ props };
+		window = new Platform::Window { props };
 #endif
 		return window;
 	}
 
-	window::~window() = default;
+	Window::~Window() = default;
 
-	void window::on_update(timestep ts) {
+	void Window::OnUpdate(Timestep ts)
+	{
 
 	}
 }

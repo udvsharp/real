@@ -6,23 +6,28 @@
 
 #include "real/renderer.hpp"
 
-namespace real {
+namespace Real
+{
 
 	// region Texture
-	texture::~texture() = default;
+	Texture::~Texture() = default;
 	// endregion Texture
 	// region Texture2D
-	real::reference<texture2d> texture2d::make(const std::string &path) {
-		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl: return real::make_reference<gl_texture2d>(path);
+	Real::Reference<Texture2D> Texture2D::Make(const std::string& path)
+	{
+		switch (Renderer::Api().Value())
+		{
+		case RendererAPI::API::GL:
+			return Real::MakeReference<GLTexture2D>(path);
 
-			default:
-			case renderer_api::api::none: REAL_CORE_ERROR("Invalid renderer api: {}",
-			                                              renderer_api::api::none);
-				return nullptr;
+		default:
+		case RendererAPI::API::none:
+			REAL_CORE_ERROR("Invalid renderer api: {}",
+					RendererAPI::API::none);
+			return nullptr;
 		}
 	}
 
-	texture2d::~texture2d() = default;
+	Texture2D::~Texture2D() = default;
 	// endregion Texture2d
 }

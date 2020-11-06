@@ -5,110 +5,140 @@
 
 #include "real/event/base_event.hpp"
 
-namespace real {
-	class key_ev : public ev {
+namespace Real
+{
+	class KeyEvent : public Event
+	{
 	public:
-		[[nodiscard]] inline ev_category_t categories() const override {
-			return static_cast<ev_category_t>(ev_category::input);
+		[[nodiscard]] inline ev_category_t Categories() const override
+		{
+			return static_cast<ev_category_t>(EventCategory::Input);
 		}
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::none;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::None;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::none;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::None;
 		};
 	};
 
-	class key_press_ev : public key_ev {
+	class KeyPressedEvent : public KeyEvent
+	{
 	private:
-		keycode_t btn_;
+		keycode_t btnKeycode;
 	public:
-		explicit key_press_ev(keycode_t btn) : btn_(btn) {};
+		explicit KeyPressedEvent(keycode_t btn)
+				:btnKeycode(btn)
+		{};
 
-		[[nodiscard]] mouse_btn_t key_code() const { return btn_; }
+		[[nodiscard]] mouse_btn_t KeyCode() const
+		{ return btnKeycode; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::key_pressed;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::KeyPressed;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::key_pressed;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::KeyPressed;
 		};
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "key_press_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "key_press_ev: (";
-			ss << btn_;
+			ss << btnKeycode;
 			ss << ")";
 			return ss.str();
 		}
 
 	};
 
-	class key_release_ev : public key_ev {
+	class KeyReleasedEvent : public KeyEvent
+	{
 	private:
-		keycode_t btn_;
+		keycode_t btnKeycode;
 	public:
-		explicit key_release_ev(keycode_t btn) : btn_(btn) {};
+		explicit KeyReleasedEvent(keycode_t btn)
+				:btnKeycode(btn)
+		{};
 
-		[[nodiscard]] mouse_btn_t key_code() const { return btn_; }
+		[[nodiscard]] mouse_btn_t KeyCode() const
+		{ return btnKeycode; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::key_released;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::KeyReleased;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::key_released;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::KeyReleased;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "key_release_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "key_release_ev: (";
-			ss << btn_;
+			ss << btnKeycode;
 			ss << ")";
 			return ss.str();
 		}
 
 	};
 
-	class key_typed_ev : public key_ev {
+	class KeyTypedEvent : public KeyEvent
+	{
 	private:
-		keycode_t keycode_;
-		keycode_t repeat_count_ = 0;
+		keycode_t keycode;
+		keycode_t repeatCount = 0;
 	public:
-		explicit key_typed_ev(keycode_t btn) : keycode_(btn) {};
+		explicit KeyTypedEvent(keycode_t btn)
+				:keycode(btn)
+		{};
 
-		[[nodiscard]] mouse_btn_t key_code() const { return keycode_; }
-		[[nodiscard]] mouse_btn_t repeats() const { return repeat_count_; }
+		[[nodiscard]] mouse_btn_t KeyCode() const
+		{ return keycode; }
+		[[nodiscard]] mouse_btn_t Repeats() const
+		{ return repeatCount; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::key_typed;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::KeyTyped;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::key_typed;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::KeyTyped;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "key_typed_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "key_typed_ev: (";
-			ss << keycode_ << ", " << repeat_count_;
+			ss << keycode << ", " << repeatCount;
 			ss << ")";
 			return ss.str();
 		}

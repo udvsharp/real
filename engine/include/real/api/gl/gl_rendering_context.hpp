@@ -8,16 +8,18 @@
 // Avoid including glfw
 struct GLFWwindow;
 
-namespace real {
-	class REAL_API gl_rendering_context : public rendering_context {
+namespace Real
+{
+	class REAL_API GLRenderingContext : public RenderingContext
+	{
 	public:
-		explicit gl_rendering_context(GLFWwindow *window_handle);
+		explicit GLRenderingContext(GLFWwindow* windowHandle);
 
-		void init() override;
-		void swap_buffers() override;
-		void vsync(bool enabled) override;
+		void Init() override;
+		void SwapBuffers() override;
+		void VSync(bool enabled) override;
 	private:
-		GLFWwindow *window_handle_;
+		GLFWwindow* glfwWindowHandle;
 	};
 }
 

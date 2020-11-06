@@ -9,26 +9,30 @@
 #include "real/renderer/camera.hpp"
 #include "real/renderer/base_shader.hpp"
 
-namespace real {
-	class REAL_API renderer {
+namespace Real
+{
+	class REAL_API Renderer
+	{
 	public:
-		[[nodiscard]] static inline renderer_api &api() noexcept { return *api_; }
+		[[nodiscard]] static inline RendererAPI& Api() noexcept
+		{ return *api; }
 
-		static void init();
-		static void start_scene(camera &camera) noexcept;
-		static void end_scene() noexcept;
-		static void submit(const real::reference<vertex_array> &vao,
-		                   const real::reference<shader> &shader,
-		                   const real::transform &model) noexcept;
+		static void Init();
+		static void StartScene(Camera& camera) noexcept;
+		static void EndScene() noexcept;
+		static void Submit(const Real::Reference<VertexArray>& vao,
+				const Real::Reference<Shader>& shader,
+				const Real::Transform& model) noexcept;
 	private:
-		static renderer_api *api_;
+		static RendererAPI* api;
 
 		// TODO: remove this COMPLETELY Temporary stuff
-		struct scene_data {
+		struct SceneData
+		{
 			glm::mat4 viewprojection;
 		};
 
-		static scene_data *data_;
+		static SceneData* sceneData;
 	};
 }
 

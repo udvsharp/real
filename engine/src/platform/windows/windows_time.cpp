@@ -2,8 +2,10 @@
 
 #include "real/platform/windows/windows_time.hpp"
 
-namespace real::platform {
-	double time() {
+namespace Real::Platform
+{
+	double Time()
+	{
 		return glfwGetTime();
 	}
 }

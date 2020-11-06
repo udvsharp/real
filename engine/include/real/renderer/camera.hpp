@@ -8,65 +8,74 @@
 
 #include "real/core.hpp"
 
-namespace real {
-	class REAL_API camera {
+namespace Real
+{
+	class REAL_API Camera
+	{
 	protected:
-		glm::mat4 view_ = glm::identity<glm::mat4>();
-		glm::mat4 projection_ = glm::identity<glm::mat4>();
+		glm::mat4 view = glm::identity<glm::mat4>();
+		glm::mat4 projection = glm::identity<glm::mat4>();
 
-		glm::mat4 cache_viewprojection_ = glm::identity<glm::mat4>();
+		glm::mat4 cacheViewprojection = glm::identity<glm::mat4>();
 
 		// TODO: migrate to quaternions
-		glm::vec3 position_ = { 0.0f, 0.0f, 0.0f, };
-		glm::vec3 direction_ = { 0.0f, 0.0f, 0.0f, };
+		glm::vec3 position = { 0.0f, 0.0f, 0.0f, };
+		glm::vec3 direction = { 0.0f, 0.0f, 0.0f, };
 	public:
-		explicit camera(const glm::mat4 &projection,
-		                glm::vec3 position = { 0.0f, 0.0f, 0.0f, },
-		                glm::vec3 direction = { 0.0f, 0.0f, 0.0f, });
+		explicit Camera(const glm::mat4& projection,
+				glm::vec3 position = { 0.0f, 0.0f, 0.0f, },
+				glm::vec3 direction = { 0.0f, 0.0f, 0.0f, });
 
-		virtual void init();
+		virtual void Init();
 
-		[[nodiscard]] virtual glm::vec3 position() const noexcept { return position_; };
-		virtual void position(glm::vec3 position) noexcept {
-			position_ = position;
-			update();
+		[[nodiscard]] virtual glm::vec3 Position() const noexcept
+		{ return this->position; };
+		virtual void Position(glm::vec3 position) noexcept
+		{
+			this->position = position;
+			Update();
 		};
 
-		[[nodiscard]] glm::mat4 projection() const noexcept { return projection_; };
-		virtual void projection(glm::mat4 projection) noexcept {
-			projection_ = projection;
-			update_viewprojection();
+		[[nodiscard]] glm::mat4 Projection() const noexcept
+		{ return this->projection; };
+		virtual void Projection(glm::mat4 projection) noexcept
+		{
+			this->projection = projection;
+			UpdateViewprojection();
 		};
 
-		[[nodiscard]] virtual glm::mat4 view() const noexcept { return view_; };
-		[[nodiscard]] virtual glm::mat4
-		viewprojection() const noexcept { return cache_viewprojection_; };
+		[[nodiscard]] virtual glm::mat4 View() const noexcept
+		{ return this->view; };
+		[[nodiscard]] virtual glm::mat4 Viewprojection() const noexcept
+		{ return this->cacheViewprojection; };
 
-		virtual void look_at(glm::vec3 target);
+		virtual void LookAt(glm::vec3 target);
 	protected:
-		virtual void update();
-		virtual void update_view() = 0;
-		virtual void update_viewprojection();
+		virtual void Update();
+		virtual void UpdateView() = 0;
+		virtual void UpdateViewprojection();
 	private:
 		// Base vectors
-		virtual glm::vec3 up() const;
-		virtual glm::vec3 right() const;
-		virtual glm::vec3 direction() const;
-		virtual glm::vec3 direction_to(glm::vec3 target) const;
+		virtual glm::vec3 Up() const;
+		virtual glm::vec3 Right() const;
+		virtual glm::vec3 Direction() const;
+		virtual glm::vec3 DirectionTo(glm::vec3 target) const;
 	};
 
-	class REAL_API camera_orthographic : public camera {
+	class REAL_API camera_orthographic : public Camera
+	{
 	public:
 		camera_orthographic(float left, float right, float bottom, float top);
 	private:
-		virtual void update_view() override;
+		virtual void UpdateView() override;
 	};
 
-	class REAL_API camera_perspective : public camera {
+	class REAL_API PerspectiveCamera : public Camera
+	{
 	public:
-		camera_perspective(float yfov, float w, float h);
+		PerspectiveCamera(float yfov, float w, float h);
 	private:
-		virtual void update_view() override;
+		virtual void UpdateView() override;
 	};
 }
 

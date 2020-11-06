@@ -11,69 +11,76 @@
 #include "real/core.hpp"
 #include "real/window/base_window.hpp"
 
-namespace real::platform {
-	struct window_data {
+namespace Real::Platform
+{
+	struct WindowData
+	{
 		std::string title;
-		::real::window_dimension_t width;
-		::real::window_dimension_t height;
-		bool is_v_sync;
-		ev_callback_t ev_callback;
+		::Real::window_dimension_t width;
+		::Real::window_dimension_t height;
+		bool isVSync;
+		event_callback_t ev_callback;
 
-		explicit window_data(
+		explicit WindowData(
 				std::string title = REAL_DEFAULT_WINDOW_TITLE,
 				window_dimension_t width = REAL_DEFAULT_WINDOW_WIDTH,
 				window_dimension_t height = REAL_DEFAULT_WINDOW_HEIGHT,
 				bool is_v_sync = REAL_DEFAULT_WINDOW_V_SYNC,
-				ev_callback_t callback = nullptr
+				event_callback_t callback = nullptr
 		)
-				: title(std::move(title)), width(width), height(height),
-				  is_v_sync(is_v_sync),
-				  ev_callback(std::move(callback)) {}
+				:title(std::move(title)), width(width), height(height),
+				 isVSync(is_v_sync),
+				 ev_callback(std::move(callback))
+		{}
 
-		explicit window_data(const ::real::window_props &props,
-		                     bool is_v_sync = REAL_DEFAULT_WINDOW_V_SYNC,
-		                     ev_callback_t callback = nullptr)
-				: title(props.title), width(props.width), height(props.height),
-				  is_v_sync(is_v_sync),
-				  ev_callback(std::move(callback)) {}
+		explicit WindowData(const ::Real::WindowProperties& props,
+				bool is_v_sync = REAL_DEFAULT_WINDOW_V_SYNC,
+				event_callback_t callback = nullptr)
+				:title(props.title), width(props.width), height(props.height),
+				 isVSync(is_v_sync),
+				 ev_callback(std::move(callback))
+		{}
 	};
 
-	class REAL_API window : public ::real::window {
+	class REAL_API Window : public ::Real::Window
+	{
 	public:
-		explicit window(window_data data);
-		explicit window(const window_props &props) : window(window_data{ props }) {};
+		explicit Window(WindowData data);
+		explicit Window(const WindowProperties& props)
+				:Window(WindowData { props })
+		{};
 
-		~window() override;
+		~Window() override;
 
-		void init() override;
+		void Init() override;
 
-		[[nodiscard]] inline window_dimension_t
-		width() const noexcept override { return data_.width; };
-		[[nodiscard]] inline window_dimension_t
-		height() const noexcept override { return data_.height; };
-		[[nodiscard]] inline bool
-		is_v_sync() const noexcept override { return data_.is_v_sync; }
+		[[nodiscard]] inline window_dimension_t Width() const noexcept override
+		{ return windowData.width; };
+		[[nodiscard]] inline window_dimension_t Height() const noexcept override
+		{ return windowData.height; };
+		[[nodiscard]] inline bool IsVSync() const noexcept override
+		{ return windowData.isVSync; }
 
-		[[nodiscard]] inline void *
-		native() const noexcept override { return native_window_; }
-		[[nodiscard]] rendering_context *
-		context() const noexcept override { return rendering_context_; };
+		[[nodiscard]] inline void* Native() const noexcept override
+		{ return nativeWindow; }
+		[[nodiscard]] RenderingContext* Context() const noexcept override
+		{ return renderingContext; };
 
-		void ev_callback(const ev_callback_t &callback) override;
-		void vsync(bool enabled) override;
+		void EventCallback(const event_callback_t& callback) override;
+		void VSync(bool enabled) override;
 
-		void on_update(timestep ts) override;
+		void OnUpdate(Timestep ts) override;
 	private:
 		// Maybe this should be virtual?
 		// void init();
 		// void shutdown();
 
-		void vsync_native(bool enabled);
+		void VSyncNative(bool enabled);
 	private:
 		// TODO: create window using Win32 API
-		GLFWwindow *native_window_;
-		rendering_context *rendering_context_;
-		window_data data_;
+		GLFWwindow* nativeWindow;
+		RenderingContext* renderingContext;
+		WindowData windowData;
 	};
 }
 

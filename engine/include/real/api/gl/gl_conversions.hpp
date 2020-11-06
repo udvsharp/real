@@ -10,8 +10,10 @@
 #include "real/renderer/common.hpp"
 #include "real/logger.hpp"
 
-namespace real {
-	constexpr GLuint gl_type_from(shader_data_t type) noexcept {
+namespace Real
+{
+	constexpr GLuint GLTypeFrom(shader_data_t type) noexcept
+	{
 		switch (type) {
 			case shader_data_t::vec   : return GL_FLOAT;
 			case shader_data_t::vec2  : return GL_FLOAT;
@@ -34,12 +36,15 @@ namespace real {
 		}
 	}
 
-	inline GLenum gl_shader_type_from(std::string_view type) noexcept {
-		if (type == "vertex") {
+	inline GLenum GLShaderTypeFrom(std::string_view type) noexcept
+	{
+		if (type == "vertex")
+		{
 			return GL_VERTEX_SHADER;
 		}
 
-		if (type == "fragment") {
+		if (type == "fragment")
+		{
 			return GL_FRAGMENT_SHADER;
 		}
 

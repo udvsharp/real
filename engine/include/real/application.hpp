@@ -14,39 +14,43 @@
 #include "real/time.hpp"
 #include "real/util/singleton.hpp"
 
-namespace real {
-	class REAL_API SINGLETON(application) {
+namespace Real
+{
+	class REAL_API SINGLETON(Application)
+	{
 	public:
-		explicit application(std::string name = REAL_APPLICATION_DEFAULT_NAME);
-		// virtual ~application() = default;
+		explicit Application(std::string name = REAL_APPLICATION_DEFAULT_NAME);
+		// virtual ~Application() = default;
 
-		[[nodiscard]] inline layer_stack &layers() noexcept { return this->layers_; }
-		[[nodiscard]] inline window &window() const noexcept { return *(this->window_); }
+		[[nodiscard]] inline LayerStack& Layers() noexcept
+		{ return this->layerStack; }
+		[[nodiscard]] inline Window& Window() const noexcept
+		{ return *(this->window); }
 
-		double time() const;
-		virtual void init();
-		void run();
+		double Time() const;
+		virtual void Init(); // TODO: abstract this from client
+		void Run();
 	protected:
-		virtual void render(timestep ts);
-		virtual void update(timestep ts);
-		virtual void on_event(ev &e);
+		virtual void Render(Timestep ts);
+		virtual void Update(Timestep ts);
+		virtual void OnEvent(Event& e);
 	private:
-		void on_window_close(window_close_ev &event);
+		void OnWindowClose(WindowClosedEvent& event);
 	private:
-		std::string name_;
+		std::string name;
 
-		real::scoped_ptr<real::window> window_;
-		real::scoped_ptr<real::input> input_;
+		Real::Scope<Real::Window> window;
+		Real::Scope<Real::Input> input;
 
-		layer_stack layers_;
+		LayerStack layerStack;
 
-		bool is_running_{ true };
+		bool isRunning { true };
 
-		float frametime_ = 0.0f;
+		float frametime = 0.0f;
 	};
 
 	// To be defined in client
-	extern application *create();
+	extern Application* Make();
 }
 
 #endif //REAL_APPLICATION

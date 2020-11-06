@@ -5,19 +5,19 @@
 
 #include "real/core.hpp"
 
-namespace real {
-	class REAL_API rendering_context {
+namespace Real {
+	class REAL_API RenderingContext {
 		// TODO: extend supported rendering api list
 		enum class api : char {
 			none = -1,
 			GL = 0,
 		};
 	public:
-		virtual void init() = 0;
-		virtual void swap_buffers() = 0;
-		virtual void vsync(bool enabled) = 0;
+		virtual void Init() = 0;
+		virtual void SwapBuffers() = 0;
+		virtual void VSync(bool enabled) = 0;
 
-		static rendering_context *make(api api);
+		static RenderingContext *make(api api);
 	};
 }
 

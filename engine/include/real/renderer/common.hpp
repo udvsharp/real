@@ -6,7 +6,7 @@
 #include "real/core.hpp"
 #include "real/logger.hpp"
 
-namespace real {
+namespace Real {
 
 	enum class shader_data_t : uint32_t {
 		none = 0,

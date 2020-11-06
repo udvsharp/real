@@ -2,41 +2,52 @@
 
 #include "real/layer_stack.hpp"
 
-namespace real {
-	layer_stack::layer_stack() : stack_{} {
-		layer_insert_ = stack_.begin();
+namespace Real
+{
+	LayerStack::LayerStack()
+			:stack {}
+	{
+		layerInsert = stack.begin();
 	}
 
-	layer_stack::~layer_stack() {
-		for (auto *layer : stack_) {
+	LayerStack::~LayerStack()
+	{
+		for (auto* layer : stack)
+		{
 			delete layer;
 		}
 	}
 
-	void layer_stack::push_layer(layer *layer) {
-		layer_insert_ = stack_.emplace(layer_insert_, layer);
-		layer->attach();
+	void LayerStack::PushLayer(Layer* layer)
+	{
+		layerInsert = stack.emplace(layerInsert, layer);
+		layer->Attach();
 	}
 
-	void layer_stack::push_overlay(layer *overlay) {
-		stack_.emplace_back(overlay);
-		overlay->attach();
+	void LayerStack::PushOverlay(Layer* overlay)
+	{
+		stack.emplace_back(overlay);
+		overlay->Attach();
 	}
 
-	void layer_stack::pop_layer(layer *layer) {
+	void LayerStack::PopLayer(Layer* layer)
+	{
 		auto it = std::find(begin(), end(), layer);
-		if (it != stack_.end()) {
-			(*it)->detach();
-			stack_.erase(it);
-			--layer_insert_;
+		if (it != stack.end())
+		{
+			(*it)->Detach();
+			stack.erase(it);
+			--layerInsert;
 		}
 	}
 
-	void layer_stack::pop_overlay(layer *overlay) {
+	void LayerStack::PopOverlay(Layer* overlay)
+	{
 		auto it = std::find(begin(), end(), overlay);
-		if (it != stack_.end()) {
-			(*it)->detach();
-			stack_.erase(it);
+		if (it != stack.end())
+		{
+			(*it)->Detach();
+			stack.erase(it);
 		}
 	}
 }

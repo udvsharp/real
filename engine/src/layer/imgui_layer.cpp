@@ -10,15 +10,17 @@
 #include "real/application.hpp"
 #include "api/gl/imgui_impl_opengl3.h"
 
-namespace real {
+namespace Real
+{
 
-	void imgui_layer::attach() {
-		layer::attach();
+	void ImGUILayer::Attach()
+	{
+		Layer::Attach();
 
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
 
-		ImGuiIO &io = ImGui::GetIO();
+		ImGuiIO& io = ImGui::GetIO();
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
@@ -51,17 +53,19 @@ namespace real {
 		ImGui_ImplOpenGL3_Init("#version 410 core");
 	}
 
-	void imgui_layer::detach() {
-		layer::detach();
+	void ImGUILayer::Detach()
+	{
+		Layer::Detach();
 	}
 
-	void imgui_layer::update(timestep ts) {
-		layer::update(ts);
+	void ImGUILayer::Update(Timestep ts)
+	{
+		Layer::Update(ts);
 
-		ImGuiIO &io = ImGui::GetIO();
-		window &window = application::instance().window();
-		io.DisplaySize = ImVec2(static_cast<float>(window.width()),
-		                        static_cast<float>(window.height()));
+		ImGuiIO& io = ImGui::GetIO();
+		Window& window = Application::Instance().Window();
+		io.DisplaySize = ImVec2(static_cast<float>(window.Width()),
+				static_cast<float>(window.Height()));
 
 		static float old_time = 0.0f;
 		auto time = static_cast<float>(glfwGetTime());
@@ -78,76 +82,87 @@ namespace real {
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void imgui_layer::handle_event(ev &ev) {
-		layer::handle_event(ev);
+	void ImGUILayer::HandleEvent(Event& ev)
+	{
+		Layer::HandleEvent(ev);
 
-		ImGuiIO &io = ImGui::GetIO();
+		ImGuiIO& io = ImGui::GetIO();
 
-		ev_dispatcher dispatcher{ &ev };
-		dispatcher.dispatch<mouse_btn_press_ev>([&io](mouse_btn_press_ev &ev) -> bool {
-			io.MouseDown[ev.button()] = true;
+		EventDispatcher dispatcher { &ev };
+		dispatcher.Dispatch<MouseBtnPressedEvent>([&io](MouseBtnPressedEvent& ev) -> bool
+		{
+			io.MouseDown[ev.Button()] = true;
 
 			return false;
 		});
-		dispatcher.dispatch<mouse_btn_release_ev>(
-				[&io](mouse_btn_release_ev &ev) -> bool {
-					io.MouseDown[ev.button()] = false;
+		dispatcher.Dispatch<MouseBtnReleasedEvent>(
+				[&io](MouseBtnReleasedEvent& ev) -> bool
+				{
+					io.MouseDown[ev.Button()] = false;
 
 					return false;
 				});
-		dispatcher.dispatch<mouse_move_ev>([&io](mouse_move_ev &ev) -> bool {
-			io.MousePos = ImVec2(static_cast<float>(ev.x()), static_cast<float>(ev.y()));
+		dispatcher.Dispatch<MouseMovedEvent>([&io](MouseMovedEvent& ev) -> bool
+		{
+			io.MousePos = ImVec2(static_cast<float>(ev.X()), static_cast<float>(ev.Y()));
 
 			return false;
 		});
-		dispatcher.dispatch<mouse_scroll_ev>([&io](mouse_scroll_ev &ev) -> bool {
-			io.MouseWheel += static_cast<float>(ev.x_offset());
-			io.MouseWheelH += static_cast<float>(ev.y_offset());
+		dispatcher.Dispatch<MouseScrolledEvent>([&io](MouseScrolledEvent& ev) -> bool
+		{
+			io.MouseWheel += static_cast<float>(ev.XOffset());
+			io.MouseWheelH += static_cast<float>(ev.YOffset());
 
 			return false;
 		});
 
-		dispatcher.dispatch<window_resize_ev>([&io](window_resize_ev &ev) -> bool {
-			io.DisplaySize = ImVec2(static_cast<float>(ev.width()),
-			                        static_cast<float>(ev.height()));
+		dispatcher.Dispatch<WindowResizedEvent>([&io](WindowResizedEvent& ev) -> bool
+		{
+			io.DisplaySize = ImVec2(static_cast<float>(ev.Width()),
+					static_cast<float>(ev.Height()));
 			io.DisplayFramebufferScale = ImVec2(1.0f, 1.0f);
-			glViewport(0, 0, ev.width(), ev.height());
+			glViewport(0, 0, ev.Width(), ev.Height());
 
 			return false;
 		});
 
-		dispatcher.dispatch<key_press_ev>([&io](key_press_ev &ev) -> bool {
-			io.KeysDown[ev.key_code()] = true;
+		dispatcher.Dispatch<KeyPressedEvent>([&io](KeyPressedEvent& ev) -> bool
+		{
+			io.KeysDown[ev.KeyCode()] = true;
 			io.KeyCtrl = io.KeysDown[static_cast<int>(REAL_KEY_LEFT_CONTROL)] ||
-			             io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_CONTROL)];
+					io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_CONTROL)];
 			io.KeyShift = io.KeysDown[static_cast<int>(REAL_KEY_LEFT_SHIFT)] ||
-			              io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_SHIFT)];
+					io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_SHIFT)];
 			io.KeyAlt = io.KeysDown[static_cast<int>(REAL_KEY_LEFT_ALT)] ||
-			            io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_ALT)];
+					io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_ALT)];
 			io.KeySuper = io.KeysDown[static_cast<int>(REAL_KEY_LEFT_SUPER)] ||
-			              io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_SUPER)];
+					io.KeysDown[static_cast<int>(REAL_KEY_RIGHT_SUPER)];
 
 			return false;
 		});
-		dispatcher.dispatch<key_release_ev>([&io](key_release_ev &ev) -> bool {
-			io.KeysDown[ev.key_code()] = false;
+		dispatcher.Dispatch<KeyReleasedEvent>([&io](KeyReleasedEvent& ev) -> bool
+		{
+			io.KeysDown[ev.KeyCode()] = false;
 
 			return false;
 		});
-		dispatcher.dispatch<key_typed_ev>([&io](key_typed_ev &ev) -> bool {
-			io.AddInputCharacter(static_cast<unsigned int>(ev.key_code()));
+		dispatcher.Dispatch<KeyTypedEvent>([&io](KeyTypedEvent& ev) -> bool
+		{
+			io.AddInputCharacter(static_cast<unsigned int>(ev.KeyCode()));
 
 			return false;
 		});
 	}
 
 #ifdef REAL_DEBUG
-	imgui_layer::imgui_layer() : layer("imgui layer") {}
+	ImGUILayer::ImGUILayer()
+			:Layer("imgui layer")
+	{}
 #else
 	imgui_layer::imgui_layer() : layer() {
 
 	}
 #endif
 
-	imgui_layer::~imgui_layer() = default;
+	ImGUILayer::~ImGUILayer() = default;
 }

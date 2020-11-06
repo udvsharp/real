@@ -7,19 +7,21 @@
 #include "real/keycode.hpp"
 #include "real/util/singleton.hpp"
 
-namespace real {
-	class REAL_API SINGLETON(input) {
+namespace Real
+{
+	class REAL_API SINGLETON(Input)
+	{
 	public:
-		virtual ~input() = default;
+		virtual ~Input() = default;
 
-		virtual bool is_key_pressed(key_code keycode) = 0;
-		virtual bool is_mouse_btn_pressed(mouse_btn_t mouse_btn) = 0;
+		virtual bool IsKeyPressed(KeyCode keycode) = 0;
+		virtual bool IsMouseBtnPressed(mouse_btn_t mouseBtn) = 0;
 
-		virtual std::pair<mouse_position_t, mouse_position_t> mouse_position() = 0;
-		virtual mouse_position_t mouse_x() = 0;
-		virtual mouse_position_t mouse_y() = 0;
+		virtual std::pair<mouse_position_t, mouse_position_t> MousePosition() = 0;
+		virtual mouse_position_t MouseX() = 0;
+		virtual mouse_position_t MouseY() = 0;
 
-		static input *make();
+		static Input* Make();
 	};
 }
 

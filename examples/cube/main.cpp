@@ -1,49 +1,52 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include <real/real.hpp>
-#include <cmath>
 
-class application : public real::application {
+class Application : public Real::Application
+{
 private:
 	// Rendering
-	real::reference<real::vertex_array> vao_;
-	real::reference<real::vertex_buffer> vbo_;
-	real::reference<real::index_buffer> ibo_;
+	Real::Reference<Real::VertexArray> vao;
+	Real::Reference<Real::VertexBuffer> vbo;
+	Real::Reference<Real::IndexBuffer> ibo;
 
-	real::camera* camera_;
+	Real::Camera* camera;
 
-	real::reference<real::shader_lib> shader_lib_ = std::make_shared<real::shader_lib>();
+	Real::ShaderLibrary shaderLib;
 public:
-	application() : real::application() {
+	Application()
+			:Real::Application()
+	{
 		// layers().push_layer(new real::imgui_layer{});
 		// Perspective
-		camera_ = new real::camera_perspective{ 45.0f, 16.0f, 9.0f };
+		camera = new Real::PerspectiveCamera { 45.0f, 16.0f, 9.0f };
 
 		// Orthographic
 		// camera_ =  new real::camera_orthographic {-3.2f, 3.2f, -1.8f, 1.8f, };
 	}
 protected:
 	// Override this if you want
-	virtual void init() override {
-		real::application::init();
+	virtual void Init() override
+	{
+		Real::Application::Init();
 
-		shader_lib_->load("shaders/base.glsl");
+		shaderLib.Load("shaders/base.glsl");
 
 		// region Setup rendering
 		// Vertices
 		float vertices[] = {
-			// Positions           // Colors
-			 1.0f,  1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTR
-			 1.0f, -1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBR
-			-1.0f, -1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBL
-			-1.0f,  1.0f,  1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTL
-			 1.0f,  1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTR
-			 1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBR
-			-1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBL
-			-1.0f,  1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTL
+				// Positions           // Colors
+				1.0f, 1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTR
+				1.0f, -1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBR
+				-1.0f, -1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBL
+				-1.0f, 1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTL
+				1.0f, 1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTR
+				1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBR
+				-1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBL
+				-1.0f, 1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTL
 		};
 
-		unsigned int positions[]{
+		unsigned int positions[] {
 				0, 1, 2, 0, 2, 3, // Front  0 1 2 3
 				4, 5, 6, 4, 6, 7, // Rear   4 5 6 7
 				2, 3, 6, 3, 6, 7, // Left   2 3 6 7
@@ -53,56 +56,58 @@ protected:
 		};
 
 		// Vertex Array
-		vao_.reset(real::vertex_array::make());
-		vao_->bind();
+		vao.reset(Real::VertexArray::make());
 
 		// Vertex Buffer
-		vbo_.reset(real::vertex_buffer::make(vertices, sizeof(vertices)));
-		vbo_->layout({
-		    { real::shader_data_t::vec3, "_pos",  },
-		    // { real::shader_data_t::vec4, "_color",},
+		vbo.reset(Real::VertexBuffer::Make(vertices, sizeof(vertices)));
+		vbo->Layout({
+				{ Real::shader_data_t::vec3, "_pos", },
+				// { real::shader_data_t::vec4, "_color",},
 		});
 
 		// Index Buffer
-		ibo_.reset(real::index_buffer::make(positions, sizeof(positions) / sizeof(unsigned int)));
-		ibo_->bind();
+		ibo.reset(Real::IndexBuffer::Make(positions,
+				sizeof(positions) / sizeof(unsigned int)));
 
 		// Link buffers to vertex array
-		vao_->add_vertex_buffer(vbo_);
-		vao_->add_index_buffer(ibo_);
+		vao->AddVertexBuffer(vbo);
+		vao->AddIndexBuffer(ibo);
 		// endregion
 	}
 
-	virtual void update(real::timestep ts) override {
+	virtual void Update(Real::Timestep ts) override
+	{
 		// rotation
 		// REAL_INFO("Frame Delta time: {}", ts.seconds());
 
 		const float radius = 5.0f;
 		const float speed = 0.5f;
-		float cx = std::sin(real::time() * speed) * radius;
-		float cz = std::cos(real::time() * speed) * radius;
+		float cx = glm::sin(Real::Time() * speed) * radius;
+		float cz = glm::cos(Real::Time() * speed) * radius;
 
-		// TODO: add Y axis
-		camera_->position( {cx, 3.0f, cz} );
-		camera_->look_at({ 0.0, 0.0, 0.0 });
+		camera->Position({ cx, 3.0f, cz });
+		camera->LookAt({ 0.0, 0.0, 0.0 });
 	}
 
-	virtual void render(real::timestep ts) override {
-		real::renderer::start_scene(*camera_);
+	virtual void Render(Real::Timestep ts) override
+	{
+		Real::Renderer::StartScene(*camera);
 
-		real::transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
+		Real::Transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
 
-		real::renderer::submit(vao_, shader_lib_->get("base"), transform);
-		real::renderer::end_scene();
+		Real::Renderer::Submit(vao, shaderLib.Get("base"), transform);
+		Real::Renderer::EndScene();
 
-		real::render_command::draw_indexed(vao_);
+		Real::RenderCommand::DrawIndexed(vao);
 	}
 
-	virtual void on_event(real::ev &e) override {
-		real::application::on_event(e);
+	virtual void OnEvent(Real::Event& e) override
+	{
+		Real::Application::OnEvent(e);
 	}
 };
 
-real::application *real::create() {
-	return new ::application();
+Real::Application* Real::Make()
+{
+	return new ::Application();
 }

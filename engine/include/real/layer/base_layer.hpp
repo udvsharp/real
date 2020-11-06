@@ -8,21 +8,23 @@
 #include "real/core.hpp"
 #include "real/event.hpp"
 
-namespace real {
-	class REAL_API layer {
+namespace Real
+{
+	class REAL_API Layer
+	{
 	public:
-		layer() = default;
+		Layer() = default;
 #ifdef REAL_DEBUG
-		explicit layer(std::string name);
+		explicit Layer(std::string name);
 #endif
 
-		virtual void attach();
-		virtual void detach();
-		virtual void update(timestep ts);
-		virtual void handle_event(ev &e);
+		virtual void Attach();
+		virtual void Detach();
+		virtual void Update(Timestep ts);
+		virtual void HandleEvent(Event& e);
 	private:
 #ifdef REAL_DEBUG
-		std::string name_;
+		std::string name;
 #endif
 	};
 }

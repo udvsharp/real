@@ -9,54 +9,54 @@
 #define SHADERS_MAX_COUNT 4
 #define SHADERS_AVG_COUNT 2
 
-namespace real {
+namespace Real {
 	// TODO: Iterate over shader API again
-	class REAL_API shader {
+	class REAL_API Shader {
 	public:
-		virtual ~shader();
+		virtual ~Shader();
 
 		// region Uniforms
 		// Floats
-		virtual void uniform_float(const std::string &name, glm::f32 value) = 0;
-		virtual void uniform_float(const std::string &name, const glm::fvec2 &value) = 0;
-		virtual void uniform_float(const std::string &name, const glm::fvec3 &value) = 0;
-		virtual void uniform_float(const std::string &name, const glm::fvec4 &value) = 0;
+		virtual void UniformFloat(const std::string &name, glm::f32 value) = 0;
+		virtual void UniformFloat(const std::string &name, const glm::fvec2 &value) = 0;
+		virtual void UniformFloat(const std::string &name, const glm::fvec3 &value) = 0;
+		virtual void UniformFloat(const std::string &name, const glm::fvec4 &value) = 0;
 		virtual void
-		uniform_matrix(const std::string &name, const glm::fmat3 &matrix) = 0;
+		UniformMatrix(const std::string &name, const glm::fmat3 &matrix) = 0;
 		virtual void
-		uniform_matrix(const std::string &name, const glm::fmat4 &matrix) = 0;
+		UniformMatrix(const std::string &name, const glm::fmat4 &matrix) = 0;
 
 		// Ints
-		virtual void uniform_int(const std::string &name, glm::int32 value) = 0;
-		virtual void uniform_int(const std::string &name, const glm::ivec2 &value) = 0;
-		virtual void uniform_int(const std::string &name, const glm::ivec3 &value) = 0;
-		virtual void uniform_int(const std::string &name, const glm::ivec4 &value) = 0;
+		virtual void UniformInt(const std::string &name, glm::int32 value) = 0;
+		virtual void UniformInt(const std::string &name, const glm::ivec2 &value) = 0;
+		virtual void UniformInt(const std::string &name, const glm::ivec3 &value) = 0;
+		virtual void UniformInt(const std::string &name, const glm::ivec4 &value) = 0;
 		// endregion
 
-		virtual const std::string &name() const = 0;
-		virtual void name(std::string name) = 0;
+		virtual const std::string &Name() const = 0;
+		virtual void Name(std::string name) = 0;
 
-		virtual void bind() const = 0;
-		virtual void unbind() const = 0;
+		virtual void Bind() const = 0;
+		virtual void Unbind() const = 0;
 
 	public:
-		static real::reference<shader> make(std::string filename);
+		static Real::Reference<Shader> Make(std::string filename);
 	};
 
-	class REAL_API shader_lib {
+	class REAL_API ShaderLibrary {
 	public:
-		shader_lib() : shaders_{} {}
+		ShaderLibrary() :shaderMap{} {}
 
-		void add(const real::reference<shader> &shader);
-		real::reference<shader> load(const std::string &filename);
-		real::reference<shader>
-		load(const std::string &name, const std::string &filename);
+		void Add(const Reference <Shader>& shader);
+		Real::Reference<Shader> Load(const std::string &filename);
+		Real::Reference<Shader>
+		Load(const std::string &name, const std::string &filename);
 
-		real::reference<shader> get(const std::string &name);
+		Real::Reference<Shader> Get(const std::string &name);
 
-		bool contains(const std::string &name);
+		bool Contains(const std::string &name);
 	private:
-		std::unordered_map<std::string, real::reference<shader>> shaders_;
+		std::unordered_map<std::string, Real::Reference<Shader>> shaderMap;
 	};
 }
 

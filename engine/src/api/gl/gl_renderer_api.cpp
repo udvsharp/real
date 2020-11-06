@@ -5,9 +5,11 @@
 #include "real/api/gl/gl_headers.hpp"
 #include "real/api/gl/gl_renderer_api.hpp"
 
-namespace real {
+namespace Real
+{
 
-	void gl_api::init() {
+	void GLRendererApi::Init()
+	{
 		// Multisampling
 		glEnable(GL_MULTISAMPLE);
 
@@ -19,27 +21,32 @@ namespace real {
 		glEnable(GL_EXT_direct_state_access);
 	}
 
-	void gl_api::clear_color(glm::fvec4 color) {
+	void GLRendererApi::ClearColor(glm::fvec4 color)
+	{
 		glClearColor(color.r, color.g, color.b, color.a);
 	}
 
-	void gl_api::clear(int32_t bits) {
+	void GLRendererApi::Clear(int32_t bits)
+	{
 		glClear(bits);
 	}
 
-	void gl_api::draw_indexed(const real::reference<vertex_array> &vao) {
-		vao->bind();
+	void GLRendererApi::DrawIndexed(const Real::Reference<VertexArray>& vao)
+	{
+		vao->Bind();
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); // TODO: remove poly mode
 		// glEnable(GL_DEPTH_TEST);
 		// TODO: remove hardcoded mode
-		glDrawElements(GL_TRIANGLES, vao->count(), GL_UNSIGNED_INT, nullptr);
+		glDrawElements(GL_TRIANGLES, vao->Count(), GL_UNSIGNED_INT, nullptr);
 	}
 
-	renderer_api::api gl_api::enumval() const {
-		return api::gl;
+	RendererAPI::API GLRendererApi::Value() const
+	{
+		return API::GL;
 	}
 
-	int32_t gl_api::default_clear_bits() const noexcept {
+	int32_t GLRendererApi::DefaultClearBits() const noexcept
+	{
 		return (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 }

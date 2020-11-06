@@ -7,130 +7,163 @@
 
 #include "real/event/base_event.hpp"
 
-namespace real {
+namespace Real
+{
 
-	class window_ev : public ev {
+	class WindowEvent : public Event
+	{
 	public:
-		[[nodiscard]] inline ev_category_t categories() const override {
-			return static_cast<ev_category_t>(ev_category::window);
+		[[nodiscard]] inline ev_category_t Categories() const override
+		{
+			return static_cast<ev_category_t>(EventCategory::Window);
 		}
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::none;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::None;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::none;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::None;
 		};
 	};
 
-	class window_close_ev : public window_ev {
+	class WindowClosedEvent : public WindowEvent
+	{
 	public:
-		window_close_ev() = default;
+		WindowClosedEvent() = default;
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::window_close;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::WindowClose;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::window_close;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::WindowClose;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "window_close_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			return "window_close_ev";
 		}
 
 	};
 
-	class window_resize_ev : public window_ev {
+	class WindowResizedEvent : public WindowEvent
+	{
 	private:
-		window_dimension_t w_, h_;
+		window_dimension_t width, heigth;
 	public:
-		window_resize_ev(window_dimension_t w, window_dimension_t h) : w_(w), h_(h) {}
+		WindowResizedEvent(window_dimension_t w, window_dimension_t h)
+				:width(w), heigth(h)
+		{}
 
-		[[nodiscard]] mouse_btn_t width() const { return w_; }
-		[[nodiscard]] mouse_btn_t height() const { return h_; }
+		[[nodiscard]] mouse_btn_t Width() const
+		{ return width; }
+		[[nodiscard]] mouse_btn_t Height() const
+		{ return heigth; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::window_resize;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::WindowResize;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::window_resize;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::WindowResize;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "window_resize_ev";
 		}
 #endif
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "window_resize_ev: (";
-			ss << w_ << ", " << h_;
+			ss << width << ", " << heigth;
 			ss << ")";
 			return ss.str();
 		}
 
 	};
 
-	class window_move_ev : public window_ev {
+	class WindowMovedEvent : public WindowEvent
+	{
 	private:
-		window_position_t x_, y_;
+		window_position_t xPos, yPos;
 	public:
-		window_move_ev(window_position_t x, window_position_t y) : x_(x), y_(y) {}
+		WindowMovedEvent(window_position_t x, window_position_t y)
+				:xPos(x), yPos(y)
+		{}
 
-		[[nodiscard]] mouse_btn_t x() const { return x_; }
-		[[nodiscard]] mouse_btn_t y() const { return y_; }
+		[[nodiscard]] mouse_btn_t X() const
+		{ return xPos; }
+		[[nodiscard]] mouse_btn_t Y() const
+		{ return yPos; }
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::window_move;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::WindowMove;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::window_move;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::WindowMove;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "window_move_ev";
 		}
 #endif
 
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "window_move_ev: (";
-			ss << x_ << ", " << y_;
+			ss << xPos << ", " << yPos;
 			ss << ")";
 			return ss.str();
 		}
 
 	};
 
-	class window_focus_ev : public window_ev {
+	class WindowFocusedEvent : public WindowEvent
+	{
 	public:
-		window_focus_ev() = default;
+		WindowFocusedEvent() = default;
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::window_focus;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::WindowFocus;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::window_focus;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::WindowFocus;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "window_focus_ev";
 		}
 #endif
 
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "window_resize_ev";
 			return ss.str();
@@ -138,25 +171,30 @@ namespace real {
 
 	};
 
-	class window_unfocus_ev : public window_ev {
+	class WindowUnfocusedEvent : public WindowEvent
+	{
 	public:
-		window_unfocus_ev() = default;
+		WindowUnfocusedEvent() = default;
 
-		[[nodiscard]] ev_type type() const override {
-			return ev_type::window_unfocus;
+		[[nodiscard]] EventType Type() const override
+		{
+			return EventType::WindowUnfocus;
 		}
 
-		[[nodiscard]] static ev_type static_type() {
-			return ev_type::window_unfocus;
+		[[nodiscard]] static EventType StaticType()
+		{
+			return EventType::WindowUnfocus;
 		};
 
 #ifdef REAL_DEBUG
-		[[nodiscard]] std::string name() const override {
+		[[nodiscard]] std::string Name() const override
+		{
 			return "window_unfocus_ev";
 		}
 #endif
 
-		[[nodiscard]] std::string to_string() const override {
+		[[nodiscard]] std::string ToString() const override
+		{
 			std::stringstream ss;
 			ss << "window_resize_ev";
 			return ss.str();

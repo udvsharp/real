@@ -3,34 +3,40 @@
 #include "real/api/gl/gl_headers.hpp"
 #include "real/api/gl/gl_buffer_vertex.hpp"
 
-namespace real {
+namespace Real
+{
 
-	gl_vertex_buffer::gl_vertex_buffer(float *data, uint32_t size)
-			: renderer_id_{ 0 }, layout_{}, vertex_array_{ nullptr } {
-		glCreateBuffers(1, &renderer_id_);
+	GLVertexBuffer::GLVertexBuffer(float* data, uint32_t size)
+			:rendererId { 0 }, bufferLayout {}, vertexArray { nullptr }
+	{
+		glCreateBuffers(1, &rendererId);
 		// TODO: remove hardcoded buffer data usage
-		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
+		glBindBuffer(GL_ARRAY_BUFFER, rendererId);
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
 	}
 
-	gl_vertex_buffer::~gl_vertex_buffer() {
-		glDeleteBuffers(1, &renderer_id_);
+	GLVertexBuffer::~GLVertexBuffer()
+	{
+		glDeleteBuffers(1, &rendererId);
 	}
 
-	void gl_vertex_buffer::bind() const {
-		glBindBuffer(GL_ARRAY_BUFFER, renderer_id_);
+	void GLVertexBuffer::Bind() const
+	{
+		glBindBuffer(GL_ARRAY_BUFFER, rendererId);
 	}
 
-	void gl_vertex_buffer::unbind() const {
+	void GLVertexBuffer::Unbind() const
+	{
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 
-	void gl_vertex_buffer::layout(std::initializer_list<vertex_attribute> attributes) {
-		layout_ = buffer_layout{ attributes };
+	void GLVertexBuffer::Layout(std::initializer_list<VertexAttribute> attributes)
+	{
+		bufferLayout = BufferLayout { attributes };
 	}
 
-	void
-	gl_vertex_buffer::link_to(const real::reference<real::vertex_array> &vertex_array) {
-		vertex_array_ = vertex_array;
+	void GLVertexBuffer::LinkTo(const Real::Reference<Real::VertexArray>& vao)
+	{
+		this->vertexArray = vao;
 	}
 }

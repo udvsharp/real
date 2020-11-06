@@ -19,7 +19,8 @@
 #include "real/pch.hpp"
 #include "real/assert.hpp"
 
-namespace real {
+namespace Real
+{
 	// region types
 	// Input
 	using keycode_t = int32_t;
@@ -36,26 +37,27 @@ namespace real {
 	using texture_dimension_t = uint32_t;
 	// endregion
 	//region util
-	constexpr uint16_t bit(uint16_t x) {
+	constexpr uint16_t bit(uint16_t x)
+	{
 		return static_cast<uint16_t>(1u << x);
 	}
 	// endregion
 	// region Pointers
 	// TODO: make own pointers
 	template<typename T>
-	using reference = std::shared_ptr<T>;
+	using Reference = std::shared_ptr<T>;
 
 	template<typename T, typename ... Args>
-	constexpr reference<T> make_reference(Args&& ... args)
+	constexpr Reference<T> MakeReference(Args&& ... args)
 	{
 		return std::make_shared<T>(std::forward<Args>(args)...);
 	}
 
 	template<typename T>
-	using scoped_ptr = std::unique_ptr<T>;
+	using Scope = std::unique_ptr<T>;
 
 	template<typename T, typename ... Args>
-	constexpr scoped_ptr<T> make_scoped(Args&& ... args)
+	constexpr Scope<T> MakeScope(Args&& ... args)
 	{
 		return std::make_unique<T>(std::forward<Args>(args)...);
 	}

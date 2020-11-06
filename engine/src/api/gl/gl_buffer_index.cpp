@@ -3,30 +3,36 @@
 #include "real/api/gl/gl_headers.hpp"
 #include "real/api/gl/gl_buffer_index.hpp"
 
-namespace real {
+namespace Real
+{
 
-	gl_index_buffer::gl_index_buffer(uint32_t *data, uint32_t size)
-			: renderer_id_{ 0 }, count_{ size } {
-		glCreateBuffers(1, &renderer_id_);
+	GLIndexBuffer::GLIndexBuffer(uint32_t* data, uint32_t size)
+			:rendererId { 0 }, count { size }
+	{
+		glCreateBuffers(1, &rendererId);
 		// TODO: remove hardcoded buffer data usage
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id_);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count_ * sizeof(uint32_t), data,
-		             GL_DYNAMIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rendererId);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(uint32_t), data,
+				GL_DYNAMIC_DRAW);
 	}
 
-	gl_index_buffer::~gl_index_buffer() {
-		glDeleteBuffers(1, &renderer_id_);
+	GLIndexBuffer::~GLIndexBuffer()
+	{
+		glDeleteBuffers(1, &rendererId);
 	}
 
-	void gl_index_buffer::bind() const {
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, renderer_id_);
+	void GLIndexBuffer::Bind() const
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, rendererId);
 	}
 
-	void gl_index_buffer::unbind() const {
+	void GLIndexBuffer::Unbind() const
+	{
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 
-	uint32_t gl_index_buffer::count() const {
-		return count_;
+	uint32_t GLIndexBuffer::Count() const
+	{
+		return count;
 	}
 }

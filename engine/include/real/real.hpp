@@ -24,13 +24,14 @@
 
 #ifdef REAL_CLIENT
 // region Entry point
-int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv) {
-	real::logger::init();
+int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
+{
+	Real::Logger::Init();
 
 	REAL_CORE_TRACE("Creating application...");
-	auto *app = real::create();
-	app->init();
-	app->run();
+	auto* app = Real::Make();
+	app->Init();
+	app->Run();
 
 	return 0;
 }

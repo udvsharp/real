@@ -8,14 +8,19 @@
 
 #include "real/core.hpp"
 
-namespace real {
-	class REAL_API transform {
+namespace Real
+{
+	class REAL_API Transform
+	{
 	public:
-		transform(glm::mat4 transform) : transform_{ transform } {}
+		Transform(glm::mat4 transform)
+				:transformMat { transform }
+		{}
 
-		[[nodiscard]] inline glm::mat4 matrix() const noexcept { return transform_; }
+		[[nodiscard]] inline glm::mat4 Matrix() const noexcept
+		{ return transformMat; }
 	private:
-		glm::mat4 transform_ = glm::identity<glm::mat4>();
+		glm::mat4 transformMat = glm::identity<glm::mat4>();
 	};
 }
 

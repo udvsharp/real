@@ -5,57 +5,66 @@
 #include "real/api/gl/gl_buffer_vertex.hpp"
 #include "real/api/gl/gl_buffer_index.hpp"
 
-namespace real {
-	gl_vertex_array::gl_vertex_array()
-			: renderer_id_{ 0 }, vertex_buffers_{}, index_buffers_{}, count_{ 0 } {
-		glCreateVertexArrays(1, &renderer_id_);
+namespace Real
+{
+	GLVertexArray::GLVertexArray()
+			:rendererId { 0 }, vertexBuffers {}, indexBuffers {}, count { 0 }
+	{
+		glCreateVertexArrays(1, &rendererId);
 	}
 
-	gl_vertex_array::~gl_vertex_array() {
-		glDeleteVertexArrays(1, &renderer_id_);
+	GLVertexArray::~GLVertexArray()
+	{
+		glDeleteVertexArrays(1, &rendererId);
 	}
 
-	void gl_vertex_array::add_vertex_buffer(
-			const real::reference<real::vertex_buffer> &buffer) {
-		real_msg_assert(!buffer->layout().attributes().empty(),
-		            "Vertex buffer has no layout!");
+	void GLVertexArray::AddVertexBuffer(
+			const Real::Reference<Real::VertexBuffer>& buffer)
+	{
+		real_msg_assert(!buffer->Layout().Attributes().empty(),
+				"Vertex buffer has no Layout!");
 
-		glBindVertexArray(renderer_id_);
-		buffer->bind();
-		buffer->link_to(real::reference<real::vertex_array>(this));
+		glBindVertexArray(rendererId);
+		buffer->Bind();
+		buffer->LinkTo(Real::Reference<Real::VertexArray>(this));
 
 		uint32_t index = 0;
-		for (auto &a: buffer->layout()) {
+		for (auto& a: buffer->Layout())
+		{
 			glEnableVertexAttribArray(index);
 			glVertexAttribPointer(index, a.component_count(),
-			                      a.api_type(),
-			                      a.normalized ? GL_TRUE : GL_FALSE,
-			                      buffer->layout().stride(), (const void *) a.offset);
+					a.api_type(),
+					a.normalized ? GL_TRUE : GL_FALSE,
+					buffer->Layout().Stride(), (const void*)a.offset);
 
 			++index;
 		}
 
-		vertex_buffers_.push_back(buffer);
+		vertexBuffers.push_back(buffer);
 	}
 
 	void
-	gl_vertex_array::add_index_buffer(const real::reference<real::index_buffer> &buffer) {
-		glBindVertexArray(renderer_id_);
-		buffer->bind();
-		count_ += buffer->count();
+	GLVertexArray::AddIndexBuffer(const Real::Reference<Real::IndexBuffer>& buffer)
+	{
+		glBindVertexArray(rendererId);
+		buffer->Bind();
+		count += buffer->Count();
 
-		index_buffers_.push_back(buffer);
+		indexBuffers.push_back(buffer);
 	}
 
-	void gl_vertex_array::bind() const {
-		glBindVertexArray(renderer_id_);
+	void GLVertexArray::Bind() const
+	{
+		glBindVertexArray(rendererId);
 	}
 
-	void gl_vertex_array::unbind() const {
+	void GLVertexArray::Unbind() const
+	{
 		glBindVertexArray(0);
 	}
 
-	int32_t gl_vertex_array::count() const {
-		return count_;
+	int32_t GLVertexArray::Count() const
+	{
+		return count;
 	}
 }

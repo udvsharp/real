@@ -5,29 +5,32 @@
 
 #include "real/logger.hpp"
 
-namespace real {
-	std::shared_ptr<spdlog::logger> logger::core_logger_;
-	std::shared_ptr<spdlog::logger> logger::client_logger_;
+namespace Real
+{
+	std::shared_ptr<spdlog::logger> Logger::coreLogger;
+	std::shared_ptr<spdlog::logger> Logger::clientLogger;
 
-	void logger::init() {
+	void Logger::Init()
+	{
 		std::vector<spdlog::sink_ptr> log_sinks;
-		log_sinks.emplace_back(real::make_reference<spdlog::sinks::stdout_color_sink_mt>());
 		log_sinks.emplace_back(
-				real::make_reference<spdlog::sinks::basic_file_sink_mt>("real.log", true));
+				Real::MakeReference<spdlog::sinks::stdout_color_sink_mt>());
+		log_sinks.emplace_back(
+				Real::MakeReference<spdlog::sinks::basic_file_sink_mt>("real.log", true));
 
 		log_sinks[0]->set_pattern("%^[%T] %n: %v%$");
 		log_sinks[1]->set_pattern("[%T] [%l] %n: %v");
 
-		core_logger_ = real::make_reference<spdlog::logger>("REAL", begin(log_sinks),
-		                                                end(log_sinks));
-		spdlog::register_logger(core_logger_);
-		core_logger_->set_level(spdlog::level::trace);
-		core_logger_->flush_on(spdlog::level::trace);
+		coreLogger = Real::MakeReference<spdlog::logger>("REAL", begin(log_sinks),
+				end(log_sinks));
+		spdlog::register_logger(coreLogger);
+		coreLogger->set_level(spdlog::level::trace);
+		coreLogger->flush_on(spdlog::level::trace);
 
-		client_logger_ = real::make_reference<spdlog::logger>("APP", begin(log_sinks),
-		                                                  end(log_sinks));
-		spdlog::register_logger(client_logger_);
-		client_logger_->set_level(spdlog::level::trace);
-		client_logger_->flush_on(spdlog::level::trace);
+		clientLogger = Real::MakeReference<spdlog::logger>("APP", begin(log_sinks),
+				end(log_sinks));
+		spdlog::register_logger(clientLogger);
+		clientLogger->set_level(spdlog::level::trace);
+		clientLogger->flush_on(spdlog::level::trace);
 	}
 }

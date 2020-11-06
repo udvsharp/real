@@ -7,8 +7,8 @@
 
 #include "real/core.hpp"
 
-namespace real {
-	enum class key_code : keycode_t {
+namespace Real {
+	enum class KeyCode : keycode_t {
 		// From glfw3.h
 		Space = 32,
 		Apostrophe = 39, /* ' */
@@ -142,137 +142,137 @@ namespace real {
 		Menu = 348
 	};
 
-	inline std::ostream &operator<<(std::ostream &os, key_code key_code) {
-		os << static_cast<int32_t>(key_code);
+	inline std::ostream &operator<<(std::ostream &os, KeyCode keyCode) {
+		os << static_cast<int32_t>(keyCode);
 		return os;
 	}
 }
 
 // From glfw3.h
-#define REAL_KEY_SPACE           ::real::key_code::Space
-#define REAL_KEY_APOSTROPHE      ::real::key_code::Apostrophe    /* ' */
-#define REAL_KEY_COMMA           ::real::key_code::Comma         /* , */
-#define REAL_KEY_MINUS           ::real::key_code::Minus         /* - */
-#define REAL_KEY_PERIOD          ::real::key_code::Period        /* . */
-#define REAL_KEY_SLASH           ::real::key_code::Slash         /* / */
-#define REAL_KEY_0               ::real::key_code::D0
-#define REAL_KEY_1               ::real::key_code::D1
-#define REAL_KEY_2               ::real::key_code::D2
-#define REAL_KEY_3               ::real::key_code::D3
-#define REAL_KEY_4               ::real::key_code::D4
-#define REAL_KEY_5               ::real::key_code::D5
-#define REAL_KEY_6               ::real::key_code::D6
-#define REAL_KEY_7               ::real::key_code::D7
-#define REAL_KEY_8               ::real::key_code::D8
-#define REAL_KEY_9               ::real::key_code::D9
-#define REAL_KEY_SEMICOLON       ::real::key_code::Semicolon     /* ; */
-#define REAL_KEY_EQUAL           ::real::key_code::Equal         /* = */
-#define REAL_KEY_A               ::real::key_code::A
-#define REAL_KEY_B               ::real::key_code::B
-#define REAL_KEY_C               ::real::key_code::C
-#define REAL_KEY_D               ::real::key_code::D
-#define REAL_KEY_E               ::real::key_code::E
-#define REAL_KEY_F               ::real::key_code::F
-#define REAL_KEY_G               ::real::key_code::G
-#define REAL_KEY_H               ::real::key_code::H
-#define REAL_KEY_I               ::real::key_code::I
-#define REAL_KEY_J               ::real::key_code::J
-#define REAL_KEY_K               ::real::key_code::K
-#define REAL_KEY_L               ::real::key_code::L
-#define REAL_KEY_M               ::real::key_code::M
-#define REAL_KEY_N               ::real::key_code::N
-#define REAL_KEY_O               ::real::key_code::O
-#define REAL_KEY_P               ::real::key_code::P
-#define REAL_KEY_Q               ::real::key_code::Q
-#define REAL_KEY_R               ::real::key_code::R
-#define REAL_KEY_S               ::real::key_code::S
-#define REAL_KEY_T               ::real::key_code::T
-#define REAL_KEY_U               ::real::key_code::U
-#define REAL_KEY_V               ::real::key_code::V
-#define REAL_KEY_W               ::real::key_code::W
-#define REAL_KEY_X               ::real::key_code::X
-#define REAL_KEY_Y               ::real::key_code::Y
-#define REAL_KEY_Z               ::real::key_code::Z
-#define REAL_KEY_LEFT_BRACKET    ::real::key_code::LeftBracket   /* [ */
-#define REAL_KEY_BACKSLASH       ::real::key_code::Backslash     /* \ */
-#define REAL_KEY_RIGHT_BRACKET   ::real::key_code::RightBracket  /* ] */
-#define REAL_KEY_GRAVE_ACCENT    ::real::key_code::GraveAccent   /* ` */
-#define REAL_KEY_WORLD_1         ::real::key_code::World1        /* non-US #1 */
-#define REAL_KEY_WORLD_2         ::real::key_code::World2        /* non-US #2 */
+#define REAL_KEY_SPACE           ::Real::KeyCode::Space
+#define REAL_KEY_APOSTROPHE      ::real::KeyCode::Apostrophe    /* ' */
+#define REAL_KEY_COMMA           ::real::KeyCode::Comma         /* , */
+#define REAL_KEY_MINUS           ::real::KeyCode::Minus         /* - */
+#define REAL_KEY_PERIOD          ::real::KeyCode::Period        /* . */
+#define REAL_KEY_SLASH           ::real::KeyCode::Slash         /* / */
+#define REAL_KEY_0               ::real::KeyCode::D0
+#define REAL_KEY_1               ::real::KeyCode::D1
+#define REAL_KEY_2               ::real::KeyCode::D2
+#define REAL_KEY_3               ::real::KeyCode::D3
+#define REAL_KEY_4               ::real::KeyCode::D4
+#define REAL_KEY_5               ::real::KeyCode::D5
+#define REAL_KEY_6               ::real::KeyCode::D6
+#define REAL_KEY_7               ::real::KeyCode::D7
+#define REAL_KEY_8               ::real::KeyCode::D8
+#define REAL_KEY_9               ::real::KeyCode::D9
+#define REAL_KEY_SEMICOLON       ::real::KeyCode::Semicolon     /* ; */
+#define REAL_KEY_EQUAL           ::real::KeyCode::Equal         /* = */
+#define REAL_KEY_A               ::Real::KeyCode::A
+#define REAL_KEY_B               ::real::KeyCode::B
+#define REAL_KEY_C               ::Real::KeyCode::C
+#define REAL_KEY_D               ::real::KeyCode::D
+#define REAL_KEY_E               ::real::KeyCode::E
+#define REAL_KEY_F               ::real::KeyCode::F
+#define REAL_KEY_G               ::real::KeyCode::G
+#define REAL_KEY_H               ::real::KeyCode::H
+#define REAL_KEY_I               ::real::KeyCode::I
+#define REAL_KEY_J               ::real::KeyCode::J
+#define REAL_KEY_K               ::real::KeyCode::K
+#define REAL_KEY_L               ::real::KeyCode::L
+#define REAL_KEY_M               ::real::KeyCode::M
+#define REAL_KEY_N               ::real::KeyCode::N
+#define REAL_KEY_O               ::real::KeyCode::O
+#define REAL_KEY_P               ::real::KeyCode::P
+#define REAL_KEY_Q               ::real::KeyCode::Q
+#define REAL_KEY_R               ::real::KeyCode::R
+#define REAL_KEY_S               ::real::KeyCode::S
+#define REAL_KEY_T               ::real::KeyCode::T
+#define REAL_KEY_U               ::real::KeyCode::U
+#define REAL_KEY_V               ::Real::KeyCode::V
+#define REAL_KEY_W               ::real::KeyCode::W
+#define REAL_KEY_X               ::Real::KeyCode::X
+#define REAL_KEY_Y               ::Real::KeyCode::Y
+#define REAL_KEY_Z               ::Real::KeyCode::Z
+#define REAL_KEY_LEFT_BRACKET    ::real::KeyCode::LeftBracket   /* [ */
+#define REAL_KEY_BACKSLASH       ::real::KeyCode::Backslash     /* \ */
+#define REAL_KEY_RIGHT_BRACKET   ::real::KeyCode::RightBracket  /* ] */
+#define REAL_KEY_GRAVE_ACCENT    ::real::KeyCode::GraveAccent   /* ` */
+#define REAL_KEY_WORLD_1         ::real::KeyCode::World1        /* non-US #1 */
+#define REAL_KEY_WORLD_2         ::real::KeyCode::World2        /* non-US #2 */
 
 /* Function keys */
-#define REAL_KEY_ESCAPE          ::real::key_code::Escape
-#define REAL_KEY_ENTER           ::real::key_code::Enter
-#define REAL_KEY_TAB             ::real::key_code::Tab
-#define REAL_KEY_BACKSPACE       ::real::key_code::Backspace
-#define REAL_KEY_INSERT          ::real::key_code::Insert
-#define REAL_KEY_DELETE          ::real::key_code::Delete
-#define REAL_KEY_RIGHT           ::real::key_code::Right
-#define REAL_KEY_LEFT            ::real::key_code::Left
-#define REAL_KEY_DOWN            ::real::key_code::Down
-#define REAL_KEY_UP              ::real::key_code::Up
-#define REAL_KEY_PAGE_UP         ::real::key_code::PageUp
-#define REAL_KEY_PAGE_DOWN       ::real::key_code::PageDown
-#define REAL_KEY_HOME            ::real::key_code::Home
-#define REAL_KEY_END             ::real::key_code::End
-#define REAL_KEY_CAPS_LOCK       ::real::key_code::CapsLock
-#define REAL_KEY_SCROLL_LOCK     ::real::key_code::ScrollLock
-#define REAL_KEY_NUM_LOCK        ::real::key_code::NumLock
-#define REAL_KEY_PRINT_SCREEN    ::real::key_code::PrintScreen
-#define REAL_KEY_PAUSE           ::real::key_code::Pause
-#define REAL_KEY_F1              ::real::key_code::F1
-#define REAL_KEY_F2              ::real::key_code::F2
-#define REAL_KEY_F3              ::real::key_code::F3
-#define REAL_KEY_F4              ::real::key_code::F4
-#define REAL_KEY_F5              ::real::key_code::F5
-#define REAL_KEY_F6              ::real::key_code::F6
-#define REAL_KEY_F7              ::real::key_code::F7
-#define REAL_KEY_F8              ::real::key_code::F8
-#define REAL_KEY_F9              ::real::key_code::F9
-#define REAL_KEY_F10             ::real::key_code::F10
-#define REAL_KEY_F11             ::real::key_code::F11
-#define REAL_KEY_F12             ::real::key_code::F12
-#define REAL_KEY_F13             ::real::key_code::F13
-#define REAL_KEY_F14             ::real::key_code::F14
-#define REAL_KEY_F15             ::real::key_code::F15
-#define REAL_KEY_F16             ::real::key_code::F16
-#define REAL_KEY_F17             ::real::key_code::F17
-#define REAL_KEY_F18             ::real::key_code::F18
-#define REAL_KEY_F19             ::real::key_code::F19
-#define REAL_KEY_F20             ::real::key_code::F20
-#define REAL_KEY_F21             ::real::key_code::F21
-#define REAL_KEY_F22             ::real::key_code::F22
-#define REAL_KEY_F23             ::real::key_code::F23
-#define REAL_KEY_F24             ::real::key_code::F24
-#define REAL_KEY_F25             ::real::key_code::F25
+#define REAL_KEY_ESCAPE          ::Real::KeyCode::Escape
+#define REAL_KEY_ENTER           ::Real::KeyCode::Enter
+#define REAL_KEY_TAB             ::Real::KeyCode::Tab
+#define REAL_KEY_BACKSPACE       ::Real::KeyCode::Backspace
+#define REAL_KEY_INSERT          ::Real::KeyCode::Insert
+#define REAL_KEY_DELETE          ::Real::KeyCode::Delete
+#define REAL_KEY_RIGHT           ::Real::KeyCode::Right
+#define REAL_KEY_LEFT            ::Real::KeyCode::Left
+#define REAL_KEY_DOWN            ::Real::KeyCode::Down
+#define REAL_KEY_UP              ::Real::KeyCode::Up
+#define REAL_KEY_PAGE_UP         ::Real::KeyCode::PageUp
+#define REAL_KEY_PAGE_DOWN       ::Real::KeyCode::PageDown
+#define REAL_KEY_HOME            ::Real::KeyCode::Home
+#define REAL_KEY_END             ::Real::KeyCode::End
+#define REAL_KEY_CAPS_LOCK       ::real::KeyCode::CapsLock
+#define REAL_KEY_SCROLL_LOCK     ::real::KeyCode::ScrollLock
+#define REAL_KEY_NUM_LOCK        ::real::KeyCode::NumLock
+#define REAL_KEY_PRINT_SCREEN    ::real::KeyCode::PrintScreen
+#define REAL_KEY_PAUSE           ::real::KeyCode::Pause
+#define REAL_KEY_F1              ::real::KeyCode::F1
+#define REAL_KEY_F2              ::real::KeyCode::F2
+#define REAL_KEY_F3              ::real::KeyCode::F3
+#define REAL_KEY_F4              ::real::KeyCode::F4
+#define REAL_KEY_F5              ::real::KeyCode::F5
+#define REAL_KEY_F6              ::real::KeyCode::F6
+#define REAL_KEY_F7              ::real::KeyCode::F7
+#define REAL_KEY_F8              ::real::KeyCode::F8
+#define REAL_KEY_F9              ::real::KeyCode::F9
+#define REAL_KEY_F10             ::real::KeyCode::F10
+#define REAL_KEY_F11             ::real::KeyCode::F11
+#define REAL_KEY_F12             ::real::KeyCode::F12
+#define REAL_KEY_F13             ::real::KeyCode::F13
+#define REAL_KEY_F14             ::real::KeyCode::F14
+#define REAL_KEY_F15             ::real::KeyCode::F15
+#define REAL_KEY_F16             ::real::KeyCode::F16
+#define REAL_KEY_F17             ::real::KeyCode::F17
+#define REAL_KEY_F18             ::real::KeyCode::F18
+#define REAL_KEY_F19             ::real::KeyCode::F19
+#define REAL_KEY_F20             ::real::KeyCode::F20
+#define REAL_KEY_F21             ::real::KeyCode::F21
+#define REAL_KEY_F22             ::real::KeyCode::F22
+#define REAL_KEY_F23             ::real::KeyCode::F23
+#define REAL_KEY_F24             ::real::KeyCode::F24
+#define REAL_KEY_F25             ::real::KeyCode::F25
 
 /* Keypad */
-#define REAL_KEY_KP_0            ::real::key_code::KP0
-#define REAL_KEY_KP_1            ::real::key_code::KP1
-#define REAL_KEY_KP_2            ::real::key_code::KP2
-#define REAL_KEY_KP_3            ::real::key_code::KP3
-#define REAL_KEY_KP_4            ::real::key_code::KP4
-#define REAL_KEY_KP_5            ::real::key_code::KP5
-#define REAL_KEY_KP_6            ::real::key_code::KP6
-#define REAL_KEY_KP_7            ::real::key_code::KP7
-#define REAL_KEY_KP_8            ::real::key_code::KP8
-#define REAL_KEY_KP_9            ::real::key_code::KP9
-#define REAL_KEY_KP_DECIMAL      ::real::key_code::KPDecimal
-#define REAL_KEY_KP_DIVIDE       ::real::key_code::KPDivide
-#define REAL_KEY_KP_MULTIPLY     ::real::key_code::KPMultiply
-#define REAL_KEY_KP_SUBTRACT     ::real::key_code::KPSubtract
-#define REAL_KEY_KP_ADD          ::real::key_code::KPAdd
-#define REAL_KEY_KP_ENTER        ::real::key_code::KPEnter
-#define REAL_KEY_KP_EQUAL        ::real::key_code::KPEqual
+#define REAL_KEY_KP_0            ::real::KeyCode::KP0
+#define REAL_KEY_KP_1            ::real::KeyCode::KP1
+#define REAL_KEY_KP_2            ::real::KeyCode::KP2
+#define REAL_KEY_KP_3            ::real::KeyCode::KP3
+#define REAL_KEY_KP_4            ::real::KeyCode::KP4
+#define REAL_KEY_KP_5            ::real::KeyCode::KP5
+#define REAL_KEY_KP_6            ::real::KeyCode::KP6
+#define REAL_KEY_KP_7            ::real::KeyCode::KP7
+#define REAL_KEY_KP_8            ::real::KeyCode::KP8
+#define REAL_KEY_KP_9            ::real::KeyCode::KP9
+#define REAL_KEY_KP_DECIMAL      ::real::KeyCode::KPDecimal
+#define REAL_KEY_KP_DIVIDE       ::real::KeyCode::KPDivide
+#define REAL_KEY_KP_MULTIPLY     ::real::KeyCode::KPMultiply
+#define REAL_KEY_KP_SUBTRACT     ::real::KeyCode::KPSubtract
+#define REAL_KEY_KP_ADD          ::real::KeyCode::KPAdd
+#define REAL_KEY_KP_ENTER        ::Real::KeyCode::KPEnter
+#define REAL_KEY_KP_EQUAL        ::real::KeyCode::KPEqual
 
-#define REAL_KEY_LEFT_SHIFT      ::real::key_code::LeftShift
-#define REAL_KEY_LEFT_CONTROL    ::real::key_code::LeftControl
-#define REAL_KEY_LEFT_ALT        ::real::key_code::LeftAlt
-#define REAL_KEY_LEFT_SUPER      ::real::key_code::LeftSuper
-#define REAL_KEY_RIGHT_SHIFT     ::real::key_code::RightShift
-#define REAL_KEY_RIGHT_CONTROL   ::real::key_code::RightControl
-#define REAL_KEY_RIGHT_ALT       ::real::key_code::RightAlt
-#define REAL_KEY_RIGHT_SUPER     ::real::key_code::RightSuper
-#define REAL_KEY_MENU            ::real::key_code::Menu
+#define REAL_KEY_LEFT_SHIFT      ::Real::KeyCode::LeftShift
+#define REAL_KEY_LEFT_CONTROL    ::Real::KeyCode::LeftControl
+#define REAL_KEY_LEFT_ALT        ::Real::KeyCode::LeftAlt
+#define REAL_KEY_LEFT_SUPER      ::Real::KeyCode::LeftSuper
+#define REAL_KEY_RIGHT_SHIFT     ::Real::KeyCode::RightShift
+#define REAL_KEY_RIGHT_CONTROL   ::Real::KeyCode::RightControl
+#define REAL_KEY_RIGHT_ALT       ::Real::KeyCode::RightAlt
+#define REAL_KEY_RIGHT_SUPER     ::Real::KeyCode::RightSuper
+#define REAL_KEY_MENU            ::real::KeyCode::Menu
 
 #endif //REAL_KEYCODE

@@ -4,20 +4,25 @@
 #include "real/renderer/base_renderer.hpp"
 #include "real/api/gl/gl_buffer_index.hpp"
 
-namespace real {
+namespace Real
+{
 
-	index_buffer *index_buffer::make(uint32_t *data, uint32_t size) {
+	IndexBuffer* IndexBuffer::Make(uint32_t* data, uint32_t size)
+	{
 
-		switch (renderer::api().enumval()) {
-			case renderer_api::api::gl: return new gl_index_buffer(data, size);
+		switch (Renderer::Api().Value())
+		{
+		case RendererAPI::API::GL:
+			return new GLIndexBuffer(data, size);
 
-			default:
-			case renderer_api::api::none: REAL_CORE_ERROR("Invalid renderer api: {}",
-			                                              renderer_api::api::none);
-				return nullptr;
+		default:
+		case RendererAPI::API::none:
+			REAL_CORE_ERROR("Invalid renderer api: {}",
+					RendererAPI::API::none);
+			return nullptr;
 		}
 	}
 
-	index_buffer::~index_buffer() = default;
+	IndexBuffer::~IndexBuffer() = default;
 
 }
