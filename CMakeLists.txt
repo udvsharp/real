@@ -71,7 +71,6 @@ include(GenerateExportHeader)
 # Own
 include(build)
 
-include(compilerOptions)
 include(rdoc)
 include(assets)
 
