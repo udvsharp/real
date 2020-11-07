@@ -54,14 +54,14 @@ namespace Real::Platform
 
 		void Init() override;
 
-		[[nodiscard]] inline window_dimension_t Width() const noexcept override
+		[[nodiscard]] window_dimension_t Width() const noexcept override
 		{ return windowData.width; };
-		[[nodiscard]] inline window_dimension_t Height() const noexcept override
+		[[nodiscard]] window_dimension_t Height() const noexcept override
 		{ return windowData.height; };
-		[[nodiscard]] inline bool IsVSync() const noexcept override
+		[[nodiscard]] bool IsVSync() const noexcept override
 		{ return windowData.isVSync; }
 
-		[[nodiscard]] inline void* Native() const noexcept override
+		[[nodiscard]] void* Native() const noexcept override
 		{ return nativeWindow; }
 		[[nodiscard]] RenderingContext* Context() const noexcept override
 		{ return renderingContext; };

@@ -22,9 +22,9 @@ namespace Real
 		explicit Application(std::string name = REAL_APPLICATION_DEFAULT_NAME);
 		// virtual ~Application() = default;
 
-		[[nodiscard]] inline LayerStack& Layers() noexcept
+		[[nodiscard]] LayerStack& Layers() noexcept
 		{ return this->layerStack; }
-		[[nodiscard]] inline Window& Window() const noexcept
+		[[nodiscard]] Window& Window() const noexcept
 		{ return *(this->window); }
 
 		double Time() const;

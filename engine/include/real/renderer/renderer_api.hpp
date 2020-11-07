@@ -20,7 +20,7 @@ namespace Real {
 	public:
 		virtual void Init() = 0;
 		virtual void ClearColor(glm::fvec4 color) = 0;
-		inline void clear() { Clear(DefaultClearBits()); };
+		void clear() { Clear(DefaultClearBits()); };
 		virtual void Clear(int32_t bits) = 0;
 
 		[[nodiscard]] virtual API Value() const = 0;

@@ -38,7 +38,7 @@ namespace Real
 				 normalized { normalized }
 		{}
 
-		[[nodiscard]] inline uint32_t component_count() const noexcept
+		[[nodiscard]] uint32_t component_count() const noexcept
 		{
 			switch (type)
 			{
@@ -79,7 +79,7 @@ namespace Real
 			}
 		}
 
-		[[nodiscard]] inline int32_t api_type() const noexcept
+		[[nodiscard]] int32_t api_type() const noexcept
 		{
 			switch (Renderer::Api().Value())
 			{
@@ -126,9 +126,9 @@ namespace Real
 		{ return attributes.end(); };
 		//endregion
 
-		[[nodiscard]] inline std::vector<VertexAttribute> Attributes() const
+		[[nodiscard]] std::vector<VertexAttribute> Attributes() const
 		{ return this->attributes; }
-		[[nodiscard]] inline uint32_t Stride() const
+		[[nodiscard]] uint32_t Stride() const
 		{ return this->stride; }
 
 	private:

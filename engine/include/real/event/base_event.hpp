@@ -45,10 +45,10 @@ namespace Real
 
 		friend std::ostream& operator<<(std::ostream& os, const Event& ev);
 	public:
-		[[nodiscard]] virtual inline ev_category_t Categories() const = 0;
-		[[nodiscard]] virtual inline EventType Type() const = 0;
+		[[nodiscard]] virtual ev_category_t Categories() const = 0;
+		[[nodiscard]] virtual EventType Type() const = 0;
 
-		[[nodiscard]] inline bool IsHandled() const
+		[[nodiscard]] bool IsHandled() const
 		{ return handled; }
 
 #ifdef REAL_DEBUG
@@ -59,7 +59,7 @@ namespace Real
 		[[nodiscard]] virtual std::string ToString() const { return "event"; }
 #endif
 
-		[[nodiscard]] inline bool HasCategory(EventCategory c) const
+		[[nodiscard]] bool HasCategory(EventCategory c) const
 		{
 			return static_cast<bool>(static_cast<ev_category_t>(c) & Categories());
 		}

@@ -3,11 +3,9 @@
 #ifndef REAL_GL_CONVERSIONS
 #define REAL_GL_CONVERSIONS
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include "real/core.hpp"
 #include "real/renderer/common.hpp"
+#include "real/api/gl/gl_headers.hpp"
 #include "real/logger.hpp"
 
 namespace Real

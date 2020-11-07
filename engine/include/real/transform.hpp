@@ -17,7 +17,7 @@ namespace Real
 				:transformMat { transform }
 		{}
 
-		[[nodiscard]] inline glm::mat4 Matrix() const noexcept
+		[[nodiscard]] glm::mat4 Matrix() const noexcept
 		{ return transformMat; }
 	private:
 		glm::mat4 transformMat = glm::identity<glm::mat4>();

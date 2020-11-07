@@ -56,7 +56,7 @@ protected:
 		};
 
 		// Vertex Array
-		vao.reset(Real::VertexArray::make());
+		vao.reset(Real::VertexArray::Make());
 
 		// Vertex Buffer
 		vbo.reset(Real::VertexBuffer::Make(vertices, sizeof(vertices)));

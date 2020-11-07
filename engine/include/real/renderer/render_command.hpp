@@ -13,7 +13,7 @@ namespace Real
 	class REAL_API RenderCommand
 	{
 	public:
-		static inline void ClearColor(glm::fvec4 color)
+		static void ClearColor(glm::fvec4 color)
 		{
 			Renderer::Api().ClearColor(color);
 		}
@@ -23,12 +23,12 @@ namespace Real
 			Renderer::Api().Init();
 		}
 
-		static inline void Clear()
+		static void Clear()
 		{
 			Renderer::Api().clear();
 		}
 
-		static inline void DrawIndexed(const Real::Reference<VertexArray>& vertexArray)
+		static void DrawIndexed(const Real::Reference<VertexArray>& vertexArray)
 		{
 			Renderer::Api().DrawIndexed(vertexArray);
 		}

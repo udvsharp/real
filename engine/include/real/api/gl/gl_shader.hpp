@@ -58,7 +58,7 @@ namespace Real
 		static void CheckHandleShaderError(GLuint id, GLenum action);
 		//endregion
 
-		inline GLint LocationOf(const std::string& name) const;
+		GLint LocationOf(const std::string& name) const;
 	private:
 		GLuint programId;
 		std::string shaderName;

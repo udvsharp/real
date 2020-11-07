@@ -17,9 +17,9 @@ namespace Real
 
 		virtual void Init() override;
 
-		virtual inline texture_dimension_t Width() const override
+		virtual texture_dimension_t Width() const override
 		{ return width; };
-		virtual inline texture_dimension_t Height() const override
+		virtual texture_dimension_t Height() const override
 		{ return height; };
 
 		virtual void Bind(uint32_t slot = 0) const override;

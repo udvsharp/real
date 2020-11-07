@@ -11,9 +11,10 @@
 	#error Unsupported platform!
 #endif
 
-namespace Real {
-
-	inline double Time() { return Real::Platform::Time(); };
+namespace Real
+{
+	inline double Time()
+	{ return Real::Platform::Time(); };
 }
 
 #endif //REAL_TIME

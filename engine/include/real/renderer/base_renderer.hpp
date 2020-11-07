@@ -14,7 +14,7 @@ namespace Real
 	class REAL_API Renderer
 	{
 	public:
-		[[nodiscard]] static inline RendererAPI& Api() noexcept
+		[[nodiscard]] static RendererAPI& Api() noexcept
 		{ return *api; }
 
 		static void Init();

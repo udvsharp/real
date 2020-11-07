@@ -11,7 +11,7 @@ namespace Real
 	class MouseEvent : public Event
 	{
 	public:
-		[[nodiscard]] inline ev_category_t Categories() const override
+		[[nodiscard]] ev_category_t Categories() const override
 		{
 			return static_cast<ev_category_t>(EventCategory::Mouse);
 		}
