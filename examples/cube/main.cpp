@@ -15,7 +15,7 @@ public:
 	Application()
 			:Real::Application()
 	{
-		// layers().push_layer(new real::imgui_layer{});
+		Layers().PushLayer(new Real::ImGUILayer{});
 		// Perspective
 		camera = new Real::PerspectiveCamera { 45.0f, 16.0f, 9.0f };
 
@@ -26,21 +26,21 @@ protected:
 	// Override this if you want
 	virtual void Init() override
 	{
-		shaderLib.Load("shaders/base.glsl");
+		auto shader = shaderLib.Load("shaders/base.glsl");
 
 		// region Setup rendering
 		// Vertices
 		// TODO: fix colors
 		float vertices[] = {
 				// Positions           // Colors
-				1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.5f, // FTR
-				1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.5f, // FBR
-				-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.5f, // FBL
-				-1.0f, 1.0f, 1.0f, 0.5f, 0.5f, 0.5f, 0.5f, // FTL
-				1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.5f, // RTR
-				1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.5f, // RBR
-				-1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.5f, // RBL
-				-1.0f, 1.0f, -1.0f, 0.5f, 0.5f, 0.5f, 0.5f, // RTL
+				 1.0f,  1.0f,  1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // FTR
+				 1.0f, -1.0f,  1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // FBR
+				-1.0f, -1.0f,  1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // FBL
+				-1.0f,  1.0f,  1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // FTL
+				 1.0f,  1.0f, -1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // RTR
+				 1.0f, -1.0f, -1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // RBR
+				-1.0f, -1.0f, -1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // RBL
+				-1.0f,  1.0f, -1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // RTL
 		};
 
 		unsigned int positions[] {
@@ -61,6 +61,9 @@ protected:
 				{ Real::shader_data_t::vec3, "_pos", },
 				{ Real::shader_data_t::vec4, "_color", },
 		});
+
+		shader->UniformFloat("u_color", { 1.0f, 1.0f, 1.0f, 1.0f });
+//		shader->UniformFloat("u_lightColor", { 1.0f, 1.0f, 1.0f, 1.0f });
 
 		// Index Buffer
 		Real::Reference<Real::IndexBuffer> ibo = Real::IndexBuffer::Make(positions,

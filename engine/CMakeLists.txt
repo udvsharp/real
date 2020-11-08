@@ -150,10 +150,10 @@ foreach (SHADER_SRC ${SHADERS_SRCS})
 	endif ()
 
 	add_custom_command(
-			TARGET ${REAL_LIBRARY_TARGET_NAME} PRE_BUILD
+			TARGET ${REAL_LIBRARY_TARGET_NAME} POST_BUILD
 			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
 			COMMENT "Copying shader (${SHADER_FILENAME}) to build directory..."
-			DEPENDS ${SHADER_SRC}
+			DEPENDS "${SHADER_SRC}"
 
 			COMMAND ${CMAKE_COMMAND} -E copy
 			"${SHADER_SRC}"
@@ -161,6 +161,7 @@ foreach (SHADER_SRC ${SHADERS_SRCS})
 
 			VERBATIM
 	)
+
 endforeach ()
 
 target_include_directories(

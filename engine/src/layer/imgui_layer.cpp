@@ -159,7 +159,7 @@ namespace Real
 			:Layer("imgui layer")
 	{}
 #else
-	imgui_layer::imgui_layer() : layer() {
+	ImGUILayer::ImGUILayer() : layer() {
 
 	}
 #endif

@@ -34,9 +34,7 @@ namespace Real
 		shader->Bind();
 		shader->UniformMatrix("u_vp", sceneData->viewprojection);
 		shader->UniformMatrix("u_model", model.Matrix());
-		shader->UniformFloat("u_color", { 1.0f, 1.0f, 1.0f, 1.0f });
 		// TODO: implement render command queue
 		RenderCommand::DrawIndexed(vao);
-
 	}
 }
