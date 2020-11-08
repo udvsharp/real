@@ -53,7 +53,7 @@ namespace Real
 		virtual RenderingContext* Context() const = 0;
 
 		// Generates window depending on platform
-		static Window* Make(const WindowProperties& props);
+		static Real::Scope<Window> Make(const WindowProperties& props);
 	};
 }
 

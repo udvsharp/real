@@ -56,10 +56,10 @@ protected:
 		};
 
 		// Vertex Array
-		vao.reset(Real::VertexArray::Make());
+		vao = Real::VertexArray::Make();
 
 		// Vertex Buffer
-		vbo.reset(Real::VertexBuffer::Make(vertices, sizeof(vertices)));
+		vbo = Real::VertexBuffer::Make(vertices, sizeof(vertices));
 		vbo->Layout({
 				{ Real::shader_data_t::vec3, "_pos", },
 				{ Real::shader_data_t::vec2, "_texcoord", },
@@ -67,7 +67,7 @@ protected:
 		});
 
 		// Index Buffer
-		ibo.reset(Real::IndexBuffer::Make(positions, sizeof(positions) / sizeof(unsigned int)));
+		ibo = Real::IndexBuffer::Make(positions, sizeof(positions) / sizeof(unsigned int));
 
 		// Link buffers to vertex array
 		vao->AddVertexBuffer(vbo);
@@ -94,6 +94,6 @@ protected:
 	}
 };
 
-Real::Application *Real::Make() {
-	return new ::Application();
+Real::Scope<Real::Application> Real::Make() {
+	return Real::MakeScope<::Application>();
 }

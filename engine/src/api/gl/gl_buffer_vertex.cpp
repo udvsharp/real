@@ -7,7 +7,7 @@ namespace Real
 {
 
 	GLVertexBuffer::GLVertexBuffer(float* data, uint32_t size)
-			:rendererId { 0 }, bufferLayout {}, vertexArray { nullptr }
+			:rendererId { 0 }, bufferLayout {}
 	{
 		glCreateBuffers(1, &rendererId);
 		// TODO: remove hardcoded buffer data usage
@@ -35,8 +35,4 @@ namespace Real
 		bufferLayout = BufferLayout { attributes };
 	}
 
-	void GLVertexBuffer::LinkTo(const Real::Reference<Real::VertexArray>& vao)
-	{
-		this->vertexArray = vao;
-	}
 }

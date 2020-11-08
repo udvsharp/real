@@ -26,7 +26,6 @@ namespace Real
 
 		glBindVertexArray(rendererId);
 		buffer->Bind();
-		buffer->LinkTo(Real::Reference<Real::VertexArray>(this));
 
 		uint32_t index = 0;
 		for (auto& a: buffer->Layout())
@@ -43,8 +42,7 @@ namespace Real
 		vertexBuffers.push_back(buffer);
 	}
 
-	void
-	GLVertexArray::AddIndexBuffer(const Real::Reference<Real::IndexBuffer>& buffer)
+	void GLVertexArray::AddIndexBuffer(const Real::Reference<Real::IndexBuffer>& buffer)
 	{
 		glBindVertexArray(rendererId);
 		buffer->Bind();

@@ -20,7 +20,7 @@ namespace Real
 	{
 	public:
 		explicit Application(std::string name = REAL_APPLICATION_DEFAULT_NAME);
-		// virtual ~Application() = default;
+		virtual ~Application();
 
 		[[nodiscard]] LayerStack& Layers() noexcept
 		{ return this->layerStack; }
@@ -50,7 +50,7 @@ namespace Real
 	};
 
 	// To be defined in client
-	extern Application* Make();
+	extern Real::Scope<Real::Application> Make();
 }
 
 #endif //REAL_APPLICATION

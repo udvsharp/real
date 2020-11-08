@@ -14,6 +14,7 @@ namespace Real
 	{
 	public:
 		explicit GLRenderingContext(GLFWwindow* windowHandle);
+		virtual ~GLRenderingContext();
 
 		void Init() override;
 		void SwapBuffers() override;

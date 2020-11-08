@@ -4,12 +4,12 @@
 
 namespace Real
 {
-	Input* Input::Make()
+	Real::Scope<Input> Input::Make()
 	{
-		Input* input;
+		Real::Scope<Input> input;
 
 #ifdef REAL_PLATFORM_WINDOWS
-		input = new Platform::Input {};
+		input = Real::MakeScope<Platform::Input>();
 #endif
 		return input;
 	}

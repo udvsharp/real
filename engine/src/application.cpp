@@ -14,8 +14,8 @@ namespace Real
 
 		// Setup systems
 		WindowProperties props {};
-		window.reset(Window::Make(props));
-		input.reset(Input::Make());
+		window = Window::Make(props);
+		input = Input::Make();
 
 		window->Init();
 		window->EventCallback([this](Event& e)
@@ -53,11 +53,18 @@ namespace Real
 			Update(timestep);
 		}
 
-		REAL_CORE_TRACE("Closing application;");
+		REAL_CORE_TRACE("Closing application...");
+	}
+
+	Application::~Application()
+	{
+
 	}
 
 	void Application::Render(Timestep ts)
-	{}
+	{
+
+	}
 
 	void Application::Update(Timestep ts)
 	{}

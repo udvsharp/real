@@ -181,10 +181,9 @@ namespace Real::Platform
 
 	Window::~Window()
 	{
+		REAL_CORE_TRACE("Destroying native window...");
 		::Real::Window::~Window();
-		REAL_CORE_TRACE("Destroying native window");
-		glfwDestroyWindow(nativeWindow);
-		glfwTerminate(); // TODO: terminate GLFW in rendering context?
+		delete renderingContext;
 	}
 
 	void Window::OnUpdate(Timestep ts)

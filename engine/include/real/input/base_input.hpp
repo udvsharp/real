@@ -21,7 +21,7 @@ namespace Real
 		virtual mouse_position_t MouseX() = 0;
 		virtual mouse_position_t MouseY() = 0;
 
-		static Input* Make();
+		static Real::Scope<Input> Make();
 	};
 }
 

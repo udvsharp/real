@@ -16,7 +16,7 @@ namespace Real {
 
 		[[nodiscard]] virtual uint32_t Count() const = 0;
 	public:
-		static IndexBuffer *Make(uint32_t *data, uint32_t size);
+		static Real::Scope<IndexBuffer> Make(uint32_t *data, uint32_t size);
 	};
 }
 

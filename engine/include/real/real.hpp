@@ -29,7 +29,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 	Real::Logger::Init();
 
 	REAL_CORE_TRACE("Creating application...");
-	auto* app = Real::Make();
+	Real::Scope<Real::Application> app = Real::Make();
 	app->Init();
 	app->Run();
 

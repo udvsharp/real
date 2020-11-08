@@ -11,6 +11,13 @@ namespace Real
 		this->glfwWindowHandle = windowHandle;
 	}
 
+	GLRenderingContext::~GLRenderingContext()
+	{
+		REAL_CORE_TRACE("Destroying rendering context...");
+		glfwDestroyWindow(glfwWindowHandle);
+		glfwTerminate();
+	}
+
 	void GLRenderingContext::Init()
 	{
 		REAL_CORE_TRACE("Initializing GL rendering context...");

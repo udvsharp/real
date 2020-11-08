@@ -9,12 +9,12 @@
 namespace Real
 {
 
-	VertexBuffer* VertexBuffer::Make(float* data, uint32_t size)
+	Real::Scope<VertexBuffer> VertexBuffer::Make(float* data, uint32_t size)
 	{
 		switch (Renderer::Api().Value())
 		{
 		case RendererAPI::API::GL:
-			return new GLVertexBuffer(data, size);
+			return Real::MakeScope<GLVertexBuffer>(data, size);
 
 		default:
 		case RendererAPI::API::None:

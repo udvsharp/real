@@ -7,13 +7,13 @@
 namespace Real
 {
 
-	IndexBuffer* IndexBuffer::Make(uint32_t* data, uint32_t size)
+	Real::Scope<IndexBuffer> IndexBuffer::Make(uint32_t* data, uint32_t size)
 	{
 
 		switch (Renderer::Api().Value())
 		{
 		case RendererAPI::API::GL:
-			return new GLIndexBuffer(data, size);
+			return Real::MakeScope<GLIndexBuffer>(data, size);
 
 		default:
 		case RendererAPI::API::None:

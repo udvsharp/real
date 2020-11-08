@@ -17,16 +17,13 @@ namespace Real {
 		virtual ~VertexBuffer();
 
 		[[nodiscard]] virtual const BufferLayout &Layout() const = 0;
-		[[nodiscard]] virtual const Real::Reference<Real::VertexArray> &
-		VertexArray() const = 0;
 
 		virtual void Layout(std::initializer_list<VertexAttribute> attributes) = 0;
-		virtual void LinkTo(const Real::Reference<Real::VertexArray> &vertex_array) = 0;
 
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 	public:
-		static VertexBuffer *Make(float *data, uint32_t size);
+		static Real::Scope<VertexBuffer> Make(float *data, uint32_t size);
 	};
 }
 

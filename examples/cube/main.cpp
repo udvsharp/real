@@ -7,8 +7,6 @@ class Application : public Real::Application
 private:
 	// Rendering
 	Real::Reference<Real::VertexArray> vao;
-	Real::Reference<Real::VertexBuffer> vbo;
-	Real::Reference<Real::IndexBuffer> ibo;
 
 	Real::Camera* camera;
 
@@ -35,14 +33,14 @@ protected:
 		// TODO: fix colors
 		float vertices[] = {
 				// Positions           // Colors
-				 1.0f,  1.0f,  1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // FTR
-				 1.0f, -1.0f,  1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // FBR
-				-1.0f, -1.0f,  1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // FBL
-				-1.0f,  1.0f,  1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // FTL
-				 1.0f,  1.0f, -1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // RTR
-				 1.0f, -1.0f, -1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // RBR
-				-1.0f, -1.0f, -1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // RBL
-				-1.0f,  1.0f, -1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // RTL
+				1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.5f, // FTR
+				1.0f, -1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.5f, // FBR
+				-1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.5f, // FBL
+				-1.0f, 1.0f, 1.0f, 0.5f, 0.5f, 0.5f, 0.5f, // FTL
+				1.0f, 1.0f, -1.0f, 1.0f, 0.0f, 0.0f, 0.5f, // RTR
+				1.0f, -1.0f, -1.0f, 0.0f, 1.0f, 0.0f, 0.5f, // RBR
+				-1.0f, -1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.5f, // RBL
+				-1.0f, 1.0f, -1.0f, 0.5f, 0.5f, 0.5f, 0.5f, // RTL
 		};
 
 		unsigned int positions[] {
@@ -55,19 +53,18 @@ protected:
 		};
 
 		// Vertex Array
-		vao = Real::Reference<Real::VertexArray> { Real::VertexArray::Make() };
+		vao = Real::VertexArray::Make();
 
 		// Vertex Buffer
-		vbo = Real::Reference<Real::VertexBuffer> {
-				Real::VertexBuffer::Make(vertices, sizeof(vertices)) };
+		Real::Reference<Real::VertexBuffer> vbo = Real::VertexBuffer::Make(vertices, sizeof(vertices));
 		vbo->Layout({
 				{ Real::shader_data_t::vec3, "_pos", },
 				{ Real::shader_data_t::vec4, "_color", },
 		});
 
 		// Index Buffer
-		ibo = Real::Reference<Real::IndexBuffer> { Real::IndexBuffer::Make(positions,
-				sizeof(positions) / sizeof(unsigned int)) };
+		Real::Reference<Real::IndexBuffer> ibo = Real::IndexBuffer::Make(positions,
+				sizeof(positions) / sizeof(unsigned int));
 
 		// Link buffers to vertex array
 		vao->AddVertexBuffer(vbo);
@@ -107,7 +104,7 @@ protected:
 	}
 };
 
-Real::Application* Real::Make()
+Real::Scope<Real::Application> Real::Make()
 {
-	return new ::Application();
+	return Real::MakeScope<::Application>();
 }

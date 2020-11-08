@@ -7,13 +7,13 @@
 
 namespace Real
 {
-	VertexArray* VertexArray::Make()
+	Real::Scope<VertexArray> VertexArray::Make()
 	{
 
 		switch (Renderer::Api().Value())
 		{
 		case RendererAPI::API::GL:
-			return new GLVertexArray {};
+			return Real::MakeScope<GLVertexArray>();
 
 		default:
 		case RendererAPI::API::None:

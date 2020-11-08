@@ -5,11 +5,11 @@
 
 namespace Real
 {
-	Window* Window::Make(const WindowProperties& props)
+	Real::Scope<Window> Window::Make(const WindowProperties& props)
 	{
-		Window* window;
+		Real::Scope<Window> window;
 #ifdef REAL_PLATFORM_WINDOWS
-		window = new Platform::Window { props };
+		window = Real::MakeScope<Platform::Window>(props);
 #endif
 		return window;
 	}
