@@ -16,9 +16,9 @@ namespace Real
 			return Real::MakeReference<GLShader>(filename);
 
 		default:
-		case RendererAPI::API::none:
+		case RendererAPI::API::None:
 			REAL_CORE_ERROR("Invalid renderer api: {}",
-					RendererAPI::API::none);
+					RendererAPI::API::None);
 			return nullptr;
 		}
 	}

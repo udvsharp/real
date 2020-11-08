@@ -13,14 +13,14 @@ namespace Real
 	class REAL_API Transform
 	{
 	public:
-		Transform(glm::mat4 transform)
-				:transformMat { transform }
+		Transform(glm::mat4&& transform = glm::identity<glm::mat4>())
+				:transformMat { std::move(transform) }
 		{}
 
 		[[nodiscard]] glm::mat4 Matrix() const noexcept
 		{ return transformMat; }
 	private:
-		glm::mat4 transformMat = glm::identity<glm::mat4>();
+		glm::mat4 transformMat;
 	};
 }
 

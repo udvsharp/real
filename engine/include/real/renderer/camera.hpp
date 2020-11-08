@@ -13,16 +13,16 @@ namespace Real
 	class REAL_API Camera
 	{
 	protected:
-		glm::mat4 view = glm::identity<glm::mat4>();
-		glm::mat4 projection = glm::identity<glm::mat4>();
+		glm::mat4 view;
+		glm::mat4 projection;
 
-		glm::mat4 cacheViewprojection = glm::identity<glm::mat4>();
+		glm::mat4 cacheViewprojection;
 
 		// TODO: migrate to quaternions
-		glm::vec3 position = { 0.0f, 0.0f, 0.0f, };
-		glm::vec3 direction = { 0.0f, 0.0f, 0.0f, };
+		glm::vec3 position;
+		glm::vec3 direction;
 	public:
-		explicit Camera(const glm::mat4& projection,
+		explicit Camera(const glm::mat4& projection = glm::identity<glm::mat4>(),
 				glm::vec3 position = { 0.0f, 0.0f, 0.0f, },
 				glm::vec3 direction = { 0.0f, 0.0f, 0.0f, });
 
@@ -30,17 +30,17 @@ namespace Real
 
 		[[nodiscard]] virtual glm::vec3 Position() const noexcept
 		{ return this->position; };
-		virtual void Position(glm::vec3 position) noexcept
+		virtual void Position(glm::vec3 _position) noexcept
 		{
-			this->position = position;
+			this->position = _position;
 			Update();
 		};
 
 		[[nodiscard]] glm::mat4 Projection() const noexcept
 		{ return this->projection; };
-		virtual void Projection(glm::mat4 projection) noexcept
+		virtual void Projection(glm::mat4 _projection) noexcept
 		{
-			this->projection = projection;
+			this->projection = _projection;
 			UpdateViewprojection();
 		};
 
@@ -62,10 +62,10 @@ namespace Real
 		virtual glm::vec3 DirectionTo(glm::vec3 target) const;
 	};
 
-	class REAL_API camera_orthographic : public Camera
+	class REAL_API OrthographicCamera : public Camera
 	{
 	public:
-		camera_orthographic(float left, float right, float bottom, float top);
+		OrthographicCamera(float left, float right, float bottom, float top);
 	private:
 		virtual void UpdateView() override;
 	};

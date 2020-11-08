@@ -17,9 +17,9 @@ namespace Real
 			return new GLVertexBuffer(data, size);
 
 		default:
-		case RendererAPI::API::none:
+		case RendererAPI::API::None:
 			REAL_CORE_ERROR("Invalid renderer api: {}",
-					RendererAPI::API::none);
+					RendererAPI::API::None);
 			return nullptr;
 		}
 

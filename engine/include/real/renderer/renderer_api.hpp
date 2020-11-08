@@ -14,7 +14,7 @@ namespace Real {
 	class REAL_API RendererAPI {
 	public:
 		enum class API {
-			none = 0,
+			None = 0,
 			GL = 1,
 		};
 	public:

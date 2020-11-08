@@ -42,7 +42,8 @@ namespace Real::Platform
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
 
-		REAL_CORE_TRACE("Creating window: {0}, {1}, {2}", windowData.title,
+		REAL_CORE_TRACE("Creating window: {0}, {1}, {2}",
+				windowData.title,
 				windowData.width,
 				windowData.height);
 
@@ -52,7 +53,8 @@ namespace Real::Platform
 		// Testing
 		// Antialiasing
 		glfwWindowHint(GLFW_SAMPLES, 4);
-		nativeWindow = glfwCreateWindow(windowData.width, windowData.height,
+		nativeWindow = glfwCreateWindow(
+				windowData.width, windowData.height,
 				windowData.title.c_str(),
 				nullptr, nullptr);
 		// TODO: abstract api

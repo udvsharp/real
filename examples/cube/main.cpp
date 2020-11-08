@@ -22,28 +22,27 @@ public:
 		camera = new Real::PerspectiveCamera { 45.0f, 16.0f, 9.0f };
 
 		// Orthographic
-		// camera_ =  new real::camera_orthographic {-3.2f, 3.2f, -1.8f, 1.8f, };
+		// camera =  new Real::OrghographicCamera {-3.2f, 3.2f, -1.8f, 1.8f, };
 	}
 protected:
 	// Override this if you want
 	virtual void Init() override
 	{
-		Real::Application::Init();
-
 		shaderLib.Load("shaders/base.glsl");
 
 		// region Setup rendering
 		// Vertices
+		// TODO: fix colors
 		float vertices[] = {
 				// Positions           // Colors
-				1.0f, 1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTR
-				1.0f, -1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBR
-				-1.0f, -1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FBL
-				-1.0f, 1.0f, 1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // FTL
-				1.0f, 1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTR
-				1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBR
-				-1.0f, -1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RBL
-				-1.0f, 1.0f, -1.0f,   // 1.0f, 1.0f, 1.0f, 1.0f, // RTL
+				 1.0f,  1.0f,  1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // FTR
+				 1.0f, -1.0f,  1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // FBR
+				-1.0f, -1.0f,  1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // FBL
+				-1.0f,  1.0f,  1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // FTL
+				 1.0f,  1.0f, -1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // RTR
+				 1.0f, -1.0f, -1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // RBR
+				-1.0f, -1.0f, -1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // RBL
+				-1.0f,  1.0f, -1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // RTL
 		};
 
 		unsigned int positions[] {
@@ -56,18 +55,19 @@ protected:
 		};
 
 		// Vertex Array
-		vao.reset(Real::VertexArray::Make());
+		vao = Real::Reference<Real::VertexArray> { Real::VertexArray::Make() };
 
 		// Vertex Buffer
-		vbo.reset(Real::VertexBuffer::Make(vertices, sizeof(vertices)));
+		vbo = Real::Reference<Real::VertexBuffer> {
+				Real::VertexBuffer::Make(vertices, sizeof(vertices)) };
 		vbo->Layout({
 				{ Real::shader_data_t::vec3, "_pos", },
-				// { real::shader_data_t::vec4, "_color",},
+				{ Real::shader_data_t::vec4, "_color", },
 		});
 
 		// Index Buffer
-		ibo.reset(Real::IndexBuffer::Make(positions,
-				sizeof(positions) / sizeof(unsigned int)));
+		ibo = Real::Reference<Real::IndexBuffer> { Real::IndexBuffer::Make(positions,
+				sizeof(positions) / sizeof(unsigned int)) };
 
 		// Link buffers to vertex array
 		vao->AddVertexBuffer(vbo);

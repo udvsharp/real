@@ -17,7 +17,7 @@ namespace Real
 	class REAL_API GLShader : public Real::Shader
 	{
 	public:
-		GLShader(std::string filename);
+		GLShader(const std::string& filename);
 		~GLShader() override;
 
 		// region Uniforms
@@ -58,7 +58,7 @@ namespace Real
 		static void CheckHandleShaderError(GLuint id, GLenum action);
 		//endregion
 
-		GLint LocationOf(const std::string& name) const;
+		inline GLint LocationOf(const std::string& name) const;
 	private:
 		GLuint programId;
 		std::string shaderName;

@@ -57,13 +57,13 @@ namespace Real
 	// endregion
 
 	//region Orthographic camera
-	camera_orthographic::camera_orthographic(float left, float right, float bottom,
+	OrthographicCamera::OrthographicCamera(float left, float right, float bottom,
 			float top)
 			:Camera { glm::ortho(left, right, bottom, top, 0.1f, 10.0f) }
 	{
 	}
 
-	void camera_orthographic::UpdateView()
+	void OrthographicCamera::UpdateView()
 	{
 		// TODO: improve this
 		glm::mat4 transform =

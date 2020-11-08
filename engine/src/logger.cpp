@@ -12,6 +12,7 @@ namespace Real
 
 	void Logger::Init()
 	{
+		// TODO: improve spdlog usage
 		std::vector<spdlog::sink_ptr> log_sinks;
 		log_sinks.emplace_back(
 				Real::MakeReference<spdlog::sinks::stdout_color_sink_mt>());

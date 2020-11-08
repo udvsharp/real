@@ -13,7 +13,7 @@
 namespace Real
 {
 
-	GLShader::GLShader(std::string filename)
+	GLShader::GLShader(const std::string& filename)
 			:programId { 0 }, shaders {}
 	{
 		programId = glCreateProgram();

@@ -36,9 +36,9 @@ namespace Real::Platform
 		explicit WindowData(const ::Real::WindowProperties& props,
 				bool is_v_sync = REAL_DEFAULT_WINDOW_V_SYNC,
 				event_callback_t callback = nullptr)
-				:title(props.title), width(props.width), height(props.height),
-				 isVSync(is_v_sync),
-				 ev_callback(std::move(callback))
+				:title { props.title }, width { props.width }, height { props.height },
+				 isVSync { is_v_sync },
+				 ev_callback { std::move(callback) }
 		{}
 	};
 

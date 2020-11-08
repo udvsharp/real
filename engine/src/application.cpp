@@ -17,18 +17,17 @@ namespace Real
 		window.reset(Window::Make(props));
 		input.reset(Input::Make());
 
+		window->Init();
 		window->EventCallback([this](Event& e)
 		{
 			Application::OnEvent(e);
 		});
+
+		Renderer::Init();
 	}
 
 	void Application::Init()
-	{
-		REAL_CORE_TRACE("Initializing app...");
-		window->Init();
-		Renderer::Init();
-	}
+	{}
 
 	void Application::Run()
 	{

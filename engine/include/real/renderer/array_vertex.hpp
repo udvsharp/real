@@ -30,7 +30,7 @@ namespace Real {
 		virtual void Bind() const = 0;
 		virtual void Unbind() const = 0;
 	public:
-		static VertexArray *Make();
+		static VertexArray* Make();
 	};
 }
 

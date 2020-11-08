@@ -13,12 +13,12 @@ namespace Real
 		switch (Renderer::Api().Value())
 		{
 		case RendererAPI::API::GL:
-			return new GLVertexArray();
+			return new GLVertexArray {};
 
 		default:
-		case RendererAPI::API::none:
+		case RendererAPI::API::None:
 			REAL_CORE_ERROR("Invalid renderer api: {}",
-					RendererAPI::API::none);
+					RendererAPI::API::None);
 			return nullptr;
 		}
 	}
