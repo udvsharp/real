@@ -101,6 +101,13 @@ add_library(
 		src/stb.cpp
 )
 
+target_precompile_headers(
+		${REAL_LIBRARY_TARGET_NAME}
+		PRIVATE
+		"include/real/pch.hpp"
+)
+
+
 # Platform-dependent sources
 if (WIN32)
 	target_sources(
@@ -131,39 +138,13 @@ if (WIN32)
 endif ()
 
 # Shaders
-file(MAKE_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders")
-
-set(
-		SHADERS_SRCS
+add_shaders(
+		${REAL_LIBRARY_TARGET_NAME}
 		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.glsl"
 		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/tex.glsl"
 )
 
-foreach (SHADER_SRC ${SHADERS_SRCS})
-	get_filename_component(SHADER_FILENAME "${SHADER_SRC}" NAME)
-
-	set(SHADER_OUTPUT_FILENAME)
-	if (REAL_GENERATOR_IS_MULTI_CONFIG)
-		set(SHADER_OUTPUT_FILENAME "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/$<CONFIG>/shaders/${SHADER_FILENAME}")
-	else ()
-		set(SHADER_OUTPUT_FILENAME "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/shaders/${SHADER_FILENAME}")
-	endif ()
-
-	add_custom_command(
-			TARGET ${REAL_LIBRARY_TARGET_NAME} POST_BUILD
-			WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
-			COMMENT "Copying shader (${SHADER_FILENAME}) to build directory..."
-			DEPENDS "${SHADER_SRC}"
-
-			COMMAND ${CMAKE_COMMAND} -E copy
-			"${SHADER_SRC}"
-			"${SHADER_OUTPUT_FILENAME}"
-
-			VERBATIM
-	)
-
-endforeach ()
-
+# Properties
 target_include_directories(
 		${REAL_LIBRARY_TARGET_NAME}
 		PUBLIC
@@ -173,13 +154,6 @@ target_include_directories(
 		"src"
 )
 
-target_precompile_headers(
-		${REAL_LIBRARY_TARGET_NAME}
-		PRIVATE
-		"include/real/pch.hpp"
-)
-
-# Properties
 set_target_properties(
 		${REAL_LIBRARY_TARGET_NAME} PROPERTIES
 

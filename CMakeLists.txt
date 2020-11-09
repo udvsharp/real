@@ -73,6 +73,7 @@ include(build)
 
 include(rdoc)
 include(assets)
+include(shaders)
 
 # TODO: get rid of dependencies
 ### Submodules
