@@ -19,6 +19,11 @@ namespace Real
 
 		// Extensions
 		glEnable(GL_EXT_direct_state_access);
+
+		// Enable depth test
+		glEnable(GL_DEPTH_TEST);
+		// Accept fragment if it closer to the camera than the former one
+		glDepthFunc(GL_LESS);
 	}
 
 	void GLRendererApi::ClearColor(glm::fvec4 color)

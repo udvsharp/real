@@ -30,26 +30,57 @@ protected:
 
 		// region Setup rendering
 		// Vertices
-		// TODO: fix colors
 		float vertices[] = {
-				// Positions           // Colors
-				 1.0f,  1.0f,  1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // FTR
-				 1.0f, -1.0f,  1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // FBR
-				-1.0f, -1.0f,  1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // FBL
-				-1.0f,  1.0f,  1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // FTL
-				 1.0f,  1.0f, -1.0f,    1.0f, 0.0f, 0.0f, 0.5f, // RTR
-				 1.0f, -1.0f, -1.0f,    0.0f, 1.0f, 0.0f, 0.5f, // RBR
-				-1.0f, -1.0f, -1.0f,    0.0f, 0.0f, 1.0f, 0.5f, // RBL
-				-1.0f,  1.0f, -1.0f,    0.5f, 0.5f, 0.5f, 0.5f, // RTL
+				// TOP
+				// Positions           // Normals             // Colors
+				 1.0f,  1.0f,  1.0f,    0.0f,  1.0f,  0.0f,   1.0f, 0.0f, 0.0f, 1.0f, // FTR
+			 	-1.0f,  1.0f,  1.0f,    0.0f,  1.0f,  0.0f,   1.0f, 0.0f, 0.0f, 1.0f, // FTL
+				 1.0f,  1.0f, -1.0f,    0.0f,  1.0f,  0.0f,   1.0f, 0.0f, 0.0f, 1.0f, // RTR
+				-1.0f,  1.0f, -1.0f,    0.0f,  1.0f,  0.0f,   1.0f, 0.0f, 0.0f, 1.0f, // RTL
+
+				// BOTTOM
+				// Positions           // Normals             // Colors
+			 	 1.0f, -1.0f,  1.0f,    0.0f, -1.0f,  0.0f,   0.0f, 1.0f, 0.0f, 1.0f, // FBR
+			 	-1.0f, -1.0f,  1.0f,    0.0f, -1.0f,  0.0f,   0.0f, 1.0f, 0.0f, 1.0f, // FBL
+			 	 1.0f, -1.0f, -1.0f,    0.0f, -1.0f,  0.0f,   0.0f, 1.0f, 0.0f, 1.0f, // RBR
+			 	-1.0f, -1.0f, -1.0f,    0.0f, -1.0f,  0.0f,   0.0f, 1.0f, 0.0f, 1.0f, // RBL
+
+				// FRONT
+				// Positions           // Normals             // Colors
+			  	 1.0f,  1.0f,  1.0f,    0.0f,  0.0f,  1.0f,   0.0f, 0.0f, 1.0f, 1.0f, // FTR
+			 	-1.0f,  1.0f,  1.0f,    0.0f,  0.0f,  1.0f,   0.0f, 0.0f, 1.0f, 1.0f, // FTL
+			 	 1.0f, -1.0f,  1.0f,    0.0f,  0.0f,  1.0f,   0.0f, 0.0f, 1.0f, 1.0f, // FBR
+			 	-1.0f, -1.0f,  1.0f,    0.0f,  0.0f,  1.0f,   0.0f, 0.0f, 1.0f, 1.0f, // FBL
+
+				// BACK
+				// Positions           // Normals             // Colors
+				 1.0f,  1.0f, -1.0f,    0.0f,  0.0f, -1.0f,   0.5f, 0.5f, 0.0f, 1.0f, // RTR
+			 	-1.0f,  1.0f, -1.0f,    0.0f,  0.0f, -1.0f,   0.5f, 0.5f, 0.0f, 1.0f, // RTL
+				 1.0f, -1.0f, -1.0f,    0.0f,  0.0f, -1.0f,   0.5f, 0.5f, 0.0f, 1.0f, // RBR
+			 	-1.0f, -1.0f, -1.0f,    0.0f,  0.0f, -1.0f,   0.5f, 0.5f, 0.0f, 1.0f, // RBL
+
+				// LEFT
+				// Positions           // Normals             // Colors
+				-1.0f,  1.0f,  1.0f,   -1.0f,  0.0f,  0.0f,   0.0f, 0.5f, 0.5f, 1.0f, // FTL
+				-1.0f, -1.0f,  1.0f,   -1.0f,  0.0f,  0.0f,   0.0f, 0.5f, 0.5f, 1.0f, // FBL
+				-1.0f,  1.0f, -1.0f,   -1.0f,  0.0f,  0.0f,   0.0f, 0.5f, 0.5f, 1.0f, // RTL
+				-1.0f, -1.0f, -1.0f,   -1.0f,  0.0f,  0.0f,   0.0f, 0.5f, 0.5f, 1.0f, // RBL
+
+				// RIGHT
+				// Positions           // Normals             // Colors
+				 1.0f,  1.0f,  1.0f,    1.0f,  0.0f,  0.0f,   0.5f, 0.0f, 0.5f, 1.0f, // FTR
+				 1.0f, -1.0f,  1.0f,    1.0f,  0.0f,  0.0f,   0.5f, 0.0f, 0.5f, 1.0f, // FBR
+				 1.0f,  1.0f, -1.0f,    1.0f,  0.0f,  0.0f,   0.5f, 0.0f, 0.5f, 1.0f, // RTR
+				 1.0f, -1.0f, -1.0f,    1.0f,  0.0f,  0.0f,   0.5f, 0.0f, 0.5f, 1.0f, // RBR
 		};
 
 		unsigned int positions[] {
-				0, 1, 2, 0, 2, 3, // Front  0 1 2 3
-				4, 5, 6, 4, 6, 7, // Rear   4 5 6 7
-				2, 3, 6, 3, 6, 7, // Left   2 3 6 7
-				0, 1, 4, 1, 4, 5, // Right  0 1 4 5
-				0, 3, 4, 3, 4, 7, // Top    0 3 4 7
-				1, 2, 5, 2, 5, 6, // Bottom 1 2 5 6
+				 0,  1,  2,    1,  2,  3,   // TOP
+				 4,  5,  6,    5,  6,  7,   // BOTTOM
+				 8,  9, 10,    9, 10, 11,   // FRONT
+				12, 13, 14,   13, 14, 15,   // BACK
+				16, 17, 18,   17, 18, 19,   // LEFT
+				20, 21, 22,   21, 22, 23,   // RIGHT
 		};
 
 		// Vertex Array
@@ -59,11 +90,9 @@ protected:
 		Real::Reference<Real::VertexBuffer> vbo = Real::VertexBuffer::Make(vertices, sizeof(vertices));
 		vbo->Layout({
 				{ Real::shader_data_t::vec3, "_pos", },
+				{ Real::shader_data_t::vec3, "_normal", },
 				{ Real::shader_data_t::vec4, "_color", },
 		});
-
-		shader->UniformFloat("u_color", { 1.0f, 1.0f, 1.0f, 1.0f });
-//		shader->UniformFloat("u_lightColor", { 1.0f, 1.0f, 1.0f, 1.0f });
 
 		// Index Buffer
 		Real::Reference<Real::IndexBuffer> ibo = Real::IndexBuffer::Make(positions,
@@ -73,6 +102,11 @@ protected:
 		vao->AddVertexBuffer(vbo);
 		vao->AddIndexBuffer(ibo);
 		// endregion
+
+		shader->Bind();
+
+		shader->UniformFloat("u_color", { 1.0f, 1.0f, 1.0f, 1.0f });
+		shader->UniformFloat("u_lightColor", { 1.0f, 1.0f, 1.0f, 1.0f });
 	}
 
 	virtual void Update(Real::Timestep ts) override
@@ -86,6 +120,7 @@ protected:
 		float cz = glm::cos(Real::Time() * speed) * radius;
 
 		camera->Position({ cx, 3.0f, cz });
+//		camera->Position({ 0.0f, 3.0f, 5.0f });
 		camera->LookAt({ 0.0, 0.0, 0.0 });
 	}
 
