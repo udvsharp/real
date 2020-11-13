@@ -30,13 +30,17 @@ namespace Real
 		double Time() const;
 		virtual void Init(); // TODO: abstract this from client
 		void Run();
+
+		void PushLayer(Layer* layer);
+		void PushOverlay(Layer* layer);
 	protected:
-		virtual void Render(Timestep ts);
 		virtual void Update(Timestep ts);
 		virtual void OnEvent(Event& e);
 	private:
 		void OnWindowClose(WindowClosedEvent& event);
 	private:
+		ImGUILayer* imGUILayer;
+
 		std::string name;
 
 		Real::Scope<Real::Window> window;

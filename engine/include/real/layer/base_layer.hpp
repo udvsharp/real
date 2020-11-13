@@ -14,18 +14,12 @@ namespace Real
 	{
 	public:
 		Layer() = default;
-#ifdef REAL_DEBUG
-		explicit Layer(std::string name);
-#endif
+		virtual void OnImGUIRender();
 
 		virtual void Attach();
 		virtual void Detach();
 		virtual void Update(Timestep ts);
 		virtual void HandleEvent(Event& e);
-	private:
-#ifdef REAL_DEBUG
-		std::string name;
-#endif
 	};
 }
 

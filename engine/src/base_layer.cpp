@@ -28,9 +28,8 @@ namespace Real
 
 	}
 
-#ifdef REAL_DEBUG
-	Layer::Layer(std::string name)
-			:name { std::move(name) }
-	{}
-#endif
+	void Layer::OnImGUIRender()
+	{
+
+	}
 }

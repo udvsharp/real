@@ -12,9 +12,11 @@ namespace Real {
 		ImGUILayer();
 		~ImGUILayer();
 
+		void Begin();
+		void End();
+
 		void Attach() override;
 		void Detach() override;
-		void Update(Timestep ts) override;
 		void HandleEvent(Event &ev) override;
 	};
 }

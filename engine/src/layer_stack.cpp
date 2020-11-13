@@ -5,9 +5,8 @@
 namespace Real
 {
 	LayerStack::LayerStack()
-			:stack {}
+			:stack {}, layerInsert { 0 }
 	{
-		layerInsert = stack.begin();
 	}
 
 	LayerStack::~LayerStack()
@@ -20,7 +19,7 @@ namespace Real
 
 	void LayerStack::PushLayer(Layer* layer)
 	{
-		layerInsert = stack.emplace(layerInsert, layer);
+		stack.emplace(stack.begin() + layerInsert++, layer);
 		layer->Attach();
 	}
 

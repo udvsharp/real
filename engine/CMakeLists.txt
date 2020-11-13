@@ -87,8 +87,7 @@ add_library(
 		## Api
 		## GL
 		# Imgui
-		src/api/gl/imgui_impl_opengl3.h
-		src/api/gl/imgui_impl_opengl3.cpp
+		src/api/gl/imgui_build.cpp
 		# Renderer
 		src/api/gl/gl_rendering_context.cpp
 		src/api/gl/gl_renderer_api.cpp
@@ -141,6 +140,7 @@ endif ()
 add_shaders(
 		${REAL_LIBRARY_TARGET_NAME}
 		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/base.glsl"
+		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/material.glsl"
 		"${CMAKE_CURRENT_SOURCE_DIR}/include/real/renderer/shaders/tex.glsl"
 )
 

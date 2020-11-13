@@ -16,7 +16,7 @@ namespace Real
 	private:
 		// TODO: own vector
 		container stack;
-		iterator layerInsert;
+		typename container::size_type layerInsert;
 	public:
 		LayerStack();
 		~LayerStack();

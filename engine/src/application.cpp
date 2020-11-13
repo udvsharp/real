@@ -11,7 +11,6 @@ namespace Real
 			:Singleton<Application> {},
 			 name { std::move(name) }
 	{
-
 		// Setup systems
 		WindowProperties props {};
 		window = Window::Make(props);
@@ -24,6 +23,9 @@ namespace Real
 		});
 
 		Renderer::Init();
+
+		imGUILayer = new Real::ImGUILayer {};
+		PushOverlay(imGUILayer);
 	}
 
 	void Application::Init()
@@ -42,12 +44,17 @@ namespace Real
 			RenderCommand::ClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 			RenderCommand::Clear();
 
-			Render(timestep);
-
 			for (auto* layer : layerStack)
 			{
 				layer->Update(timestep);
 			}
+
+			imGUILayer->Begin();
+			for (auto* layer : layerStack)
+			{
+				layer->OnImGUIRender();
+			}
+			imGUILayer->End();
 
 			window->OnUpdate(timestep);
 			Update(timestep);
@@ -61,9 +68,14 @@ namespace Real
 
 	}
 
-	void Application::Render(Timestep ts)
+	void Application::PushLayer(Layer* layer)
 	{
+		layerStack.PushLayer(layer);
+	}
 
+	void Application::PushOverlay(Layer* layer)
+	{
+		layerStack.PushOverlay(layer);
 	}
 
 	void Application::Update(Timestep ts)

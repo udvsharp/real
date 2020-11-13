@@ -5,18 +5,19 @@
 // FIXME remove GL Headers
 #include "real/api/gl/gl_headers.hpp"
 
+#include <imgui.h>
+#include <backends/imgui_impl_glfw.h>
+#include <backends/imgui_impl_opengl3.h>
+
 #include "real/input.hpp"
 #include "real/layer/imgui_layer.hpp"
 #include "real/application.hpp"
-#include "api/gl/imgui_impl_opengl3.h"
 
 namespace Real
 {
 
 	void ImGUILayer::Attach()
 	{
-		Layer::Attach();
-
 		ImGui::CreateContext();
 		ImGui::StyleColorsDark();
 
@@ -25,7 +26,6 @@ namespace Real
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
 		io.ConfigFlags  |= ImGuiConfigFlags_DockingEnable;
-		io.BackendPlatformName = "imgui_impl_glfw";
 
 		// Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
 		io.KeyMap[ImGuiKey_Tab]          = static_cast<int>(REAL_KEY_TAB);
@@ -52,36 +52,45 @@ namespace Real
 		io.KeyMap[ImGuiKey_Z]            = static_cast<int>(REAL_KEY_Z);
 		// @formatter:on
 
+		Application& app = Application::Instance();
+		GLFWwindow* window = static_cast<GLFWwindow*>(app.Window().Native());
+
+		// Setup Platform/Renderer bindings
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
 		ImGui_ImplOpenGL3_Init("#version 410 core");
 	}
 
 	void ImGUILayer::Detach()
 	{
-		Layer::Detach();
+		ImGui_ImplOpenGL3_Shutdown();
+		ImGui_ImplGlfw_Shutdown();
+		ImGui::DestroyContext();
 	}
 
-	void ImGUILayer::Update(Timestep ts)
+	void ImGUILayer::Begin()
 	{
-		Layer::Update(ts);
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
+	}
 
+	void ImGUILayer::End()
+	{
 		ImGuiIO& io = ImGui::GetIO();
 		Window& window = Application::Instance().Window();
 		io.DisplaySize = ImVec2(static_cast<float>(window.Width()),
 				static_cast<float>(window.Height()));
 
-		static float old_time = 0.0f;
-		auto time = static_cast<float>(glfwGetTime());
-		io.DeltaTime = time > 0.0 ? (time - old_time) : (1.0f / 60.0f);
-		old_time = time;
-
-		ImGui_ImplOpenGL3_NewFrame();
-		ImGui::NewFrame();
-
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 
 	void ImGUILayer::HandleEvent(Event& ev)
@@ -156,15 +165,9 @@ namespace Real
 		});
 	}
 
-#ifdef REAL_DEBUG
 	ImGUILayer::ImGUILayer()
-			:Layer("imgui layer")
+			:Layer()
 	{}
-#else
-	ImGUILayer::ImGUILayer() : layer() {
-
-	}
-#endif
 
 	ImGUILayer::~ImGUILayer() = default;
 }
