@@ -30,6 +30,7 @@ protected:
 
 		// region Setup rendering
 		// Vertices
+		// @formatter:off
 		float vertices[] = {
 				// TOP
 				// Positions           // Normals             // Colors
@@ -82,6 +83,8 @@ protected:
 				16, 17, 18,   17, 18, 19,   // LEFT
 				20, 21, 22,   21, 22, 23,   // RIGHT
 		};
+		// @formatter:on
+
 
 		// Vertex Array
 		vao = Real::VertexArray::Make();

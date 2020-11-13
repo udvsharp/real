@@ -28,6 +28,7 @@ namespace Real
 	};
 }
 
+// @formatter:off
 // Core log macros
 #define REAL_CORE_TRACE(...)    ::Real::Logger::Core()->trace(__VA_ARGS__)
 #define REAL_CORE_INFO(...)     ::Real::Logger::Core()->info(__VA_ARGS__)
@@ -41,5 +42,7 @@ namespace Real
 #define REAL_WARN(...)          ::real::Logger::Client()->warn(__VA_ARGS__)
 #define REAL_ERROR(...)         ::real::Logger::Client()->error(__VA_ARGS__)
 #define REAL_CRITICAL(...)      ::real::Logger::Client()->critical(__VA_ARGS__)
+// @formatter:on
+
 
 #endif //REAL_LOGGER

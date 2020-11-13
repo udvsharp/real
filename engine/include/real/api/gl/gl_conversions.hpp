@@ -12,6 +12,7 @@ namespace Real
 {
 	constexpr GLuint GLTypeFrom(shader_data_t type) noexcept
 	{
+		// @formatter:off
 		switch (type) {
 			case shader_data_t::vec   : return GL_FLOAT;
 			case shader_data_t::vec2  : return GL_FLOAT;
@@ -32,6 +33,7 @@ namespace Real
 			case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!", type);
 				return 0;
 		}
+		// @formatter:on
 	}
 
 	inline GLenum GLShaderTypeFrom(std::string_view type) noexcept

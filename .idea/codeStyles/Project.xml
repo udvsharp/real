@@ -1,6 +1,8 @@
 <component name="ProjectCodeStyleConfiguration">
   <code_scheme name="Project" version="173">
     <option name="RIGHT_MARGIN" value="90" />
+    <option name="FORMATTER_TAGS_ENABLED" value="true" />
+    <option name="FORMATTER_TAGS_ACCEPT_REGEXP" value="true" />
     <CMakeCodeStyleSettings>
       <option name="FORCE_COMMANDS_CASE" value="1" />
     </CMakeCodeStyleSettings>

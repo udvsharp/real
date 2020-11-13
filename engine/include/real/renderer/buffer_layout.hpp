@@ -40,43 +40,32 @@ namespace Real
 
 		[[nodiscard]] uint32_t component_count() const noexcept
 		{
+			// @formatter:off
 			switch (type)
 			{
-			case shader_data_t::vec   :
-				return 1;
-			case shader_data_t::vec2  :
-				return 1 * 2;
-			case shader_data_t::vec3  :
-				return 1 * 3;
-			case shader_data_t::vec4  :
-				return 1 * 4;
-			case shader_data_t::mat3  :
-				return 1 * 3 * 3;
-			case shader_data_t::mat4  :
-				return 1 * 4 * 4;
-			case shader_data_t::ivec  :
-				return 1;
-			case shader_data_t::ivec2 :
-				return 1 * 2;
-			case shader_data_t::ivec3 :
-				return 1 * 3;
-			case shader_data_t::ivec4 :
-				return 1 * 4;
-			case shader_data_t::bvec  :
-				return 1;
-			case shader_data_t::bvec2 :
-				return 1 * 2;
-			case shader_data_t::bvec3 :
-				return 1 * 3;
-			case shader_data_t::bvec4 :
-				return 1 * 4;
+				case shader_data_t::vec   : return 1;
+				case shader_data_t::vec2  : return 1 * 2;
+				case shader_data_t::vec3  : return 1 * 3;
+				case shader_data_t::vec4  : return 1 * 4;
+				case shader_data_t::mat3  : return 1 * 3 * 3;
+				case shader_data_t::mat4  : return 1 * 4 * 4;
+				case shader_data_t::ivec  : return 1;
+				case shader_data_t::ivec2 : return 1 * 2;
+				case shader_data_t::ivec3 : return 1 * 3;
+				case shader_data_t::ivec4 : return 1 * 4;
+				case shader_data_t::bvec  : return 1;
+				case shader_data_t::bvec2 : return 1 * 2;
+				case shader_data_t::bvec3 : return 1 * 3;
+				case shader_data_t::bvec4 : return 1 * 4;
 
-			default:
-			case shader_data_t::none:
-				REAL_CORE_ERROR("Unsupported data type: {}!",
-						type);
-				return 0;
+				default:
+				case shader_data_t::none:
+					REAL_CORE_ERROR("Unsupported data type: {}!",
+							type);
+					return 0;
 			}
+			// @formatter:on
+
 		}
 
 		[[nodiscard]] int32_t api_type() const noexcept

@@ -21,34 +21,36 @@ namespace Real
 		ImGui::StyleColorsDark();
 
 		ImGuiIO& io = ImGui::GetIO();
+		// @formatter:off
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
-		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+		io.ConfigFlags  |= ImGuiConfigFlags_DockingEnable;
 		io.BackendPlatformName = "imgui_impl_glfw";
 
 		// Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
-		io.KeyMap[ImGuiKey_Tab] = static_cast<int>(REAL_KEY_TAB);
-		io.KeyMap[ImGuiKey_LeftArrow] = static_cast<int>(REAL_KEY_LEFT);
-		io.KeyMap[ImGuiKey_RightArrow] = static_cast<int>(REAL_KEY_RIGHT);
-		io.KeyMap[ImGuiKey_UpArrow] = static_cast<int>(REAL_KEY_UP);
-		io.KeyMap[ImGuiKey_DownArrow] = static_cast<int>(REAL_KEY_DOWN);
-		io.KeyMap[ImGuiKey_PageUp] = static_cast<int>(REAL_KEY_PAGE_UP);
-		io.KeyMap[ImGuiKey_PageDown] = static_cast<int>(REAL_KEY_PAGE_DOWN);
-		io.KeyMap[ImGuiKey_Home] = static_cast<int>(REAL_KEY_HOME);
-		io.KeyMap[ImGuiKey_End] = static_cast<int>(REAL_KEY_END);
-		io.KeyMap[ImGuiKey_Insert] = static_cast<int>(REAL_KEY_INSERT);
-		io.KeyMap[ImGuiKey_Delete] = static_cast<int>(REAL_KEY_DELETE);
-		io.KeyMap[ImGuiKey_Backspace] = static_cast<int>(REAL_KEY_BACKSPACE);
-		io.KeyMap[ImGuiKey_Space] = static_cast<int>(REAL_KEY_SPACE);
-		io.KeyMap[ImGuiKey_Enter] = static_cast<int>(REAL_KEY_ENTER);
-		io.KeyMap[ImGuiKey_Escape] = static_cast<int>(REAL_KEY_ESCAPE);
-		io.KeyMap[ImGuiKey_KeyPadEnter] = static_cast<int>(REAL_KEY_KP_ENTER);
-		io.KeyMap[ImGuiKey_A] = static_cast<int>(REAL_KEY_A);
-		io.KeyMap[ImGuiKey_C] = static_cast<int>(REAL_KEY_C);
-		io.KeyMap[ImGuiKey_V] = static_cast<int>(REAL_KEY_V);
-		io.KeyMap[ImGuiKey_X] = static_cast<int>(REAL_KEY_X);
-		io.KeyMap[ImGuiKey_Y] = static_cast<int>(REAL_KEY_Y);
-		io.KeyMap[ImGuiKey_Z] = static_cast<int>(REAL_KEY_Z);
+		io.KeyMap[ImGuiKey_Tab]          = static_cast<int>(REAL_KEY_TAB);
+		io.KeyMap[ImGuiKey_LeftArrow]    = static_cast<int>(REAL_KEY_LEFT);
+		io.KeyMap[ImGuiKey_RightArrow]   = static_cast<int>(REAL_KEY_RIGHT);
+		io.KeyMap[ImGuiKey_UpArrow]      = static_cast<int>(REAL_KEY_UP);
+		io.KeyMap[ImGuiKey_DownArrow]    = static_cast<int>(REAL_KEY_DOWN);
+		io.KeyMap[ImGuiKey_PageUp]       = static_cast<int>(REAL_KEY_PAGE_UP);
+		io.KeyMap[ImGuiKey_PageDown]     = static_cast<int>(REAL_KEY_PAGE_DOWN);
+		io.KeyMap[ImGuiKey_Home]         = static_cast<int>(REAL_KEY_HOME);
+		io.KeyMap[ImGuiKey_End]          = static_cast<int>(REAL_KEY_END);
+		io.KeyMap[ImGuiKey_Insert]       = static_cast<int>(REAL_KEY_INSERT);
+		io.KeyMap[ImGuiKey_Delete]       = static_cast<int>(REAL_KEY_DELETE);
+		io.KeyMap[ImGuiKey_Backspace]    = static_cast<int>(REAL_KEY_BACKSPACE);
+		io.KeyMap[ImGuiKey_Space]        = static_cast<int>(REAL_KEY_SPACE);
+		io.KeyMap[ImGuiKey_Enter]        = static_cast<int>(REAL_KEY_ENTER);
+		io.KeyMap[ImGuiKey_Escape]       = static_cast<int>(REAL_KEY_ESCAPE);
+		io.KeyMap[ImGuiKey_KeyPadEnter]  = static_cast<int>(REAL_KEY_KP_ENTER);
+		io.KeyMap[ImGuiKey_A]            = static_cast<int>(REAL_KEY_A);
+		io.KeyMap[ImGuiKey_C]            = static_cast<int>(REAL_KEY_C);
+		io.KeyMap[ImGuiKey_V]            = static_cast<int>(REAL_KEY_V);
+		io.KeyMap[ImGuiKey_X]            = static_cast<int>(REAL_KEY_X);
+		io.KeyMap[ImGuiKey_Y]            = static_cast<int>(REAL_KEY_Y);
+		io.KeyMap[ImGuiKey_Z]            = static_cast<int>(REAL_KEY_Z);
+		// @formatter:on
 
 		ImGui_ImplOpenGL3_Init("#version 410 core");
 	}
