@@ -1,15 +1,17 @@
 // Copyright (c) 2020 udv. All rights reserved.
 
 #include <real/real.hpp>
+#include <imgui.h> // TODO: abstract imgui
+#include <glm/gtc/type_ptr.hpp>
 
 class SandboxLayer : public Real::Layer
 {
 private:
+	glm::vec4 color;
+
 	// Rendering
 	Real::Reference<Real::VertexArray> vao;
-
 	Real::Camera* camera;
-
 	Real::ShaderLibrary shaderLib;
 public:
 	SandboxLayer()
@@ -17,6 +19,7 @@ public:
 	{
 		// Perspective
 		camera = new Real::PerspectiveCamera { 45.0f, 16.0f, 9.0f };
+		color = { 1.0f, 1.0f, 1.0f, 1.0f, };
 
 		// Orthographic
 		// camera =  new Real::OrghographicCamera {-3.2f, 3.2f, -1.8f, 1.8f, };
@@ -24,7 +27,9 @@ public:
 
 	virtual void OnImGUIRender() override
 	{
-		Layer::OnImGUIRender();
+		ImGui::Begin("Settings");
+		ImGui::ColorEdit4("Color", glm::value_ptr(color));
+		ImGui::End();
 	}
 
 	virtual void Attach() override
@@ -132,8 +137,7 @@ public:
 		Real::Transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
 
 		const auto& shader = shaderLib.Get("material");
-		static glm::vec4 colorMod = { 0.2f, 0.6f, 0.8f, 1.0f, };
-		shader->UniformFloat("u_color", colorMod);
+		shader->UniformFloat("u_color", color);
 
 		Real::Renderer::Submit(vao, shader, transform);
 		Real::Renderer::EndScene();

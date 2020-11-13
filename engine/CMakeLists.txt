@@ -3,7 +3,7 @@ message(STATUS "Configuring ${META_REAL_NAME_VERSION}")
 # Target
 add_library(
 		${REAL_LIBRARY_TARGET_NAME}
-		SHARED  # It is necessary
+		STATIC  # It is necessary
 
 		### Headers
 		# util
