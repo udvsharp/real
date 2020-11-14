@@ -63,14 +63,6 @@ if (OPTION_REAL_EXAMPLES_CUBE)
 	)
 endif ()
 
-if (OPTION_REAL_EXAMPLES_TEXTURE)
-	add_example(
-			texture
-			texture/main.cpp
-	)
-	add_assets_dir(texture/assets)
-endif ()
-
 # RenderDoc
 foreach (EX_NAME IN LISTS EXAMPLES)
 	set(EXAMPLE_TARGET_NAME)

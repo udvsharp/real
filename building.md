@@ -1,7 +1,7 @@
 ### Requirements
 - CMake 3.17+
 ### Instructions
-1. Clone project from github: `git clone https://udv-code/real --recursive`
+1. Clone project from github: `git clone https://github.com/udv-code/real --recursive`
 2. Create build directory: `mkdir build && cd build`.
 3. Configure CMake project: `cmake ..` or with specific generator(for example, VS 2019) : `cmake -G "Visual Studio 16 2019" ..`
 	- If you want to build sandbox project, you need to add `-DOPTION_REAL_BUILD_EXAMPLES=ON` to the end of your `cmake` command.

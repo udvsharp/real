@@ -14,42 +14,64 @@ void main() {
     vec4 o_pos = u_model * vec4(_pos.xyz, 1.0);
     gl_Position = u_vp * o_pos;
 
-   // @formatter:off
+    // @formatter:off
     FragPos    = vec3(o_pos);
-    FragNormal = mat3(transpose(inverse(u_model))) * _normal;
+    FragNormal = mat3(transpose(inverse(u_model))) * _normal; // TODO: calcaulate this in CPU
    // @formatter:on
 }
 
 #shader fragment
 #version 330 core
+
+struct Material {
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+    float shininess;
+};
+
+struct Light {
+    vec3 position;
+
+    vec3 ambient;
+    vec3 diffuse;
+    vec3 specular;
+};
+
 in vec3 FragPos;
 in vec3 FragNormal;
 
-uniform vec3 u_color;
 uniform vec3 u_viewPos;
-uniform vec3 u_lightColor;
-uniform vec3 u_lightPos;
+uniform Material u_Material;
+uniform Light u_Light;
 
 out vec4 color_;
 
 void main() {
+//    vec3 outColor = vec3(0.0f);
+//    outColor += calculateDirectionalLight();
+//    for (int i = 0; i < nr_of_point_lights; i++) {
+//        outColor += calculatePointLight();
+//    }
+//    outColor += calculateSpotLight();
+
     vec3 normal = normalize(FragNormal);
 
-    // Ambient Lighting
-    float ambientStrength = 0.1f;
-    vec3 ambient = ambientStrength * u_lightColor;
-
+    // TODO: view space calculations?
     // Diffuse Lighting
-    vec3 lightDir = normalize(u_lightPos - FragPos);
-    vec3 diffuse = max(dot(normal, lightDir), 0.0f) * u_lightColor;
+    vec3 lightDir = normalize(u_Light.position - FragPos);
+    float diff = max(dot(normal, lightDir), 0.0f);
 
     // Specular Lighting
-    float specularStrength = 1.0f;
     vec3 viewDir = normalize(u_viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), 32);
-    vec3 specular = specularStrength * spec * u_lightColor;
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0f), u_Material.shininess);
 
-    vec3 result = (ambient + diffuse + specular) * u_color;
+    // Components
+    vec3 ambient  = u_Light.ambient * u_Material.ambient;
+    vec3 diffuse  = u_Light.diffuse * (diff * u_Material.diffuse);
+    vec3 specular = u_Light.specular * (spec * u_Material.specular);
+
+    vec3 result = ambient + diffuse + specular;
     color_ = vec4(result, 1.0f);
 }

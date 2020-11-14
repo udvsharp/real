@@ -8,6 +8,7 @@
 #include "real/renderer/renderer_api.hpp"
 #include "real/renderer/camera.hpp"
 #include "real/renderer/base_shader.hpp"
+#include "real/renderer/material.hpp"
 
 namespace Real
 {
@@ -20,8 +21,13 @@ namespace Real
 		static void Init();
 		static void StartScene(Camera& camera) noexcept;
 		static void EndScene() noexcept;
+
 		static void Submit(const Real::Reference<VertexArray>& vao,
 				const Real::Reference<Shader>& shader,
+				const Real::Transform& model) noexcept;
+
+		static void Submit(const Real::Reference<VertexArray>& vao,
+				const Real::Reference<Material>& material,
 				const Real::Transform& model) noexcept;
 	private:
 		static RendererAPI* api;
@@ -30,6 +36,7 @@ namespace Real
 		struct SceneData
 		{
 			glm::mat4 viewprojection;
+			glm::vec3 viewPosition;
 		};
 
 		static SceneData* sceneData;

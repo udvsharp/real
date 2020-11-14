@@ -7,16 +7,20 @@
 class SandboxLayer : public Real::Layer
 {
 private:
-	glm::vec3 color;
-	glm::vec3 lightColor;
-	glm::vec3 lightPos;
-	float angle;
-	const float yOffset = 3.0f;
+	// @formatter:off
+	Real::Reference<Real::Light> light;
+	Real::Reference<Real::Material> material;
 
-	const float radius = 5.0f;
-	const float speed = 0.5f;
+	// Global
+	float cameraYOffset  = 2.0f;
+	float lightYOffset   = 2.0f;
+	float lightAngle     = 0.0f;
+	float lightDistance  = 5.0f;
+	float cameraDistance = 5.0f;
+	float rotationSpeed  = 0.5f;
+	// @formatter:on
 
-	glm::mat4 transformMat;
+	glm::mat4 transformMat = glm::identity<glm::mat4>();
 
 	// Rendering
 	Real::Reference<Real::VertexArray> vao;
@@ -28,34 +32,51 @@ public:
 	{
 		// Perspective
 		camera = new Real::PerspectiveCamera { 45.0f, 16.0f, 9.0f };
-
-		color = { 1.0f, 1.0f, 1.0f, };
-		lightColor = { 0.2f, 0.2f, 0.8f, };
-		lightPos = { 0.0f, yOffset, radius, };
-
-		angle = 0.0f;
-
-		transformMat = glm::identity<glm::mat4>();
-
-		camera->Position({ 0.0f, yOffset, radius });
-		camera->LookAt({ 0.0, 0.0, 0.0 });
-
-		// Orthographic
-		// camera =  new Real::OrghographicCamera {-3.2f, 3.2f, -1.8f, 1.8f, };
+		// TODO: fix redundant glm::vec3?
+		light = Real::MakeReference<Real::Light> (
+				glm::vec3  { 1.0f, 1.0f, 1.0f, },
+				glm::vec3  { 1.0f, 1.0f, 1.0f, },
+				glm::vec3  { 1.0f, 1.0f, 1.0f, },
+				glm::vec3  { 1.0f, 1.0f, 1.0f, }
+		);
+		material = Real::MakeReference<Real::Material> (
+				32.0f,
+				glm::vec3 { 1.0f, 0.5f, 0.31f },
+				glm::vec3 { 1.0f, 0.5f, 0.31f },
+				glm::vec3 { 0.5f, 0.5f, 0.5f  },
+				shaderLib.Load("shaders/material.glsl")
+		);
 	}
 
 	virtual void OnImGUIRender() override
 	{
 		ImGui::Begin("Settings");
-		ImGui::SliderFloat("Light Angle", &angle, 0.0f, 360.0f, "%.1f");
-		ImGui::ColorEdit3("Color", glm::value_ptr(color));
-		ImGui::ColorEdit3("Light Color", glm::value_ptr(lightColor));
+
+		ImGui::Text("Global");
+		ImGui::SliderFloat("Rotation speed", &rotationSpeed, 0.1f, 1.0f, "%.1f");
+		ImGui::SliderFloat("Camera Distance", &cameraDistance, 2.0f, 7.0f, "%.1f");
+		ImGui::SliderFloat("Camera Y", &cameraYOffset, 2.0f, 7.0f, "%.1f");
+
+		ImGui::Text("Light");
+		ImGui::SliderFloat("Light Angle", &lightAngle, 0.0f, 360.0f, "%.1f");
+		ImGui::SliderFloat("Light Y", &lightYOffset, 2.0f, 5.0f, "%.1f");
+		ImGui::ColorEdit3("Light Ambient", light->AmbientPtr());
+		ImGui::ColorEdit3("Light Diffuse", light->DiffusePtr());
+		ImGui::ColorEdit3("Light Specular", light->SpecularPtr());
+
+		ImGui::Text("Material");
+		ImGui::SliderFloat("Material Shininess", material->ShininessPtr(), 32.0f, 256.0f,
+				"%.0f");
+		ImGui::ColorEdit3("Material Ambient", material->AmbientPtr());
+		ImGui::ColorEdit3("Material Diffuse", material->DiffusePtr());
+		ImGui::ColorEdit3("Material Specular", material->SpecularPtr());
+
 		ImGui::End();
 	}
 
 	virtual void Attach() override
 	{
-		auto shader = shaderLib.Load("shaders/material.glsl");
+		auto shader = shaderLib.Get("shaders/material.glsl");
 
 		// region Setup rendering
 		// Vertices
@@ -108,44 +129,44 @@ public:
 				0,  1,  2,    1,  2,  3,   // TOP
 				4,  5,  6,    5,  6,  7,   // BOTTOM
 				8,  9, 10,    9, 10, 11,   // FRONT
-				12, 13, 14,   13, 14, 15,   // BACK
-				16, 17, 18,   17, 18, 19,   // LEFT
-				20, 21, 22,   21, 22, 23,   // RIGHT
+				12, 13, 14,   13, 14, 15,  // BACK
+				16, 17, 18,   17, 18, 19,  // LEFT
+				20, 21, 22,   21, 22, 23,  // RIGHT
 		};
 		// @formatter:on
 
-
 		// Vertex Array
 		vao = Real::VertexArray::Make();
-
 		// Vertex Buffer
 		Real::Reference<Real::VertexBuffer> vbo = Real::VertexBuffer::Make(vertices,
 				sizeof(vertices));
 		vbo->Layout({
 				{ Real::shader_data_t::vec3, "_pos", },
 				{ Real::shader_data_t::vec3, "_normal", },
-//				{ Real::shader_data_t::vec4, "_color", },
 		});
-
 		// Index Buffer
 		Real::Reference<Real::IndexBuffer> ibo = Real::IndexBuffer::Make(positions,
 				sizeof(positions) / sizeof(unsigned int));
 
-		// Link buffers to vertex array
 		vao->AddVertexBuffer(vbo);
 		vao->AddIndexBuffer(ibo);
-		// endregion
 	}
 
 	virtual void Update(Real::Timestep ts) override
 	{
-		// rotation
-		float lightAngleRads = glm::radians(angle);
-		float lx = glm::sin(lightAngleRads) * radius;
-		float lz = glm::cos(lightAngleRads) * radius;
-		lightPos = { lx, yOffset, lz, };
+		// Light
+		float lightAngleRads = glm::radians(lightAngle);
+		float lx = glm::sin(lightAngleRads) * lightDistance;
+		float lz = glm::cos(lightAngleRads) * lightDistance;
+		light->Pos({ lx, lightYOffset, lz, });
 
-		float deltaAngle = ts.milliseconds() * 0.1f * speed; // TODO: float operators
+		// Camera
+		camera->Position({ 0.0f, cameraYOffset, cameraDistance });
+		camera->LookAt({ 0.0, 0.0, 0.0 });
+
+		// Cube
+		float deltaAngle =
+				ts.milliseconds() * 0.1f * rotationSpeed; // TODO: float operators
 		float deltaAngleRads = glm::radians(deltaAngle);
 		transformMat = glm::rotate(transformMat, deltaAngleRads,
 				glm::vec3(0.0f, 1.0f, 0.0f));
@@ -153,15 +174,19 @@ public:
 
 		const auto& shader = shaderLib.Get("material");
 		shader->Bind();
-		shader->UniformFloat("u_color", color);
-		shader->UniformFloat("u_viewPos", camera->Position());
-		shader->UniformFloat("u_lightPos", lightPos);
-		shader->UniformFloat("u_lightColor", lightColor);
+		material->Update();
+		// Light
+		// TODO: abstract lighting
+		shader->UniformFloat("u_Light.position", light->Pos());
+		shader->UniformFloat("u_Light.ambient", light->Ambient());
+		shader->UniformFloat("u_Light.diffuse", light->Diffuse());
+		shader->UniformFloat("u_Light.specular", light->Specular());
+		// Lighting
 
 		// Scene
 		Real::Renderer::StartScene(*camera);
 
-		Real::Renderer::Submit(vao, shader, transform);
+		Real::Renderer::Submit(vao, material, transform);
 		Real::Renderer::EndScene();
 
 		Real::RenderCommand::DrawIndexed(vao);

@@ -28,7 +28,7 @@ namespace Real
 		{ return *(this->window); }
 
 		double Time() const;
-		virtual void Init(); // TODO: abstract this from client
+		void Init();
 		void Run();
 
 		void PushLayer(Layer* layer);

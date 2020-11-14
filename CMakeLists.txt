@@ -34,7 +34,6 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 option(OPTION_REAL_BUILD_EXAMPLES "Build examples" OFF)
 # Detail examples
 option(OPTION_REAL_EXAMPLES_CUBE "Build rotating cube example" ON)
-option(OPTION_REAL_EXAMPLES_TEXTURE "Build texture example" ON)
 # Analysis tools
 option(OPTION_REAL_ENABLE_COVERAGE "Enable code coverage" OFF)
 option(OPTION_REAL_ENABLE_SANITIZE "Enable sanitizers" OFF)

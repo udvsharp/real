@@ -14,6 +14,8 @@
 #include "real/renderer/base_shader.hpp"
 #include "real/renderer/base_texture.hpp"
 #include "real/renderer/camera.hpp"
+#include "real/renderer/light.hpp"
+#include "real/renderer/material.hpp"
 // region GL headers
 #include "real/api/gl/gl_headers.hpp"
 #include "real/api/gl/gl_rendering_context.hpp"

@@ -60,7 +60,7 @@ namespace Real
 
 	Real::Reference<Shader> ShaderLibrary::Get(const std::string& name)
 	{
-		real_msg_assert(Contains(name), "Shader not found!"); // TODO: assertions
+		real_msg_assert(Contains(name), "Shader not found!");
 		return shaderMap[name];
 	}
 }

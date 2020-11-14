@@ -15,6 +15,7 @@ namespace Real
 	void Renderer::StartScene(Real::Camera& camera) noexcept
 	{
 		sceneData->viewprojection = camera.Viewprojection();
+		sceneData->viewPosition = camera.Position();
 	}
 
 	void Renderer::Init()
@@ -32,6 +33,31 @@ namespace Real
 			const Real::Transform& model) noexcept
 	{
 		shader->Bind();
+		shader->UniformFloat("u_viewPos", sceneData->viewPosition);
+		shader->UniformMatrix("u_vp", sceneData->viewprojection);
+		shader->UniformMatrix("u_model", model.Matrix());
+		// TODO: implement render command queue
+		RenderCommand::DrawIndexed(vao);
+	}
+
+	void Renderer::Submit(const Real::Reference<Light>& shader) noexcept
+	{
+		shader->Bind();
+		shader->UniformFloat("u_viewPos", sceneData->viewPosition);
+		shader->UniformMatrix("u_vp", sceneData->viewprojection);
+		shader->UniformMatrix("u_model", model.Matrix());
+		// TODO: implement render command queue
+		RenderCommand::DrawIndexed(vao);
+	}
+
+
+	void Renderer::Submit(const Reference <VertexArray>& vao,
+			const Real::Reference<Material>& material,
+			const Real::Transform& model) noexcept
+	{
+		auto shader = material->Shader();
+		shader->Bind();
+		shader->UniformFloat("u_viewPos", sceneData->viewPosition);
 		shader->UniformMatrix("u_vp", sceneData->viewprojection);
 		shader->UniformMatrix("u_model", model.Matrix());
 		// TODO: implement render command queue
