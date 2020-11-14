@@ -7,7 +7,16 @@
 class SandboxLayer : public Real::Layer
 {
 private:
-	glm::vec4 color;
+	glm::vec3 color;
+	glm::vec3 lightColor;
+	glm::vec3 lightPos;
+	float angle;
+	const float yOffset = 3.0f;
+
+	const float radius = 5.0f;
+	const float speed = 0.5f;
+
+	glm::mat4 transformMat;
 
 	// Rendering
 	Real::Reference<Real::VertexArray> vao;
@@ -19,7 +28,17 @@ public:
 	{
 		// Perspective
 		camera = new Real::PerspectiveCamera { 45.0f, 16.0f, 9.0f };
-		color = { 1.0f, 1.0f, 1.0f, 1.0f, };
+
+		color = { 1.0f, 1.0f, 1.0f, };
+		lightColor = { 0.2f, 0.2f, 0.8f, };
+		lightPos = { 0.0f, yOffset, radius, };
+
+		angle = 0.0f;
+
+		transformMat = glm::identity<glm::mat4>();
+
+		camera->Position({ 0.0f, yOffset, radius });
+		camera->LookAt({ 0.0, 0.0, 0.0 });
 
 		// Orthographic
 		// camera =  new Real::OrghographicCamera {-3.2f, 3.2f, -1.8f, 1.8f, };
@@ -28,7 +47,9 @@ public:
 	virtual void OnImGUIRender() override
 	{
 		ImGui::Begin("Settings");
-		ImGui::ColorEdit4("Color", glm::value_ptr(color));
+		ImGui::SliderFloat("Light Angle", &angle, 0.0f, 360.0f, "%.1f");
+		ImGui::ColorEdit3("Color", glm::value_ptr(color));
+		ImGui::ColorEdit3("Light Color", glm::value_ptr(lightColor));
 		ImGui::End();
 	}
 
@@ -114,30 +135,31 @@ public:
 		vao->AddVertexBuffer(vbo);
 		vao->AddIndexBuffer(ibo);
 		// endregion
-
-		shader->Bind();
-		shader->UniformFloat("u_lightColor", { 1.0f, 1.0f, 1.0f, 1.0f });
 	}
 
 	virtual void Update(Real::Timestep ts) override
 	{
-		// TODO: abstract render from calculations
 		// rotation
-		const float radius = 5.0f;
-		const float speed = 0.5f;
-		float cx = glm::sin(Real::Time() * speed) * radius;
-		float cz = glm::cos(Real::Time() * speed) * radius;
+		float lightAngleRads = glm::radians(angle);
+		float lx = glm::sin(lightAngleRads) * radius;
+		float lz = glm::cos(lightAngleRads) * radius;
+		lightPos = { lx, yOffset, lz, };
 
-		camera->Position({ cx, 3.0f, cz });
-		camera->LookAt({ 0.0, 0.0, 0.0 });
+		float deltaAngle = ts.milliseconds() * 0.1f * speed; // TODO: float operators
+		float deltaAngleRads = glm::radians(deltaAngle);
+		transformMat = glm::rotate(transformMat, deltaAngleRads,
+				glm::vec3(0.0f, 1.0f, 0.0f));
+		Real::Transform transform = transformMat;
+
+		const auto& shader = shaderLib.Get("material");
+		shader->Bind();
+		shader->UniformFloat("u_color", color);
+		shader->UniformFloat("u_viewPos", camera->Position());
+		shader->UniformFloat("u_lightPos", lightPos);
+		shader->UniformFloat("u_lightColor", lightColor);
 
 		// Scene
 		Real::Renderer::StartScene(*camera);
-
-		Real::Transform transform = glm::scale(glm::mat4(1.0f), glm::vec3(1.2f));
-
-		const auto& shader = shaderLib.Get("material");
-		shader->UniformFloat("u_color", color);
 
 		Real::Renderer::Submit(vao, shader, transform);
 		Real::Renderer::EndScene();

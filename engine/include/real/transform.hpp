@@ -17,6 +17,10 @@ namespace Real
 				:transformMat { std::move(transform) }
 		{}
 
+		Transform(const glm::mat4& transform = glm::identity<glm::mat4>())
+				:transformMat { transform }
+		{}
+
 		[[nodiscard]] glm::mat4 Matrix() const noexcept
 		{ return transformMat; }
 	private:
