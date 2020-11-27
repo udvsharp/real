@@ -3,6 +3,7 @@
 #ifndef REAL_ENGINE_LIGHT
 #define REAL_ENGINE_LIGHT
 
+#include <imgui.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -53,39 +54,44 @@ namespace Real
 
 		const glm::vec3& Pos() const
 		{ return pos; }
-		float* PosPtr()
-		{ return glm::value_ptr(pos); }
 		void Pos(const glm::vec3& pos_)
 		{ Light::pos = pos_; }
 
 		const glm::vec3& Ambient() const
 		{ return ambient; }
-		float* AmbientPtr()
-		{ return glm::value_ptr(ambient); }
 		void Ambient(const glm::vec3& ambient_)
 		{ Light::ambient = ambient_; }
 
 		const glm::vec3& Diffuse() const
 		{ return diffuse; }
-		float* DiffusePtr()
-		{ return glm::value_ptr(diffuse); }
 		void Diffuse(const glm::vec3& diffuse_)
 		{ Light::diffuse = diffuse_; }
 
 		const glm::vec3& Specular() const
 		{ return specular; }
-		float* SpecularPtr()
-		{ return glm::value_ptr(specular); }
 		void Specular(const glm::vec3& specular_)
 		{ Light::specular = specular_; }
+
+		void ImGUIBegin()
+		{
+			ImGui::Text("Light");
+			ImGui::Separator();
+			ImGui::ColorEdit3("Light Ambient", glm::value_ptr(ambient));
+			ImGui::ColorEdit3("Light Diffuse", glm::value_ptr(diffuse));
+			ImGui::ColorEdit3("Light Specular", glm::value_ptr(specular));
+		}
+
+		void ImGUIEnd() {
+			ImGui::Separator();
+		}
 
 		void Update() {
 			shader->Bind();
 
-			shader->UniformFloat("u_Light.position", light->Pos());
-			shader->UniformFloat("u_Light.ambient", light->Ambient());
-			shader->UniformFloat("u_Light.diffuse", light->Diffuse());
-			shader->UniformFloat("u_Light.specular", light->Specular());
+			shader->UniformFloat("u_Light.position", pos);
+			shader->UniformFloat("u_Light.ambient", ambient);
+			shader->UniformFloat("u_Light.diffuse", diffuse);
+			shader->UniformFloat("u_Light.specular", specular);
 		}
 	private:
 		glm::vec3 pos;

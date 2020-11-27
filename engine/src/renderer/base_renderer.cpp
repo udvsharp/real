@@ -4,6 +4,7 @@
 #include "real/renderer/camera.hpp"
 #include "real/renderer/base_renderer.hpp"
 #include "real/renderer/render_command.hpp"
+#include "real/renderer/light.hpp"
 #include "real/api/gl/gl_renderer_api.hpp"
 
 namespace Real
@@ -40,15 +41,15 @@ namespace Real
 		RenderCommand::DrawIndexed(vao);
 	}
 
-	void Renderer::Submit(const Real::Reference<Light>& shader) noexcept
-	{
-		shader->Bind();
-		shader->UniformFloat("u_viewPos", sceneData->viewPosition);
-		shader->UniformMatrix("u_vp", sceneData->viewprojection);
-		shader->UniformMatrix("u_model", model.Matrix());
-		// TODO: implement render command queue
-		RenderCommand::DrawIndexed(vao);
-	}
+//	void Renderer::Submit(const Real::Reference<Light>& light) noexcept
+//	{
+//		light->Bind();
+//		light->UniformFloat("u_viewPos", sceneData->viewPosition);
+//		light->UniformMatrix("u_vp", sceneData->viewprojection);
+//		light->UniformMatrix("u_model", model.Matrix());
+//		// TODO: implement render command queue
+//		RenderCommand::DrawIndexed(vao);
+//	}
 
 
 	void Renderer::Submit(const Reference <VertexArray>& vao,

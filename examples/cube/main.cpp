@@ -53,23 +53,19 @@ public:
 		ImGui::Begin("Settings");
 
 		ImGui::Text("Global");
+		ImGui::Separator();
 		ImGui::SliderFloat("Rotation speed", &rotationSpeed, 0.1f, 1.0f, "%.1f");
 		ImGui::SliderFloat("Camera Distance", &cameraDistance, 2.0f, 7.0f, "%.1f");
 		ImGui::SliderFloat("Camera Y", &cameraYOffset, 2.0f, 7.0f, "%.1f");
+		ImGui::Separator();
 
-		ImGui::Text("Light");
+		light->ImGUIBegin();
 		ImGui::SliderFloat("Light Angle", &lightAngle, 0.0f, 360.0f, "%.1f");
 		ImGui::SliderFloat("Light Y", &lightYOffset, 2.0f, 5.0f, "%.1f");
-		ImGui::ColorEdit3("Light Ambient", light->AmbientPtr());
-		ImGui::ColorEdit3("Light Diffuse", light->DiffusePtr());
-		ImGui::ColorEdit3("Light Specular", light->SpecularPtr());
+		light->ImGUIEnd();
 
-		ImGui::Text("Material");
-		ImGui::SliderFloat("Material Shininess", material->ShininessPtr(), 32.0f, 256.0f,
-				"%.0f");
-		ImGui::ColorEdit3("Material Ambient", material->AmbientPtr());
-		ImGui::ColorEdit3("Material Diffuse", material->DiffusePtr());
-		ImGui::ColorEdit3("Material Specular", material->SpecularPtr());
+		material->ImGUIBegin();
+		material->ImGUIEnd();
 
 		ImGui::End();
 	}

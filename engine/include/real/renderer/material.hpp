@@ -3,6 +3,10 @@
 #ifndef REAL_ENGINE_MATERIAL
 #define REAL_ENGINE_MATERIAL
 
+#include <imgui.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <glm/gtc/type_ptr.hpp>
 
 #include "real/core.hpp"
@@ -54,8 +58,6 @@ namespace Real
 
 		float Shininess() const
 		{ return shininess; }
-		float* ShininessPtr()
-		{ return &shininess; }
 		void Shininess(float shininess_)
 		{
 			Material::shininess = shininess_;
@@ -65,8 +67,6 @@ namespace Real
 
 		const glm::vec3& Ambient() const
 		{ return ambient; }
-		float* AmbientPtr()
-		{ return glm::value_ptr(ambient); }
 		void Ambient(const glm::vec3& ambient_)
 		{
 			Material::ambient = ambient_;
@@ -76,8 +76,6 @@ namespace Real
 
 		const glm::vec3& Diffuse() const
 		{ return diffuse; }
-		float* DiffusePtr()
-		{ return glm::value_ptr(diffuse); }
 		void Diffuse(const glm::vec3& diffuse_)
 		{
 			Material::diffuse = diffuse_;
@@ -87,13 +85,23 @@ namespace Real
 
 		const glm::vec3& Specular() const
 		{ return specular; }
-		float* SpecularPtr()
-		{ return glm::value_ptr(specular); }
 		void Specular(const glm::vec3& specular_)
+		{ Material::specular = specular_; }
+
+		void ImGUIBegin()
 		{
-			Material::specular = specular_;
-			shader->Bind();
-			shader->UniformFloat("u_Material.specular", specular);
+			ImGui::Text("Material");
+			ImGui::Separator();
+			ImGui::SliderFloat("Material Shininess", &shininess, 32.0f, 256.0f,
+					"%.0f");
+			ImGui::ColorEdit3("Material Ambient", glm::value_ptr(ambient));
+			ImGui::ColorEdit3("Material Diffuse", glm::value_ptr(diffuse));
+			ImGui::ColorEdit3("Material Specular", glm::value_ptr(specular));
+		}
+
+		void ImGUIEnd()
+		{
+			ImGui::Separator();
 		}
 
 		const Real::Reference<Shader>& Shader() const
