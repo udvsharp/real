@@ -74,6 +74,7 @@ static inline void real_debugbreak(void) { __asm__ __volatile__(".inst 0xde01");
 # define real_msg_assert(expr, ...) do { \
     if (!REAL_DBG_LIKELY(expr)) { \
       REAL_EXPAND_MACRO(REAL_CORE_ERROR)(__VA_ARGS__); \
+      real_debugbreak(); \
     } \
   } while (0)
 #else

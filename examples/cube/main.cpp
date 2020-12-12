@@ -72,8 +72,6 @@ public:
 
 	virtual void Attach() override
 	{
-		auto shader = shaderLib.Get("shaders/material.glsl");
-
 		// region Setup rendering
 		// Vertices
 		// @formatter:off
