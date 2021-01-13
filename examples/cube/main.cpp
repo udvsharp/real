@@ -36,7 +36,6 @@ public:
 		light = Real::MakeReference<Real::Light>(
 				glm::vec3 { 1.0f, 1.0f, 1.0f, },
 				glm::vec3 { 1.0f, 1.0f, 1.0f, },
-				glm::vec3 { 1.0f, 1.0f, 1.0f, },
 				glm::vec3 { 1.0f, 1.0f, 1.0f, }
 		);
 		material = Real::MakeReference<Real::Material>(
@@ -180,7 +179,7 @@ public:
 		// Scene
 		Real::Renderer::StartScene(*camera);
 		Real::Renderer::Submit(vao, material, transform);
-		Real::Renderer::Submit(light);
+		// Real::Renderer::Submit(light);
 		Real::Renderer::EndScene();
 
 		Real::RenderCommand::DrawIndexed(vao);

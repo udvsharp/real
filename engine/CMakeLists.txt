@@ -48,6 +48,8 @@ add_library(
 		include/real/renderer/buffer_index.hpp
 		include/real/renderer/array_vertex.hpp
 		include/real/renderer/camera.hpp
+		include/real/renderer/light.hpp
+		include/real/renderer/material.hpp
 		include/real/renderer/common.hpp
 		# Time
 		include/real/time/timestep.hpp
