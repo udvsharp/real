@@ -11,51 +11,54 @@
 
 namespace Real
 {
+	enum LightType
+	{
+		DIRECTIONAL_LIGHT,
+		POINT_LIGHT,
+		SPOTLIGHT,
+		FLASHLIGHT,
+	};
+
 	class REAL_API Light
 	{
 	public:
+		// TODO: fix mess ?
+
 		Light()
 				:Light {
-				{ 1.0f, 1.0f, 1.0f, },
 				{ 1.0f, 1.0f, 1.0f, },
 				{ 1.0f, 1.0f, 1.0f, },
 				{ 1.0f, 1.0f, 1.0f, },
 		}
 		{};
 
-		Light(const glm::vec3& pos, const glm::vec3& ambient, const glm::vec3& diffuse,
+		Light(const glm::vec3& ambient, const glm::vec3& diffuse,
 				const glm::vec3& specular)
-				:pos { pos }, ambient { ambient }, diffuse { diffuse },
-				 specular { specular }, shader {}
+				:pos { 0.0f, 0.0f, 0.0f, },
+				 direction { 0.0f, 0.0f, 0.0f, },
+				 ambient { ambient },
+				 diffuse { diffuse },
+				 specular { specular }
 		{}
 
-		Light(glm::vec3&& pos, glm::vec3&& ambient, glm::vec3&& diffuse,
+		Light(glm::vec3&& ambient, glm::vec3&& diffuse,
 				glm::vec3&& specular)
-				:pos { pos }, ambient { std::move(ambient) },
+				:pos { 0.0f, 0.0f, 0.0f, },
+				 direction { 0.0f, 0.0f, 0.0f, },
+				 ambient { std::move(ambient) },
 				 diffuse { std::move(diffuse) },
-				 specular { std::move(specular) }, shader {}
+				 specular { std::move(specular) }
 		{}
-
-		Light(glm::vec3 pos, const glm::vec3& ambient, const glm::vec3& diffuse,
-				const glm::vec3& specular, const Real::Reference<Real::Shader>& shader)
-				:Light { pos, ambient, diffuse, specular }
-		{
-			this->shader = shader;
-			Update();
-		}
-
-		Light(glm::vec3 pos, glm::vec3&& ambient, glm::vec3&& diffuse,
-				glm::vec3&& specular, const Real::Reference<Real::Shader>& shader)
-				:Light { pos, ambient, diffuse, specular }
-		{
-			this->shader = shader;
-			Update();
-		}
 
 		const glm::vec3& Pos() const
 		{ return pos; }
 		void Pos(const glm::vec3& pos_)
 		{ Light::pos = pos_; }
+
+		const glm::vec3& Direction() const
+		{ return direction; }
+		void Direction(const glm::vec3& dir_)
+		{ Light::direction = dir_; }
 
 		const glm::vec3& Ambient() const
 		{ return ambient; }
@@ -72,6 +75,8 @@ namespace Real
 		void Specular(const glm::vec3& specular_)
 		{ Light::specular = specular_; }
 
+		// TODO: think about ImGui
+	public:
 		void ImGUIBegin()
 		{
 			ImGui::Text("Light");
@@ -81,25 +86,19 @@ namespace Real
 			ImGui::ColorEdit3("Light Specular", glm::value_ptr(specular));
 		}
 
-		void ImGUIEnd() {
+		void ImGUIEnd()
+		{
 			ImGui::Separator();
 		}
-
-		void Update() {
-			shader->Bind();
-
-			shader->UniformFloat("u_Light.position", pos);
-			shader->UniformFloat("u_Light.ambient", ambient);
-			shader->UniformFloat("u_Light.diffuse", diffuse);
-			shader->UniformFloat("u_Light.specular", specular);
-		}
+	public:
 	private:
+		// TODO: add transform
 		glm::vec3 pos;
+		glm::vec3 direction;
 		glm::vec3 ambient;
 		glm::vec3 diffuse;
 		glm::vec3 specular;
-
-		Real::Reference<Real::Shader> shader;
+		Real::LightType type;
 	};
 }
 

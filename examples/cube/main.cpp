@@ -33,17 +33,17 @@ public:
 		// Perspective
 		camera = new Real::PerspectiveCamera { 45.0f, 16.0f, 9.0f };
 		// TODO: fix redundant glm::vec3?
-		light = Real::MakeReference<Real::Light> (
-				glm::vec3  { 1.0f, 1.0f, 1.0f, },
-				glm::vec3  { 1.0f, 1.0f, 1.0f, },
-				glm::vec3  { 1.0f, 1.0f, 1.0f, },
-				glm::vec3  { 1.0f, 1.0f, 1.0f, }
+		light = Real::MakeReference<Real::Light>(
+				glm::vec3 { 1.0f, 1.0f, 1.0f, },
+				glm::vec3 { 1.0f, 1.0f, 1.0f, },
+				glm::vec3 { 1.0f, 1.0f, 1.0f, },
+				glm::vec3 { 1.0f, 1.0f, 1.0f, }
 		);
-		material = Real::MakeReference<Real::Material> (
+		material = Real::MakeReference<Real::Material>(
 				32.0f,
 				glm::vec3 { 1.0f, 0.5f, 0.31f },
 				glm::vec3 { 1.0f, 0.5f, 0.31f },
-				glm::vec3 { 0.5f, 0.5f, 0.5f  },
+				glm::vec3 { 0.5f, 0.5f, 0.5f },
 				shaderLib.Load("shaders/material.glsl")
 		);
 	}
@@ -179,8 +179,8 @@ public:
 
 		// Scene
 		Real::Renderer::StartScene(*camera);
-
 		Real::Renderer::Submit(vao, material, transform);
+		Real::Renderer::Submit(light);
 		Real::Renderer::EndScene();
 
 		Real::RenderCommand::DrawIndexed(vao);
