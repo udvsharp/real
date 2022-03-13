@@ -218,12 +218,12 @@ set_target_properties(
 
 # Utility
 # Generated Files
-write_compiler_detection_header(
-		FILE "${META_REAL_PROJECT_NAME}/core-compiler.hpp"
-		PREFIX ${META_REAL_PROJECT_NAME_PREFIX}
-		COMPILERS Clang GNU MSVC
-		FEATURES cxx_override
-)
+# write_compiler_detection_header(
+# 		FILE "${META_REAL_PROJECT_NAME}/core-compiler.hpp"
+# 		PREFIX ${META_REAL_PROJECT_NAME_PREFIX}
+# 		COMPILERS Clang GNU MSVC
+# 		FEATURES cxx_override
+# )
 
 generate_export_header(
 		${REAL_LIBRARY_TARGET_NAME}

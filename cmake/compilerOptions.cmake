@@ -26,10 +26,12 @@ if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "MSVC")
 			/W4           # -> warning level 4
 			# /WX         # -> treat warnings as errors
 
-			#$<$<CONFIG:Debug>:
-			#/RTCc         # -> value is assigned to a smaller data type and results in a data loss
-			#>
-
+			$<$<CONFIG:Debug>:
+			/RTCc         # -> value is assigned to a smaller data type and results in a data loss
+			>
+			$<$<NOT:$<CONFIG:Release>>:
+			/DEBUG
+			>
 			$<$<CONFIG:Release>:
 			/Gw           # -> whole program global optimization
 			/GS-          # -> buffer security check: no

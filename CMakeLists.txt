@@ -1,7 +1,7 @@
 ### CMake setup
 
 # Version
-cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.21 FATAL_ERROR)
 # Policies
 cmake_policy(SET CMP0077 NEW) # option honors normal variables
 
@@ -64,7 +64,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 ### Modules
 # Standard
-include(WriteCompilerDetectionHeader)
+# include(WriteCompilerDetectionHeader) # Consider using https://nemequ.github.io/hedley/ instead
 include(GenerateExportHeader)
 
 # Own
