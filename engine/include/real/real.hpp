@@ -2,11 +2,11 @@
 
 /*
  * This file contains all necessary headers
- * to develop applications using version.
+ * to develop applications using real engine.
  */
 
-#ifndef VN
-#define VN
+#ifndef REAL_ENGINE
+#define REAL_ENGINE
 
 //region core modules
 #include "real/core.hpp"
@@ -40,4 +40,4 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char** argv)
 
 #undef REAL_CORE_ERROR
 
-#endif //VN
+#endif //REAL_ENGINE

@@ -7,7 +7,7 @@
 // Export Macros
 #include "real/core-export.hpp"
 // Compilers
-#include "real/core-compiler.hpp"
+// #include "real/core-compiler.hpp"
 // endregion
 
 #define REAL_APPLICATION_DEFAULT_NAME "Real Engine"

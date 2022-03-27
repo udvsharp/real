@@ -13,7 +13,7 @@ string(TOUPPER "real" META_REAL_PROJECT_NAME_PREFIX)
 string(TOUPPER ${META_REAL_PROJECT_NAME} META_REAL_PROJECT_NAME_UPPER)
 set(META_REAL_PROJECT_FULL_NAME "${META_REAL_PROJECT_NAME}-engine")
 set(META_REAL_PROJECT_DESCRIPTION "The Real 3D Rendering Engine")
-set(META_REAL_AUTHOR "udv-code")
+set(META_REAL_AUTHOR "udvsharp")
 set(META_REAL_AUTHOR_DOMAIN "https://github.com/${META_REAL_AUTHOR}/${META_REAL_PROJECT_NAME}")
 
 # Version
@@ -37,6 +37,8 @@ option(OPTION_REAL_EXAMPLES_CUBE "Build rotating cube example" ON)
 # Analysis tools
 option(OPTION_REAL_ENABLE_COVERAGE "Enable code coverage" OFF)
 option(OPTION_REAL_ENABLE_SANITIZE "Enable sanitizers" OFF)
+# Tools
+option(OPTION_REAL_DEBUG_CMAKE "Enable CMake debugging information" OFF)
 
 # Configs
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")

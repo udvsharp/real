@@ -198,13 +198,13 @@ target_compile_definitions(
 target_compile_options(
 		${REAL_LIBRARY_TARGET_NAME}
 		PUBLIC
-		${DEFAULT_COMPILER_OPTIONS}
+		${DEFAULT_COMPILE_OPTIONS}
 )
 
 target_link_options(
 		${REAL_LIBRARY_TARGET_NAME}
-		PRIVATE
-		${DEFAULT_LINKER_OPTIONS}
+		PUBLIC
+#		${DEFAULT_LINKER_OPTIONS}
 )
 
 set_target_properties(
