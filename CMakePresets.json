@@ -1,0 +1,65 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 23,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "displayName": "Default Config",
+            "description": "Default build preset",
+            "binaryDir": "${sourceDir}/build/base",
+            "cacheVariables": {
+                "BUILD_SHARED_LIBS": false,
+                "OPTION_REAL_BUILD_EXAMPLES": true,
+                "OPTION_REAL_ENABLE_COVERAGE": true,
+                "OPTION_REAL_ENABLE_SANITIZE": false,
+                "OPTION_REAL_DEBUG_CMAKE": false
+            },
+            "environment": {
+            },
+            "vendor": {
+            }
+        },
+        {
+            "name": "base-win",
+            "inherits": [
+                "base"
+            ],
+            "description": "Base windows build preset",
+            "binaryDir": "${sourceDir}/build/base",
+            "generator": "Visual Studio 17 2022"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default",
+            "configurePreset": "base-win"
+        },
+        {
+            "name": "base-win",
+            "configurePreset": "base-win"
+        }
+    ],
+    "testPresets": [
+    ],
+    "packagePresets": [
+    ],
+    "workflowPresets": [
+        {
+            "name": "default",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "base-win"
+                },
+                {
+                    "type": "build",
+                    "name": "base-win"
+                }
+            ]
+        }
+    ]
+}
