@@ -47,7 +47,9 @@ namespace Real
 				"\tVendor  : {}\n"
 				"\tRenderer: {}\n"
 				"\tVersion : {}",
-				glGetString(GL_VENDOR), glGetString(GL_RENDERER), glGetString(GL_VERSION)
+                reinterpret_cast<const char*>(glGetString(GL_VENDOR)),
+                reinterpret_cast<const char*>(glGetString(GL_RENDERER)),
+                reinterpret_cast<const char*>(glGetString(GL_VERSION))
 		);
 	}
 

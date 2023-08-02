@@ -38,7 +38,7 @@ namespace Real
 			case shader_data_t::bvec4 : return 1 * 4;
 
 			default:
-			case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!", type);
+			case shader_data_t::none: REAL_CORE_ERROR("Unsupported data type: {}!", static_cast<int32_t>(type));
 				return 0;
 		}
 		// @formatter:on

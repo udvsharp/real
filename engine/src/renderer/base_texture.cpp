@@ -22,8 +22,8 @@ namespace Real
 
 		default:
 		case RendererAPI::API::None:
-			REAL_CORE_ERROR("Invalid renderer api: {}",
-					RendererAPI::API::None);
+            REAL_CORE_ERROR("Invalid renderer api: {}",
+                            static_cast<int32_t>(RendererAPI::API::None));
 			return nullptr;
 		}
 	}
